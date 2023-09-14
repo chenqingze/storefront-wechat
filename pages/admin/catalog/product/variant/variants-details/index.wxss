@@ -1,0 +1,17 @@
+/* pages/admin/catalog/product/variant/variants-details/index.wxss */
+.variants-container {
+  display: block;
+  background-color: #f2f2f2;
+}
+.top-menu {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 666;
+}
+.bottom-button {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}

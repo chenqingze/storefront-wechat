@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "分类管理",
+  "onReachBottomDistance": 300,
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "collection-item": "/pages/admin/catalog/collection/components/collection-item/index",
+    "collection-dialog": "/pages/admin/catalog/collection/components/collection-dialog/index",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "load-more": "/components/load-more/index",
+    "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group",
+    "t-checkbox": "tdesign-miniprogram/checkbox/checkbox"
+  }
+}

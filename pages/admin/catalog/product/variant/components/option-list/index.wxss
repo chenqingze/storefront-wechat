@@ -1,0 +1,25 @@
+/* pages/admin/catalog/product/variant/components/option-list/index.wxss */
+.option-list-container {
+  height: 95vh;
+}
+.header {
+  display: block;
+  padding: 16rpx 32rpx;
+  background-color: #fff;
+}
+.header .title {
+  text-align: center;
+  font-size: smaller;
+  padding: 20rpx 32rpx;
+}
+/* .header .search {
+  margin: 0 32rpx;
+} */
+.option-list-container .empty-wrapper {
+  margin-top: 184rpx;
+  margin-bottom: 120rpx;
+  height: 300rpx;
+}
+.option-list {
+  height: 60vh;
+}

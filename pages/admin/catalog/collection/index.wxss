@@ -1,0 +1,36 @@
+/* pages/setting/catalog/collection/index.wxss */
+page {
+  background-color: #fff;
+  /*解决 margin-bottom 失效的问题*/
+  padding-bottom: 80rpx;
+}
+.collection-container {
+  display: block;
+}
+.collection-container .empty-wrapper {
+  margin-top: 184rpx;
+  margin-bottom: 120rpx;
+  height: 300rpx;
+}
+
+.collection-container .collection-list-wrapper {
+  background-color: #f2f2f2;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 20rpx 24rpx 0rpx;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bottom-button {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.bottom-button .button-group {
+  margin: 0 32rpx;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32rpx;
+}

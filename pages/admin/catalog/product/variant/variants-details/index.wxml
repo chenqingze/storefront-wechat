@@ -1,0 +1,33 @@
+<!--pages/admin/catalog/product/variant/variants-details/index.wxml-->
+<wxs module="variantTool">
+  var evalVariantCardTitle=function(optionValues){ if(optionValues.constructor && optionValues.constructor == 'Array') {
+  return optionValues.map(function(val){return val.label;}).join('|') }else{ return optionValues.label; } }; var
+  evalOptionValuesIds=function(optionValues){ if(optionValues.constructor && optionValues.constructor == 'Array'){
+  return optionValues.map(function(optionValues){ return optionValues.id; }) }else{ return [optionValues.id]; } };
+  module.exports= { evalVariantCardTitle:evalVariantCardTitle, evalOptionValuesIds:evalOptionValuesIds }
+</wxs>
+<view class="top-menu">
+  <t-dropdown-menu>
+    <t-dropdown-item
+      wx:for="{{optionValuesList}}"
+      options="{{item}}"
+      keys="{{keys}}"
+      data-option-id="{{item[0].optionId}}"
+      default-value="0"
+      bind:change="onOptionValueSelected"
+    />
+  </t-dropdown-menu>
+</view>
+<view class="variants-container">
+  <variant-card
+    wx:for="{{variantList}}"
+    variant="{{item}}"
+    variantListIndex="{{index}}"
+    selectedVariantOptionValues="{{selectedVariantOptionValues}}"
+    title="{{variantTool.evalVariantCardTitle(item.values)}}"
+    bind:inputChangeEvent="onInputChange"
+  />
+</view>
+<view class="bottom-button">
+  <t-button block size="medium" theme="primary" bind:tap="onSubmit"> 确定 </t-button>
+</view>

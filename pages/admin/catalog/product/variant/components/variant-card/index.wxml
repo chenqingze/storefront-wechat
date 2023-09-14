@@ -1,0 +1,52 @@
+<!--pages/admin/catalog/product/variant/components/variant-card/index.wxml-->
+<t-cell-group wx:if="{{visible}}" title="{{title}}">
+  <!-- <price-input
+      token="salePrice"
+      label="零售价(元)"
+      bind:priceChangeEvent="onPriceChange"
+      priceValue="{{salePrice}}"
+    />
+    <price-input
+      token="retailPrice"
+      label="市场价(元)"
+      bind:priceChangeEvent="onPriceChange"
+      priceValue="{{retailPrice}}"
+    />
+    <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" />
+    -->
+  <t-input
+    label="卖价(元)"
+    type="number"
+    placeholder="0.00"
+    value="{{variant.salePrice}}"
+    data-index="{{variantListIndex}}"
+    data-key="salePrice"
+    bind:change="inputValueChange"
+  />
+  <t-input
+    label="划线价(元)"
+    type="number"
+    placeholder="0.00"
+    value="{{variant.retailPrice}}"
+    data-index="{{variantListIndex}}"
+    data-key="retailPrice"
+    bind:change="inputValueChange"
+  />
+  <t-input
+    label="成本价(元)"
+    type="number"
+    placeholder="0.00"
+    value="{{variant.cost}}"
+    data-index="{{variantListIndex}}"
+    data-key="cost"
+    bind:change="inputValueChange"
+  />
+  <t-input
+    label="重量(kg)"
+    placeholder="请输入"
+    value="{{variant.weight}}"
+    data-index="{{variantListIndex}}"
+    data-key="weight"
+    bind:change="inputValueChange"
+  />
+</t-cell-group>

@@ -1,0 +1,76 @@
+<!--pages/admin/catalog/product/add/index.wxml-->
+<view class="product-detials-container">
+  <view class="product-details-section">
+    <view class="product-details-section_title">基本信息</view>
+    <view class="product-details-section_content">
+      <t-input label="产品名称" model:value="{{name}}" placeholder="请输入" />
+      <t-cell
+        title="产品分类"
+        note="{{collectionNames.length>0?collectionNames:'请选择(可选)'}}"
+        url="/pages/admin/catalog/collection/index?forSelection=true"
+        hover
+        arrow
+      />
+      <view class="images-wrapper">
+        <view class="images-title">产品图片</view>
+        <t-upload
+          media-type="{{['image']}}"
+          max="8"
+          files="{{fileList}}"
+          gridConfig="{ column: 4,width: 160, height: 160}"
+          bind:add="onUploadImageAdd"
+          bind:success="onUploadImageSuccess"
+          bind:remove="onUploadImageRemove"
+          bind:click="onUploadImageClick"
+        />
+        <text class="images-note">精美图片能让产品脱颖而出，最多上传10张，长按图片拖动调整顺序。</text>
+      </view>
+      <t-divider style="margin: 0" />
+      <t-cell title="产品品牌" note="{{brandName?brandName:'请选择(可选)'}}" hover arrow />
+      <t-input label="商品编码" model:value="{{sku}}" placeholder="请选择(可选)" />
+      <t-input label="产品条码" model:value="{{barcode}}" placeholder="请输入或扫描(可选)">
+        <t-button slot="suffix" icon="scan" theme="light" size="extra-small" />
+      </t-input>
+    </view>
+  </view>
+  <view class="product-details-section">
+    <view class="product-details-section_title">价格与库存</view>
+    <view class="product-details-section_content">
+      <t-cell title="多规格" hover>
+        <t-switch
+          defaultValue="{{false}}"
+          icon="{{['check', 'close']}}"
+          slot="note"
+          bind:change="onProductTypeChange"
+        />
+      </t-cell>
+      <block wx:if="{{productType==='STANDARD'}}">
+        <price-input
+          token="salePrice"
+          label="零售价(元)"
+          bind:priceChangeEvent="onPriceChange"
+          priceValue="{{salePrice}}"
+        />
+        <price-input
+          token="retailPrice"
+          label="市场价(元)"
+          bind:priceChangeEvent="onPriceChange"
+          priceValue="{{retailPrice}}"
+        />
+        <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" />
+        <t-input label="重量({{weightUnits}})" placeholder="请输入" value="{{weight}}" />
+      </block>
+      <t-cell
+        wx:if="{{productType==='VARIANT_BASED'}}"
+        title="产品规格"
+        note="请选择"
+        url="/pages/admin/catalog/product/variant/index"
+        hover
+        arrow
+      />
+    </view>
+  </view>
+</view>
+<view class="bottom-button">
+  <t-button block size="medium" theme="primary" bind:tap="onSubmit"> 确认提交 </t-button>
+</view>

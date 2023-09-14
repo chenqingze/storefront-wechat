@@ -1,0 +1,31 @@
+{
+  "name": "storefront-wechat",
+  "version": "1.0.0",
+  "description": "商店消费者微信客户端",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "storefront"
+  ],
+  "author": "chenqingze107@gmail.com",
+  "license": "ISC",
+  "lint-staged": {
+    "*.{js, ts}": "eslint --cache --fix",
+    "*.{js,ts,wxml,html,json,css,less}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "tdesign-miniprogram": "^1.2.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^2.1.2"
+  }
+}

@@ -1,0 +1,10 @@
+<!--components/setting-menu/index.wxml-->
+<t-fab icon="system-setting" bind:click="openAdminMenu" aria-label="设置" style="bottom: 240rpx"></t-fab>
+
+<t-drawer
+  visible="{{visible}}"
+  placement="{{placement}}"
+  items="{{menuItems}}"
+  bind:overlay-click="overlayClick"
+  bind:item-click="itemClick"
+></t-drawer>

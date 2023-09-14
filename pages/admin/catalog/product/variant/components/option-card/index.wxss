@@ -1,0 +1,19 @@
+/* pages/admin/catalog/product/variant/components/option-card/index.wxss */
+.option-card {
+  margin-bottom: 10rpx;
+}
+.delete-button-title {
+  color: #0052d9;
+}
+.cell-content-wrapper {
+  width: 90%;
+  display: flex;
+  justify-content: start;
+}
+.cell-content-wrapper .label {
+  flex: 1;
+}
+
+.cell-content-wrapper .value {
+  flex: 2;
+}

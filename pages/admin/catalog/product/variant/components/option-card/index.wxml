@@ -1,0 +1,16 @@
+<!--pages/admin/catalog/product/variant/components/option-card/index.wxml-->
+<view class="option-card">
+  <t-cell hover data-optionId="{{option.id}}">
+    <view class="cell-content-wrapper" slot="title">
+      <view class="label">规格名</view>
+      <view class="value">{{option.name}}</view>
+    </view>
+  </t-cell>
+  <t-cell bind:tap="onOptionValuePopup" hover arrow>
+    <view class="cell-content-wrapper" slot="title">
+      <view class="label">规格值</view>
+      <view class="value">{{option.optionValueLabels}}</view>
+    </view>
+  </t-cell>
+  <slot name="operation"></slot>
+</view>

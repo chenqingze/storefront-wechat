@@ -1,0 +1,8 @@
+<!--pages/admin/catalog/collection/collection-item/index.wxml-->
+<t-swipe-cell>
+  <t-cell title="{{name}}" bordered="{{true}}" hover />
+  <view slot="right" class="btn-wrapper">
+    <view class="btn edit-btn" data-name="{{name}}" data-id="{{id}}" data-mode="edit" bind:tap="onEdit">编辑</view>
+    <view class="btn delete-btn" bind:tap="onDelete">删除</view>
+  </view>
+</t-swipe-cell>

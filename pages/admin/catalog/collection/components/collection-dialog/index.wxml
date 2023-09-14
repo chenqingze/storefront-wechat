@@ -1,0 +1,23 @@
+<!--pages/admin/catalog/collection/components/collection-dialog/index.wxml-->
+<t-dialog
+  visible="{{visible}}"
+  title="{{title}}"
+  confirm-btn="确定"
+  cancel-btn="取消"
+  bind:confirm="onConfirm"
+  bind:cancel="onCancal"
+  data-id="{{id}}"
+>
+  <t-input
+    borderless
+    type="text"
+    model:value="{{name}}"
+    data-id="{{id}}"
+    class="dialog-input"
+    clearable
+    slot="content"
+    placeholder="请输入分类名称"
+    placeholder-class="placeholder"
+    required
+  />
+</t-dialog>

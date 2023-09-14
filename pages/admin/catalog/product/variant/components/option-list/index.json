@@ -1,0 +1,13 @@
+{
+  "component": true,
+  "usingComponents": {
+    "option-value-list": "/pages/admin/catalog/product/variant/components/option-list/option-value-list/index",
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-search": "tdesign-miniprogram/search/search",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

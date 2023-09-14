@@ -1,0 +1,11 @@
+<!--pages/admin/catalog/product/components/price-input/index.wxml-->
+<t-input
+  label="{{label}}"
+  placeholder="{{placeholder}}"
+  type="number"
+  bind:change="onPriceInput"
+  tips="{{priceError ? errorMsg : ''}}"
+  value="{{priceValue}}"
+  t-class-tips="tips"
+  data-token="{{token}}"
+/>

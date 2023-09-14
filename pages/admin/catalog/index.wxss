@@ -1,0 +1,28 @@
+/* pages/setting/catalog/index.wxss */
+page {
+  background-color: #fff;
+  padding-bottom: 80rpx;
+}
+.product-list-container {
+  display: block;
+}
+.product-list-container .category-product-list {
+  background-color: #f2f2f2;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 20rpx 24rpx;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-list-container .empty-wrap {
+  margin-top: 184rpx;
+  margin-bottom: 120rpx;
+  height: 300rpx;
+}
+
+.bottom-button {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}

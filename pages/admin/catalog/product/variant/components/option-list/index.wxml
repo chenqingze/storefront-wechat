@@ -1,0 +1,54 @@
+<!--pages/admin/catalog/product/variant/components/option/index.wxml-->
+<wxs module="optionTool">
+  var haveSelected =function(selectedOptionIds,optionId) { return selectedOptionIds.indexOf(optionId)!== -1; };
+  module.exports.haveSelected=haveSelected;
+</wxs>
+<view class="option-list-container">
+  <view class="header">
+    <view class="title">选择规格名</view>
+    <t-search
+      class="search"
+      model:value="{{searchValue}}"
+      placeholder="搜索或者新建规格名称"
+      bind:change="onSearchValueChange"
+    />
+  </view>
+  <t-cell-group theme="default">
+    <view class="empty-wrapper" wx:if="{{resultOptionList.length === 0&&searchValue&& hasLoaded ===true}}">
+      <t-empty t-class="empty-tips" size="240rpx" description="无搜索结果，点击新建">
+        <t-button
+          class="empty-button"
+          slot="action"
+          theme="primary"
+          size="extra-small"
+          shape="rectangle"
+          bind:tap="createOption"
+        >
+          新建该规格名
+        </t-button>
+      </t-empty>
+    </view>
+    <t-cell wx:else class="add-button" title="新建规格名" leftIcon="add-circle" bind:tap="createOption" hover />
+    <scroll-view scroll-y="{{true}}" class="option-list">
+      <t-cell
+        wx:for="{{resultOptionList}}"
+        title="{{item.name}}"
+        data-id="{{item.id}}"
+        data-option="{{item}}"
+        bind:tap="onOptionValuePopup"
+        hover
+      >
+        <t-icon wx:if="{{optionTool.haveSelected(selectedOptionIds,item.id)}}" slot="note" name="check" size="48rpx" />
+      </t-cell>
+    </scroll-view>
+  </t-cell-group>
+</view>
+<t-popup
+  visible="{{visible}}"
+  close-btn="{{true}}"
+  placement="bottom"
+  prevent-scroll-through="false"
+  bind:visible-change="onPopupVisibleChange"
+>
+  <option-value-list option="{{selectedOption}}" id="optionValueList" slot="content" bind:submitEvent="onSubmit" />
+</t-popup>

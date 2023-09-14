@@ -1,0 +1,52 @@
+<!--pages/setting/catalog/collection/index.wxml-->
+<view style="text-align: center; color: #b9b9b9" wx:if="{{pageLoading}}">
+  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+</view>
+<view class="collection-container">
+  <!-- 无数据时展示 -->
+  <view class="empty-wrapper" wx:if="{{collectionList.length === 0&& hasLoaded}}">
+    <t-empty t-class="empty-tips" size="240rpx" description="暂无分类数据" />
+  </view>
+  <view class="collection-list-wrapper" wx:if="{{collectionList.length > 0}}">
+    <!-- 分类选择 -->
+    <t-checkbox-group wx:if="{{forSelection}}" bind:change="onSelectChange">
+      <block wx:for="{{collectionList}}" wx:for-item="item" wx:key="index">
+        <t-checkbox value="{{item}}" label="{{item.name}}" icon="rectangle" placement="right" />
+      </block>
+    </t-checkbox-group>
+    <!-- 分类管理 -->
+    <block wx:if="{{!forSelection}}" wx:for="{{collectionList}}" wx:for-item="item" wx:key="index">
+      <collection-item
+        forSelection="{{forSelection}}"
+        name="{{item.name}}"
+        cid="{{item.id}}"
+        bind:openDialog="openDialog"
+      />
+    </block>
+  </view>
+  <load-more wx:if="{{collectionList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
+</view>
+<view class="bottom-button">
+  <t-button
+    wx:if="{{!forSelection}}"
+    block
+    icon="add"
+    size="medium"
+    theme="primary"
+    data-mode="add"
+    bind:tap="openDialog"
+  >
+    添加分类
+  </t-button>
+  <view wx:else class="button-group">
+    <t-button icon="add" theme="light" block size="large" data-mode="add" bind:tap="openDialog">添加分类</t-button>
+    <t-button icon="component-checkbox" theme="primary" block size="large" bind:tap="confirmSelectedCollection">
+      完成
+    </t-button>
+  </view>
+</view>
+<collection-dialog
+  config="{{dialogConfig}}"
+  bind:createCollection="createCollection"
+  bind:updateCollection="updateCollection"
+/>

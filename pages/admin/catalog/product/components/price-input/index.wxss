@@ -1,0 +1,4 @@
+/* pages/admin/catalog/product/components/price-input/index.wxss */
+.tips {
+  text-align: right !important;
+}

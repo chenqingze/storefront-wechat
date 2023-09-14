@@ -1,0 +1,21 @@
+<!--pages/setting/catalog/index.wxml-->
+<!-- <t-grid class="collection-container" border="{{border}}" column="{{0}}">
+  <t-grid-item
+    class="collection"
+    wx:for="{{collectionList}}"
+    wx:key="index"
+    text="{{item.name}}"
+    data-collection-id="{{item.id}}"
+    bind:click="goToProductList"
+  />
+</t-grid> -->
+<view class="product-list-container">
+  <view class="empty-wrap" wx:if="{{productList.length === 0 && hasLoaded}}">
+    <t-empty t-class="empty-tips" size="240rpx" description="暂无相关商品" />
+  </view>
+  <view class="category-product-list" wx:if="{{productList.length}}"> </view>
+  <load-more wx:if="{{productList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
+</view>
+<view class="bottom-button">
+  <t-button block icon="add" size="medium" theme="primary" data-mode="add" bind:tap="onAdd"> 添加产品 </t-button>
+</view>

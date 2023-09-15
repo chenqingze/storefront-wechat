@@ -9,11 +9,73 @@
     bind:click="goToProductList"
   />
 </t-grid> -->
-<view class="product-list-container">
-  <view class="empty-wrap" wx:if="{{productList.length === 0 && hasLoaded}}">
-    <t-empty t-class="empty-tips" size="240rpx" description="暂无相关商品" />
+<view class="catalog-container">
+  <view class="category-list-wrapper">
+    <t-side-bar value="{{sideBarIndex}}" default-value="{{'0'}}" bind:change="onSideBarChange">
+      <t-side-bar-item wx:for="{{collectionList}}" wx:key="index" value="{{item.id}}" label="{{item.name}}" />
+    </t-side-bar>
   </view>
-  <view class="category-product-list" wx:if="{{productList.length}}"> </view>
+  <view class="product-list-wrapper">
+    <view class="empty-wrap" wx:if="{{productList.length === 0 && loadMoreStatus===0}}">
+      <t-empty size="240rpx" description="暂无相关产品" />
+    </view>
+    <swiper
+      class="product-list-content"
+      wx:if="{{productList.length>0}}"
+      indicator-dots="{{false}}"
+      circular="{{true}}"
+      vertical="{{true}}"
+      current="{{swipperIndex}}"
+      bind:change="onSwipperChange"
+    >
+      <swiper-item class="section" wx:for="{{collectionList}}" wx:key="index" item-id="{{item.id}}">
+        <!-- srcollview下拉操作提示 -->
+        <!-- 
+            <view wx:if="{{sideBarIndex>0&&swipperIndex!==index}}" class="show-upper-loading-text">
+               <view>下拉至上一个分类</view>
+               <view>释放至上一个分类</view>
+            </view> 
+           -->
+        <scroll-view
+          enable-passive="{{true}}"
+          scroll-y="{{true}}"
+          scroll-with-animation="{{true}}"
+          enhanced="{{true}}"
+          show-scrollbar="{{false}}"
+          paging-enabled="{{false}}"
+          bind:scrolltolower="onScrollToLower"
+        >
+          <!-- 无数据时展示 -->
+          <view class="empty-content" wx:if="{{productList.length === 0 && loadMoreStatus===0}}">
+            <t-empty t-class="empty-tips" size="240rpx" description="暂无相关产品" />
+          </view>
+          <!-- 产品列表 -->
+          <view
+            class="product-card"
+            wx:if="{{productList.length > 0 && loadMoreStatus===0}}"
+            wx:for="{{productList}}"
+            wx:key="index"
+            id="{{item.id}}"
+          >
+            <t-image
+              class="img"
+              src="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
+              width="72"
+              height="72"
+              shape="round"
+            />
+            <view>{{item.name}}</view>
+          </view>
+          <!-- srcollview上拉操作拉提示 -->
+          <!-- <view wx:if="{{sideBarIndex<categoryList.length-1}}" class="show-lower-loading-text">
+             <view>上拉至下一个分类1</view>
+             <view wx:if="{{touchMovingStatus===1&&!scrollToLower}}">上拉至下一个分类</view>
+             <view wx:if="{{touchMovingStatus===1&&scrollToLower}}">释放至下一个分类</view>
+             </view> -->
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
   <load-more wx:if="{{productList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
 </view>
 <view class="bottom-button">

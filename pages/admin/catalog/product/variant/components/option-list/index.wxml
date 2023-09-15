@@ -15,7 +15,7 @@
   </view>
   <t-cell-group theme="default">
     <view class="empty-wrapper" wx:if="{{resultOptionList.length === 0&&searchValue&& hasLoaded ===true}}">
-      <t-empty t-class="empty-tips" size="240rpx" description="无搜索结果，点击新建">
+      <t-empty size="240rpx" description="无搜索结果，点击新建">
         <t-button
           class="empty-button"
           slot="action"

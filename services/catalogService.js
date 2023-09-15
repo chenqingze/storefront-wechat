@@ -64,7 +64,7 @@ const deleteOptionValue = (optionId, optionValueId) => {
   return new Request().delete(`${catalogBaseUrl}/options/${optionId}/values/${optionValueId}`);
 };
 
-const fetchAllOptionValueListByOptionId = (optionId) => {
+const fetchAllOptionValueListByOption = (optionId) => {
   return new Request().get(`${catalogBaseUrl}/options/${optionId}/values`);
 };
 /**
@@ -75,7 +75,7 @@ const createProduct = (product) => {
   return new Request().post(`${catalogBaseUrl}/products`, product);
 };
 /**
- * 获取所有分类
+ * 一次性获取所有分类
  */
 const fetchAllCollectionList = () => {
   return new Request().get(`${catalogBaseUrl}/collections`);
@@ -86,15 +86,20 @@ const fetchAllCollectionList = () => {
 const fetchCollectionList = (page = 0, size = 15) => {
   return new Request().get(`${catalogBaseUrl}/collections?page=${page}&size=${size}`);
 };
-const fetchCollectionById = (collectionId) => {
+const fetchCollectionDetails = (collectionId) => {
   return new Request().get(`${catalogBaseUrl}/collections/${collectionId}`);
 };
+const fetchProductList = (page = 0, size = 15) => {
+  return new Request().get(`${catalogBaseUrl}/products?page=${page}&size=${size}`);
+};
 /**
- * 根据产品分类id获取产品列表
- * @param {产品分类主键} collectionId
+ * 根据产品分类获取产品列表
+ * @param {*} collectionId
+ * @param {*} page
+ * @param {*} size
  */
-const fetchAllProductListByCollectionId = (collectionId) => {
-  return new Request().get(`${catalogBaseUrl}/collections/${collectionId}/products`);
+const fetchProductListByCollection = (collectionId, page = 0, size = 15) => {
+  return new Request().get(`${catalogBaseUrl}/collections/${collectionId}/products?page=${page}&size=${size}`);
 };
 /**
  * 查询产品详情
@@ -108,19 +113,20 @@ export {
   createCollection,
   updateCollection,
   deleteCollection,
-  fetchCollectionById,
+  fetchCollectionDetails,
   fetchCollectionList,
   fetchAllCollectionList,
   createOption,
   updateOption,
   deleteOption,
-  createProduct,
   fetchOptionList,
   fetchAllOptionList,
   createOptionValue,
   updateOptionValue,
   deleteOptionValue,
-  fetchAllOptionValueListByOptionId,
-  fetchAllProductListByCollectionId,
+  fetchAllOptionValueListByOption,
+  createProduct,
   fetchProductDetails,
+  fetchProductList,
+  fetchProductListByCollection,
 };

@@ -2,8 +2,8 @@
   "navigationBarTitleText": "产品库",
   "usingComponents": {
     "load-more": "/components/load-more/index",
-    "t-grid": "tdesign-miniprogram/grid/grid",
-    "t-grid-item": "tdesign-miniprogram/grid-item/grid-item",
+    "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
+    "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
     "t-empty": "tdesign-miniprogram/empty/empty",
     "t-image": "tdesign-miniprogram/image/image",
     "t-button": "tdesign-miniprogram/button/button",

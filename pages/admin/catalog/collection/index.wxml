@@ -5,7 +5,7 @@
 <view class="collection-container">
   <!-- 无数据时展示 -->
   <view class="empty-wrapper" wx:if="{{collectionList.length === 0&& hasLoaded}}">
-    <t-empty t-class="empty-tips" size="240rpx" description="暂无分类数据" />
+    <t-empty size="240rpx" description="暂无分类数据" />
   </view>
   <view class="collection-list-wrapper" wx:if="{{collectionList.length > 0}}">
     <!-- 分类选择 -->

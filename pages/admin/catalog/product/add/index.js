@@ -108,9 +108,16 @@ Page({
       weight: this.data.weight,
       weightUnits: this.data.weightUnits,
     };
-    createProduct(product).then((result) => {
-      console.log(result);
-    });
+    createProduct(product)
+      .then(() => {
+        wx.showToast({ title: '添加成功', icon: 'success' });
+        wx.navigateTo({
+          url: '/pages/admin/catalog/index',
+        });
+      })
+      .catch(() => {
+        wx.showToast({ title: '添加失败', icon: 'error' });
+      });
   },
   /**
    * Lifecycle function--Called when page load

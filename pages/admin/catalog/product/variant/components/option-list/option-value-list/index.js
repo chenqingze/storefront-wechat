@@ -1,5 +1,5 @@
 // pages/admin/catalog/product/variant/components/option-value-list/index.js
-import { createOptionValue, fetchAllOptionValueListByOptionId } from '../../../../../../../../services/catalogService';
+import { createOptionValue, fetchAllOptionValueListByOption } from '../../../../../../../../services/catalogService';
 Component({
   /**
    * Component properties
@@ -41,7 +41,7 @@ Component({
         loadMoreStatus: 1,
         loading: true,
       });
-      fetchAllOptionValueListByOptionId(optionId)
+      fetchAllOptionValueListByOption(optionId)
         .then((result) => {
           this.setData({
             hasLoaded: true,

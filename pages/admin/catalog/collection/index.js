@@ -1,6 +1,6 @@
 import {
   createCollection,
-  fetchCollectionById,
+  fetchCollectionDetails,
   updateCollection,
   fetchCollectionList,
 } from '../../../../services/catalogService';
@@ -87,9 +87,7 @@ Page({
           loadMoreStatus: 0,
           loading: false,
         });
-        wx.showToast({
-          title: '查询失败，请稍候重试',
-        });
+        wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
       });
   },
 
@@ -126,7 +124,7 @@ Page({
       return;
     }
     if (mode === 'edit') {
-      fetchCollectionById(id).then((data) =>
+      fetchCollectionDetails(id).then((data) =>
         this.setData({
           dialogConfig: {
             visible: true,
@@ -165,16 +163,15 @@ Page({
     });
   },
   createCollection(e) {
-    createCollection(e.detail).then(
-      () => {
+    createCollection(e.detail)
+      .then(() => {
         wx.showToast({ title: '添加成功', icon: 'success' });
         this.setData({ loadMoreStatus: 0 });
         this.loadData(true);
-      },
-      () => {
+      })
+      .catch(() => {
         wx.showToast({ title: '添加失败', icon: 'error' });
-      },
-    );
+      });
   },
 
   updateCollection(e) {

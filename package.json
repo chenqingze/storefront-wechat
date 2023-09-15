@@ -19,7 +19,7 @@
     ]
   },
   "dependencies": {
-    "tdesign-miniprogram": "^1.2.2"
+    "tdesign-miniprogram": "^1.2.3"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",

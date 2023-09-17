@@ -45,7 +45,7 @@
         />
       </t-cell>
       <block wx:if="{{productType==='STANDARD'}}">
-        <!-- <price-input
+        <price-input
           token="salePrice"
           label="零售价(元)"
           bind:priceChangeEvent="onPriceChange"
@@ -57,11 +57,8 @@
           bind:priceChangeEvent="onPriceChange"
           priceValue="{{retailPrice}}"
         />
-        <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" /> -->
-        <t-input label="卖价(元)" type="number" placeholder="0.00" model:value="{{salePrice}}" />
-        <t-input label="划线价(元)" type="number" placeholder="0.00" model:value="{{retailPrice}}" />
-        <t-input label="成本价(元)" type="number" placeholder="0.00" model:value="{{cost}}" />
-        <t-input label="重量({{weightUnits}})" placeholder="请输入" model:value="{{weight}}" />
+        <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" />
+        <t-input label="重量({{weightUnits}})" placeholder="请输入" value="{{weight}}" />
       </block>
       <t-cell
         wx:if="{{productType==='VARIANT_BASED'}}"

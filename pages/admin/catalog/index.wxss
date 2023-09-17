@@ -1,22 +1,21 @@
 /* pages/setting/catalog/index.wxss */
 page {
-  padding-bottom: 80rpx;
+  margin-bottom: 80rpx;
 }
 .catalog-container {
   display: flex;
-  display: flex;
-  height: 100vh;
+  height: calc(100vh - 80rpx);
   overflow: hidden;
   background-color: #f2f2f2;
 }
 .catalog-container .category-list-wrapper {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 .catalog-container .product-list-wrapper {
   flex: 1;
-  /* transition: transform 0.3s ease; */
-  /* height: 100vh; */
+  transition: transform 0.3s ease;
+  height: 100%;
   background-color: #ffffff;
 }
 
@@ -26,17 +25,49 @@ page {
   height: 300rpx;
 }
 
-.product-list-wrapper .section {
-  box-sizing: border-box;
+.product-list-wrapper .product-list-content {
+  display: block;
+  height: 100%;
+  overflow: hidden;
 }
 
 .product-list-wrapper .product-card {
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
   justify-content: flex-start;
   margin: 20rpx;
   padding: 20rpx 30rpx;
   border-bottom: 1px solid #f7f7f7;
+}
+.product-card .img {
+  /* width: 150rpx;
+  height: 150rpx;
+  border-radius: 8rpx; */
+  margin-right: 20rpx;
+}
+.product-card .info-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.info-box .name {
+  color: #000;
+  font-size: 36rpx;
+  line-height: 46rpx;
+}
+.info-box .sale-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.sale-info .sale-price {
+  color: rgb(199, 25, 25);
+}
+.sale-info .retail-price {
+  font-size: 0.5rem;
+  text-decoration: line-through;
+  color: #bbbbbb;
 }
 
 .bottom-button {

@@ -76,6 +76,16 @@ Page({
   onUploadImageClick(e) {
     console.log(e.detail.file);
   },
+  onPriceChange(e) {
+    const { token, priceValue } = e;
+    if (token === 'salePrice') {
+      this.setData({ salePrice: priceValue });
+    } else if (token === 'retailPrice') {
+      this.setData({ retailPrice: priceValue });
+    } else if (token === 'cost') {
+      this.setData({ cost: priceValue });
+    }
+  },
   onProductTypeChange(e) {
     const { value } = e.detail;
     const productType = value ? 'VARIANT_BASED' : 'STANDARD';

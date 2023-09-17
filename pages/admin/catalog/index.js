@@ -13,14 +13,12 @@ Page({
   pageNum: 0,
   pageSize: 15,
   total: 0,
-  isLast: false,
+  last: false,
   data: {
-    // sideBarIndex和swipperIndex 的值保持同步状态，因为官方bug所以没有绑定同一个变量，详见（https://developers.weixin.qq.com/miniprogram/dev/component/swiper.html#Bug-Tip）
-    sideBarIndex: '0',
-    swipperIndex: '0',
     collectionList: [{ name: '全部分类', id: '0', path: '/.', displayOrder: 0, parentId: null, visible: true }],
     productList: [],
-    loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）
+    sideBarIndex: 0,
+    loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,
   },
   /**
    * 选择分类
@@ -28,77 +26,73 @@ Page({
    */
   onSideBarChange(e) {
     console.log(e);
+    // value 是被选中的siderbar item
     const { value } = e.detail;
-    const { loadMoreStatus } = this.data;
-    // 在加载中或者无更多数据，直接返回
-    if (loadMoreStatus !== 0) return;
-    this.setData({ loadMoreStatus: 1 });
-    if (String(value) === '0') {
-      this.loadProductListData(0);
+    this.setData({ sideBarIndex: value });
+    this.loadData();
+  },
+  loadData(reset = true) {
+    const { sideBarIndex, loadMoreStatus } = this.data;
+    let _pageNum = this.pageNum || 0;
+    if (reset) {
+      _pageNum = 0;
     } else {
-      this.loadProductListDataByCollection(value, 0);
+      if (loadMoreStatus !== 0) return;
+      _pageNum++;
+    }
+    console.log(this.data);
+    // 开始查询锁定查询状态
+    this.setData({ loadMoreStatus: 1 });
+    if (sideBarIndex === 0) {
+      // 分页获取全部产品列表
+      fetchProductList(_pageNum, this.pageSize)
+        .then((result) => {
+          const { content, totalElements, last } = result;
+          const { productList } = this.data;
+          const _productList = reset ? content : productList.concat(content);
+          const _loadMoreStatus = last ? 2 : 0;
+          this.pageNum = _pageNum;
+          this.total = totalElements;
+          this.last = last;
+          this.setData({
+            productList: _productList,
+            loadMoreStatus: _loadMoreStatus,
+          });
+        })
+        .catch(() => {
+          this.setData({
+            loadMoreStatus: 0,
+          });
+          wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
+        });
+    } else {
+      fetchProductListByCollection(this.data.collectionList[sideBarIndex].id, _pageNum, this.pageSize)
+        .then((result) => {
+          console.log(result);
+          const { content, totalElements, last } = result;
+          const _productList = reset ? content : productList.concat(content);
+          const _loadMoreStatus = last ? 2 : 0;
+          this.pageNum = _pageNum;
+          this.total = totalElements;
+          this.last = last;
+          this.setData({
+            productList: _productList,
+            loadMoreStatus: _loadMoreStatus,
+          });
+        })
+        .catch(() => {
+          this.setData({
+            loadMoreStatus: 3,
+          });
+          wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
+        });
     }
   },
-  onSwipperChange() {
-    // const { current } = e.detail;
-    // this.setData({  });
-    // getFoodListByCategory(this.data.categoryList[current].id).then((foodList) =>
-    //   this.setData({ sideBarIndex: current, foodList: foodList, loading: false, hasLoaded: true }),
-    // );
+  onScrollToLower() {
+    console.log('onScrollToLower');
+    this.loadData(false);
   },
 
-  /**
-   * 分页获取全部产品列表
-   */
-  loadProductListData(pageNum) {
-    const reset = !pageNum;
-    fetchProductList(pageNum, this.pageSize)
-      .then((result) => {
-        const { content, totalElements, last } = result;
-        const { productList } = this.data;
-        this.pageNum = pageNum;
-        this.total = totalElements;
-        this.last = last;
-        this.setData({
-          sideBarIndex: '0',
-          swipperIndex: '0',
-          productList: reset ? content : productList.concat(content),
-          loadMoreStatus: 0,
-        });
-      })
-      .catch(() => {
-        this.setData({
-          loadMoreStatus: 0,
-        });
-        wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
-      });
-  },
-  /**
-   * 根据分类分页获取产品列表
-   */
-  loadProductListDataByCollection(collectionId, pageNum) {
-    const reset = !pageNum;
-    fetchProductListByCollection(collectionId, pageNum, this.pageSize)
-      .then((result) => {
-        console.log(result);
-        const { content, totalElements, last } = result;
-        this.setData({
-          sideBarIndex: collectionId,
-          swipperIndex: collectionId,
-          productList: reset ? content : productList.concat(content),
-          loadMoreStatus: 0,
-        });
-        this.pageNum = pageNum;
-        this.total = totalElements;
-        this.last = last;
-      })
-      .catch(() => {
-        this.setData({
-          loadMoreStatus: 0,
-        });
-        wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
-      });
-  },
   /**
    * 添加产品
    */
@@ -107,20 +101,16 @@ Page({
       url: '/pages/admin/catalog/product/add/index',
     });
   },
-  init() {
-    fetchAllCollectionList().then((result) => {
-      const { collectionList } = this.data;
-      this.setData({ collectionList: collectionList.concat(result) });
-    });
-    this.loadProductListData(0);
-  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad() {
-    this.init();
+    fetchAllCollectionList().then((result) => {
+      const { collectionList } = this.data;
+      this.setData({ collectionList: collectionList.concat(result) });
+      this.loadData();
+    });
   },
-
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -129,7 +119,9 @@ Page({
   /**
    * Lifecycle function--Called when page show
    */
-  onShow() {},
+  onShow() {
+    this.loadData();
+  },
 
   /**
    * Lifecycle function--Called when page hide

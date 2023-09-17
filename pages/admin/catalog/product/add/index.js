@@ -25,7 +25,7 @@ Page({
   onUploadImageAdd(e) {
     // const { fileList } = this.data;
     const { files } = e.detail;
-    console.log('onUploadImageAdd===========>', files.length);
+    // console.log('onUploadImageAdd===========>', files.length);
     files.forEach((file) => this.uploadFile(file));
   },
   uploadFile(file) {
@@ -65,7 +65,7 @@ Page({
     // const { files } = e.detail;
   },
   onUploadImageRemove(e) {
-    console.log('onUploadImageRemove============>', e);
+    // console.log('onUploadImageRemove============>', e);
     const { index } = e.detail;
     const { fileList } = this.data;
     fileList.splice(index, 1);

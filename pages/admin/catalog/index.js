@@ -25,7 +25,7 @@ Page({
    * @param {*} e
    */
   onSideBarChange(e) {
-    console.log(e);
+    // console.log(e);
     // value 是被选中的siderbar item
     const { value } = e.detail;
     this.setData({ sideBarIndex: value });
@@ -40,7 +40,7 @@ Page({
       if (loadMoreStatus !== 0) return;
       _pageNum++;
     }
-    console.log(this.data);
+    // console.log(this.data);
     // 开始查询锁定查询状态
     this.setData({ loadMoreStatus: 1 });
     if (sideBarIndex === 0) {
@@ -68,7 +68,7 @@ Page({
     } else {
       fetchProductListByCollection(this.data.collectionList[sideBarIndex].id, _pageNum, this.pageSize)
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           const { content, totalElements, last } = result;
           const _productList = reset ? content : productList.concat(content);
           const _loadMoreStatus = last ? 2 : 0;
@@ -89,7 +89,7 @@ Page({
     }
   },
   onScrollToLower() {
-    console.log('onScrollToLower');
+    // console.log('onScrollToLower');
     this.loadData(false);
   },
 

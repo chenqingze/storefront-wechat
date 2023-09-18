@@ -1,4 +1,4 @@
-import { createProduct } from '../../../../../services/catalogService';
+import { createProduct, fetchProductDetails } from '../../../../../services/catalogService';
 
 // pages/admin/catalog/product/add/index.js
 Page({
@@ -7,6 +7,7 @@ Page({
    */
   data: {
     fileList: [],
+    id: '',
     name: '',
     collectionNames: [],
     collectionIds: [],
@@ -76,16 +77,6 @@ Page({
   onUploadImageClick(e) {
     console.log(e.detail.file);
   },
-  onPriceChange(e) {
-    const { token, priceValue } = e;
-    if (token === 'salePrice') {
-      this.setData({ salePrice: priceValue });
-    } else if (token === 'retailPrice') {
-      this.setData({ retailPrice: priceValue });
-    } else if (token === 'cost') {
-      this.setData({ cost: priceValue });
-    }
-  },
   onProductTypeChange(e) {
     const { value } = e.detail;
     const productType = value ? 'VARIANT_BASED' : 'STANDARD';
@@ -96,18 +87,7 @@ Page({
   //   this.setData({ weightUnits: e.detail.value });
   // },
   onSubmit() {
-    const product = {
-      name: this.data.name,
-      sku: '', // todo
-      collectionIds: this.data.collectionIds,
-      pictures: this.data.pictures,
-      productType: this.data.productType,
-      salePrice: this.data.salePrice,
-      retailPrice: this.data.retailPrice,
-      cost: this.data.cost,
-      weight: this.data.weight,
-      weightUnits: this.data.weightUnits,
-    };
+    const { fileList, collectionNames, ...product } = this.data;
     createProduct(product)
       .then(() => {
         wx.showToast({ title: '添加成功', icon: 'success' });
@@ -120,7 +100,27 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad() {},
+  onLoad(options) {
+    console.log(options);
+    const { productId } = options;
+    fetchProductDetails(productId).then((product) =>
+      this.setData({
+        id: product.id,
+        name: product.name,
+        collectionNames: product.collectionNames, // todo
+        collectionIds: product.collectionIds,
+        pictures: product.pictures,
+        brandId: product.brandId,
+        brandName: product.brandName, // todo
+        barcode: product.barcode,
+        productType: product.productType,
+        salePrice: product.salePrice,
+        retailPrice: product.retailPrice,
+        cost: product.cost,
+        weight: product.weight,
+      }),
+    );
+  },
 
   /**
    * Lifecycle function--Called when page is initially rendered

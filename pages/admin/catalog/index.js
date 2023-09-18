@@ -19,6 +19,7 @@ Page({
     productList: [],
     sideBarIndex: 0,
     loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,
+    scrollTop: 0,
   },
   /**
    * 选择分类
@@ -58,6 +59,9 @@ Page({
             productList: _productList,
             loadMoreStatus: _loadMoreStatus,
           });
+          if (reset) {
+            this.setData({ scrollTop: 0 });
+          }
         })
         .catch(() => {
           this.setData({
@@ -79,6 +83,9 @@ Page({
             productList: _productList,
             loadMoreStatus: _loadMoreStatus,
           });
+          if (reset) {
+            this.setData({ scrollTop: 0 });
+          }
         })
         .catch(() => {
           this.setData({
@@ -99,6 +106,13 @@ Page({
   onAdd() {
     wx.navigateTo({
       url: '/pages/admin/catalog/product/add/index',
+    });
+  },
+  onProductDetails(e) {
+    console.log(e);
+    const { productId } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/admin/catalog/product/edit/index?productId=${productId}`,
     });
   },
   /**

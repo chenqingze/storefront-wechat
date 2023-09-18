@@ -2,7 +2,6 @@
   "navigationBarTitleText": "产品库",
   "usingComponents": {
     "load-more": "/components/load-more/index",
-    "price": "/components/price/index",
     "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
     "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
     "t-empty": "tdesign-miniprogram/empty/empty",

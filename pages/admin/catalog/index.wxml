@@ -16,6 +16,7 @@
       enable-passive="{{true}}"
       scroll-x="{{false}}"
       scroll-y="{{true}}"
+      scroll-top="{{scrollTop}}"
       scroll-with-animation="{{true}}"
       enhanced="{{true}}"
       show-scrollbar="{{true}}"
@@ -23,7 +24,14 @@
       bind:scrolltolower="onScrollToLower"
     >
       <!-- 产品列表 -->
-      <view class="product-card" wx:for="{{productList}}" wx:key="index" id="{{item.id}}">
+      <view
+        class="product-card"
+        wx:for="{{productList}}"
+        wx:key="index"
+        id="{{item.id}}"
+        data-product-id="{{item.id}}"
+        bind:tap="onProductDetails"
+      >
         <t-image
           class="img"
           src="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
@@ -35,7 +43,7 @@
         <view class="info-box">
           <view class="name">{{item.name}}</view>
           <view class="sale-info">
-            <text class="sale-price">¥{{item.salePrice}}</text>
+            <text class="sale-price" wx:if="{{ item.salePrice }}">¥{{item.salePrice}}</text>
             <text class="retail-price" wx:if="{{ item.retailPrice }}">¥{{item.retailPrice}}</text>
           </view>
         </view>

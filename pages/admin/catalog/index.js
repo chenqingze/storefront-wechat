@@ -122,7 +122,7 @@ Page({
     fetchAllCollectionList().then((result) => {
       const { collectionList } = this.data;
       this.setData({ collectionList: collectionList.concat(result) });
-      this.loadData();
+      // this.loadData(); // onshow的时候已经查询过了
     });
   },
   /**
@@ -134,6 +134,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow() {
+    this.setData({ sideBarIndex: 0 });
     this.loadData();
   },
 

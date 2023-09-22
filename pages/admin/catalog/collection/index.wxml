@@ -9,9 +9,9 @@
   </view>
   <view class="collection-list-wrapper" wx:if="{{collectionList.length > 0}}">
     <!-- 分类选择 -->
-    <t-checkbox-group wx:if="{{forSelection}}" bind:change="onSelectChange">
+    <t-checkbox-group wx:if="{{forSelection}}" value="{{selectedCollectionIds}}" bind:change="onSelectChange">
       <block wx:for="{{collectionList}}" wx:for-item="item" wx:key="index">
-        <t-checkbox value="{{item}}" label="{{item.name}}" icon="rectangle" placement="right" />
+        <t-checkbox value="{{item.id}}" label="{{item.name}}" icon="rectangle" placement="right" />
       </block>
     </t-checkbox-group>
     <!-- 分类管理 -->

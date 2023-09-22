@@ -13,14 +13,12 @@ Page({
     pictures: [],
     brandId: '',
     brandName: '',
-    sku: '',
     barcode: '',
     productType: 'STANDARD', // STANDARD:单规格产品/标准产品 ; VARIANT_BASED:多规格产品/多变体产品
     salePrice: '',
     retailPrice: '',
     cost: '',
     weight: '',
-    weightUnits: 'kg',
   },
   onUploadImageAdd(e) {
     // const { fileList } = this.data;
@@ -36,7 +34,7 @@ Page({
     const { length } = fileList;
     // todo: 封装uploadFile 方法到request内
     const task = wx.uploadFile({
-      url: 'http://10.0.0.6:8081/upload/file', // 仅为示例，非真实的接口地址
+      url: 'http://localhost:8081/upload/file', // 仅为示例，非真实的接口地址
       filePath: file.url,
       name: 'file',
       // formData: { user: 'test' },
@@ -86,17 +84,19 @@ Page({
   //   this.setData({ weightUnits: e.detail.value });
   // },
   onSubmit() {
+    const { name, collectionIds, pictures, brandId, barcode, productType, salePrice, retailPrice, cost, weightWeight } =
+      this.data;
     const product = {
-      name: this.data.name,
-      sku: '', // todo
-      collectionIds: this.data.collectionIds,
-      pictures: this.data.pictures,
-      productType: this.data.productType,
-      salePrice: this.data.salePrice,
-      retailPrice: this.data.retailPrice,
-      cost: this.data.cost,
-      weight: this.data.weight,
-      weightUnits: this.data.weightUnits,
+      name,
+      collectionIds,
+      pictures,
+      brandId,
+      barcode,
+      productType,
+      salePrice,
+      retailPrice,
+      cost,
+      weightWeight,
     };
     createProduct(product)
       .then(() => {

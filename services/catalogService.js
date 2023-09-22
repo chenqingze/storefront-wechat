@@ -75,6 +75,13 @@ const createProduct = (product) => {
   return new Request().post(`${catalogBaseUrl}/products`, product);
 };
 /**
+ * 更新产品
+ * @param {*} product
+ */
+const updateProduct = (productId, product) => {
+  return new Request().put(`${catalogBaseUrl}/products/${productId}`, product);
+};
+/**
  * 一次性获取所有分类
  */
 const fetchAllCollectionList = () => {
@@ -126,6 +133,7 @@ export {
   deleteOptionValue,
   fetchAllOptionValueListByOption,
   createProduct,
+  updateProduct,
   fetchProductDetails,
   fetchProductList,
   fetchProductListByCollection,

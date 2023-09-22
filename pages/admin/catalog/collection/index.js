@@ -94,10 +94,13 @@ Page({
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad(option) {
-    if (option) {
-      const { forSelection } = option;
-      this.setData({ forSelection: forSelection });
+  onLoad(options) {
+    // console.log(options);
+    if (options) {
+      const { forSelection, collectionIds } = options;
+      const selectedCollectionIds = collectionIds ? collectionIds.split(',') : [];
+      this.setData({ forSelection, selectedCollectionIds });
+      // console.log(this.data);
     }
     this.loadData(true);
   },
@@ -140,14 +143,15 @@ Page({
     }
   },
   onSelectChange(e) {
+    // console.log(e);
     const { value } = e.detail;
     const selectedCollectionNames = [];
-    const selectedCollectionIds = [];
-    value.forEach((item) => {
+    const selectedItems = this.data.collectionList.filter((item) => value.includes(item.id));
+    selectedItems.forEach((item) => {
       selectedCollectionNames.push(item.name);
-      selectedCollectionIds.push(item.id);
     });
-    this.setData({ selectedCollectionNames, selectedCollectionIds });
+    this.setData({ selectedCollectionNames, selectedCollectionIds: value });
+    // console.log(this.data);
   },
   confirmSelectedCollection() {
     if (!this.data.forSelection) return;

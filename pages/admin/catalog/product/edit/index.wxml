@@ -7,7 +7,7 @@
       <t-cell
         title="产品分类"
         note="{{collectionNames.length>0?collectionNames:'请选择(可选)'}}"
-        url="/pages/admin/catalog/collection/index?forSelection=true"
+        url="/pages/admin/catalog/collection/index?forSelection=true&collectionIds={{collectionIds}}"
         hover
         arrow
       />
@@ -61,7 +61,7 @@
         <t-input label="卖价(元)" type="number" placeholder="0.00" model:value="{{salePrice}}" />
         <t-input label="划线价(元)" type="number" placeholder="0.00" model:value="{{retailPrice}}" />
         <t-input label="成本价(元)" type="number" placeholder="0.00" model:value="{{cost}}" />
-        <t-input label="重量({{weightUnits}})" placeholder="请输入" model:value="{{weight}}" />
+        <t-input label="重量(KG)" placeholder="请输入" model:value="{{weightWeight}}" />
       </block>
       <t-cell
         wx:if="{{productType==='VARIANT_BASED'}}"

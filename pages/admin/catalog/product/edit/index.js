@@ -1,4 +1,4 @@
-import { createProduct, fetchProductDetails } from '../../../../../services/catalogService';
+import { updateProduct, fetchProductDetails } from '../../../../../services/catalogService';
 
 // pages/admin/catalog/product/add/index.js
 Page({
@@ -14,14 +14,12 @@ Page({
     pictures: [],
     brandId: '',
     brandName: '',
-    sku: '',
     barcode: '',
     productType: 'STANDARD', // STANDARD:单规格产品/标准产品 ; VARIANT_BASED:多规格产品/多变体产品
     salePrice: '',
     retailPrice: '',
     cost: '',
-    weight: '',
-    weightUnits: 'kg',
+    weightWeight: '',
   },
   onUploadImageAdd(e) {
     // const { fileList } = this.data;
@@ -87,39 +85,86 @@ Page({
   //   this.setData({ weightUnits: e.detail.value });
   // },
   onSubmit() {
-    const { fileList, collectionNames, ...product } = this.data;
-    createProduct(product)
+    const {
+      id,
+      name,
+      collectionIds,
+      pictures,
+      brandId,
+      barcode,
+      productType,
+      salePrice,
+      retailPrice,
+      cost,
+      weightWeight,
+    } = this.data;
+    const product = {
+      id,
+      name,
+      collectionIds,
+      pictures,
+      brandId,
+      barcode,
+      productType,
+      salePrice,
+      retailPrice,
+      cost,
+      weightWeight,
+    };
+    updateProduct(id, product)
       .then(() => {
-        wx.showToast({ title: '添加成功', icon: 'success' });
+        wx.showToast({ title: '更新成功', icon: 'success' });
         wx.navigateBack();
       })
       .catch(() => {
-        wx.showToast({ title: '添加失败', icon: 'error' });
+        wx.showToast({ title: '更新失败', icon: 'error' });
       });
   },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-    console.log(options);
+    // console.log(options);
     const { productId } = options;
-    fetchProductDetails(productId).then((product) =>
+    fetchProductDetails(productId).then((product) => {
+      const {
+        id,
+        name,
+        collections = [],
+        brandId,
+        brandName,
+        pictures,
+        barcode,
+        productType,
+        salePrice,
+        retailPrice,
+        cost,
+        weightWeight,
+        weightWeightUnits,
+      } = product;
+      const collectionNames = [];
+      const collectionIds = [];
+      collections.forEach((item) => {
+        collectionIds.push(item.id);
+        collectionNames.push(item.name);
+      });
       this.setData({
-        id: product.id,
-        name: product.name,
-        collectionNames: product.collectionNames, // todo
-        collectionIds: product.collectionIds,
-        pictures: product.pictures,
-        brandId: product.brandId,
-        brandName: product.brandName, // todo
-        barcode: product.barcode,
-        productType: product.productType,
-        salePrice: product.salePrice,
-        retailPrice: product.retailPrice,
-        cost: product.cost,
-        weight: product.weight,
-      }),
-    );
+        id,
+        name,
+        collectionIds,
+        collectionNames,
+        pictures,
+        brandId,
+        brandName, // todo
+        barcode,
+        productType,
+        salePrice,
+        retailPrice,
+        cost,
+        weightWeight,
+        weightWeightUnits,
+      });
+    });
   },
 
   /**

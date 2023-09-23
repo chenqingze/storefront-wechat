@@ -47,7 +47,7 @@ Component({
     },
 
     itemClick(e) {
-      console.log(e.detail);
+      // console.log(e.detail);
       const { url } = e.detail.item;
       console.log(url);
       wx.navigateTo({

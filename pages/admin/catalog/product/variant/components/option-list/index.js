@@ -2,11 +2,6 @@ import { createOption, fetchAllOptionList } from '../../../../../../../services/
 
 // pages/admin/catalog/product/variant/components/option-popup/index.js
 Component({
-  attached: function () {
-    const selectedOptionIds = this.properties.selectedOptionList.map((item) => item.id) ?? [];
-    this.setData({ selectedOptionIds });
-    // console.log(this.data);
-  },
   /**
    * Component properties
    */
@@ -15,10 +10,11 @@ Component({
       type: Array,
       value: [],
       observer: function (newVal) {
-        this.setData({ optionList: newVal });
-        const selectedOptionIds = newVal.map((item) => item.id);
+        const selectedOptionList = newVal;
+        this.setData({ selectedOptionList });
+        const selectedOptionIds = selectedOptionList.map((item) => item.id);
         this.setData({ selectedOptionIds });
-        // console.log(this.data);
+        console.log(this.data);
       },
     },
   },
@@ -31,12 +27,11 @@ Component({
   isLast: false,
   data: {
     visible: false,
-    selectedOption: null,
-    hasLoaded: true,
-    loadMoreStatus: 0, // 0:可加载 1:正在加载  2:不可以加载
-    loading: true,
-    allOptionList: [],
+    loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,
     searchValue: '',
+    selectedOption: undefined,
+    selectedOptionList: [],
+    allOptionList: [],
     resultOptionList: [],
   },
 
@@ -50,66 +45,23 @@ Component({
       if (loadMoreStatus === 1) return;
       this.setData({
         loadMoreStatus: 1,
-        loading: true,
       });
       fetchAllOptionList()
         .then((result) => {
           this.setData({
-            hasLoaded: true,
             loadMoreStatus: 0,
-            loading: false,
             allOptionList: result,
             resultOptionList: result,
           });
         })
         .catch(() => {
           this.setData({
-            hasLoaded: true,
             loadMoreStatus: 0,
-            loading: false,
           });
           wx.showToast({
             title: '查询失败，请稍候重试',
           });
         });
-
-      // const pagenationObj = {
-      //   pageNum: this.pageNum,
-      //   pageSize: this.pageSize,
-      //   total: this.total,
-      //   isLast: this.isLast,
-      // };
-      // if (reset) {
-      //   pagenationObj.pageNum = 0;
-      //   pagenationObj.last = false;
-      // } else {
-      //   pagenationObj.pageNum++;
-      // }
-      // fetchOptionList(pagenationObj.pageNum, pagenationObj.pageSize)
-      //   .then((result) => {
-      //     const { content, totalElements, last } = result;
-      //     const _allOptionList = reset ? content : allOptionList.concat(content);
-      //     const _loadMoreStatus = last ? 2 : 0;
-      //     this.pageNum = pagenationObj.pageNum;
-      //     this.total = totalElements;
-      //     this.isLast = last;
-      //     this.setData({
-      //       hasLoaded: true,
-      //       loadMoreStatus: _loadMoreStatus,
-      //       loading: false,
-      //       allOptionList: _allOptionList,
-      //       resultOptionList: _allOptionList,
-      //     });
-      //   })
-      //   .catch(() => {
-      //     this.setData({
-      //       hasLoaded: true,
-      //       loading: false,
-      //     });
-      //     wx.showToast({
-      //       title: '查询失败，请稍候重试',
-      //     });
-      //   });
     },
 
     createOption() {
@@ -146,6 +98,7 @@ Component({
       const resultOptionList = this.data.allOptionList.filter((item) => item.name.includes(optionName));
       this.setData({ resultOptionList });
     },
+
     onPopupVisibleChange(e) {
       const { visible } = e.detail;
       this.setData({
@@ -155,31 +108,26 @@ Component({
         this.triggerEvent('closePopupEvent');
       }
     },
+
     onOptionValuePopup(e) {
-      // console.log(e);
+      console.log(e);
       let selectedOption;
-      let selectedOptionValueIds;
       if (e.type === 'tap') {
         const selectedOptionId = e.currentTarget.dataset.id;
         if (this.data.selectedOptionIds.includes(selectedOptionId)) return;
         selectedOption = e.currentTarget.dataset.option;
-        selectedOptionValueIds = [];
       } else if (e.type === 'optionValuePopupEvent') {
-        // console.log(e.detail);
         selectedOption = e.detail.option;
-        selectedOptionValueIds = selectedOption.optionValueIds;
       }
-      this.setData({ visible: true, selectedOption });
+      this.setData({ selectedOption });
       const optionValueListComponent = this.selectComponent('#optionValueList');
-      optionValueListComponent.loadData();
-      optionValueListComponent.setData({
-        option: selectedOption,
-        selectedOptionValueIds,
-      });
       if (optionValueListComponent.data.searchValue) {
         optionValueListComponent.setData({ searchValue: '' });
       }
+      this.setData({ visible: true });
+      // console.log(optionValueListComponent.data);
     },
+
     onSubmit(e) {
       // console.log('onSubmit', e);
       this.setData({ visible: false });

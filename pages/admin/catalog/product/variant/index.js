@@ -23,17 +23,24 @@ Page({
   onClosePopup() {
     this.setData({ visible: false });
   },
+
   onPopupVisibleChange(e) {
     this.setData({
       visible: e.detail.visible,
     });
   },
+
   onOptionValuePopup(e) {
     // console.log(e);
-    const optionListComponnet = this.selectComponent('#optionList');
     this.setData({ visible: true });
+    const optionListComponnet = this.selectComponent('#optionList');
+    optionListComponnet.loadData();
+    if (optionListComponnet.data.searchValue) {
+      optionListComponnet.setData({ searchValue: '' });
+    }
     optionListComponnet.onOptionValuePopup(e);
   },
+
   onOptionSelected(e) {
     // console.log('onOptionSelected', e);
     const { option } = e.detail;
@@ -47,8 +54,10 @@ Page({
       this.data.optionList.push(option);
       optionList = this.data.optionList;
     }
+    console.log(optionList);
     this.setData({ optionList });
   },
+
   onDeleteOption(e) {
     const { optionIdx } = e.currentTarget.dataset;
     const optionList = this.data.optionList.filter((item) => item !== this.data.optionList[optionIdx]);

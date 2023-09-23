@@ -20,8 +20,7 @@ Page({
     collectionList: [], // 后端返回的有分类
     pageLoading: false,
     hasLoaded: false,
-    loadMoreStatus: 0, // 0:可加载 1:正在加载  2:不可以加载
-    loading: true,
+    loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,    loading: true,
     addButtonPopupVisible: true,
     forSelection: false, // page 用于分类管理（false）还是用于分类选择（true）
     dialogConfig: {

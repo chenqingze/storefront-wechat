@@ -3,10 +3,10 @@
   <view class="product-details-section">
     <view class="product-details-section_title">基本信息</view>
     <view class="product-details-section_content">
-      <t-input label="产品名称" model:value="{{name}}" placeholder="请输入" />
+      <t-input align="right" label="产品名称" model:value="{{name}}" placeholder="请输入" />
       <t-cell
         title="产品分类"
-        note="{{collectionNames.length>0?collectionNames:'请选择(可选)'}}"
+        note="{{collectionNames.length>0?collectionNames:'请选择(选填)'}}"
         url="/pages/admin/catalog/collection/index?forSelection=true&collectionIds={{collectionIds}}"
         hover
         arrow
@@ -26,9 +26,9 @@
         <text class="images-note">精美图片能让产品脱颖而出，最多上传10张，长按图片拖动调整顺序。</text>
       </view>
       <t-divider style="margin: 0" />
-      <t-cell title="产品品牌" note="{{brandName?brandName:'请选择(可选)'}}" hover arrow />
-      <t-input label="商品编码" model:value="{{sku}}" placeholder="请选择(可选)" />
-      <t-input label="产品条码" model:value="{{barcode}}" placeholder="请输入或扫描(可选)">
+      <t-cell title="产品品牌" note="{{brandName?brandName:'请选择(选填)'}}" hover arrow />
+      <t-input align="right" label="商品编码" model:value="{{sku}}" placeholder="请选择(选填)" />
+      <t-input align="right" label="产品条码" model:value="{{barcode}}" placeholder="请输入或扫描(选填)">
         <t-button slot="suffix" icon="scan" theme="light" size="extra-small" />
       </t-input>
     </view>
@@ -45,28 +45,55 @@
         />
       </t-cell>
       <block wx:if="{{productType==='STANDARD'}}">
-        <!-- <price-input
-          token="salePrice"
-          label="零售价(元)"
-          bind:priceChangeEvent="onPriceChange"
-          priceValue="{{salePrice}}"
+        <t-input
+          align="right"
+          label="卖价"
+          type="number"
+          suffix="元"
+          placeholder="(必填)"
+          model:value="{{salePrice}}"
+          data-key="salePrice"
+          bindchange="onPriceInput"
+          tips="{{salePriceError ? '请输入正确的价格' : ''}}"
         />
-        <price-input
-          token="retailPrice"
-          label="市场价(元)"
-          bind:priceChangeEvent="onPriceChange"
-          priceValue="{{retailPrice}}"
+        <t-input
+          align="right"
+          label="划线价"
+          type="number"
+          suffix="元"
+          placeholder="0.00"
+          model:value="{{retailPrice}}"
+          data-key="retailPrice"
+          bindchange="onPriceInput"
+          tips="{{retailPriceError ? '请输入正确的价格' : ''}}"
         />
-        <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" /> -->
-        <t-input label="卖价(元)" type="number" placeholder="0.00" model:value="{{salePrice}}" />
-        <t-input label="划线价(元)" type="number" placeholder="0.00" model:value="{{retailPrice}}" />
-        <t-input label="成本价(元)" type="number" placeholder="0.00" model:value="{{cost}}" />
-        <t-input label="重量(KG)" placeholder="请输入" model:value="{{weightWeight}}" />
+        <t-input
+          align="right"
+          label="成本价"
+          type="number"
+          suffix="元"
+          placeholder="0.00"
+          model:value="{{cost}}"
+          data-key="cost"
+          bindchange="onPriceInput"
+          tips="{{costError ? '请输入正确的价格' : ''}}"
+        />
+        <t-input
+          align="right"
+          label="重量"
+          type="number"
+          suffix="KG"
+          placeholder="请输入(选填)"
+          model:value="{{weightWeight}}"
+          data-key="weightWeight"
+          bindchange="onPriceInput"
+          tips="{{weightWeightError ? '请输入正确的重量' : ''}}"
+        />
       </block>
       <t-cell
         wx:if="{{productType==='VARIANT_BASED'}}"
         title="产品规格"
-        note="请选择"
+        note="请选择(必填)"
         url="/pages/admin/catalog/product/variant/index"
         hover
         arrow

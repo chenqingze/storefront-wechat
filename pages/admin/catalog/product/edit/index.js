@@ -80,10 +80,17 @@ Page({
     const productType = value ? 'VARIANT_BASED' : 'STANDARD';
     this.setData({ productType: productType });
   },
-  // onSelectWeightUnits(e) {
-  //   console.log(e);
-  //   this.setData({ weightUnits: e.detail.value });
-  // },
+  onPriceInput(e) {
+    // console.log(e);
+    const priceErrorKey = `${e.currentTarget.dataset.key}Error`;
+    const priceError = this.data[priceErrorKey] ?? false;
+    const isNumber = /^\d+(\.\d+)?$/.test(e.detail.value) || e.detail.value === '';
+    if (priceError === isNumber) {
+      this.setData({
+        [priceErrorKey]: !isNumber,
+      });
+    }
+  },
   onSubmit() {
     const {
       id,

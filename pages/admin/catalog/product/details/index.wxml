@@ -1,13 +1,13 @@
-<!--pages/admin/catalog/product/add/index.wxml-->
+<!--pages/admin/catalog/product/detials/index.wxml-->
 <view class="product-detials-container">
   <view class="product-details-section">
     <view class="product-details-section_title">基本信息</view>
     <view class="product-details-section_content">
-      <t-input align="right" label="产品名称" model:value="{{name}}" placeholder="请输入(必填)" />
+      <t-input align="right" label="产品名称" model:value="{{name}}" placeholder="请输入" />
       <t-cell
         title="产品分类"
         note="{{collectionNames.length>0?collectionNames:'请选择(选填)'}}"
-        url="/pages/admin/catalog/collection/index?forSelection=true"
+        url="/pages/admin/catalog/collection/index?forSelection=true&collectionIds={{collectionIds}}"
         hover
         arrow
       />
@@ -27,8 +27,8 @@
       </view>
       <t-divider style="margin: 0" />
       <t-cell title="产品品牌" note="{{brandName?brandName:'请选择(选填)'}}" hover arrow />
-      <t-input align="right" label="商品编码" model:value="{{sku}}" placeholder="请输入(选填)" />
-      <t-input align="right" label="产品条码" model:value="{{barcode}}" placeholder="请输入或扫描(选填)">
+      <t-input align="right" label="商品编码" model:value="{{model}}" placeholder="请选择(选填)" />
+      <t-input align="right" label="产品条码" model:value="{{gtin}}" placeholder="请输入或扫描(选填)">
         <t-button slot="suffix" icon="scan" theme="light" size="extra-small" />
       </t-input>
     </view>
@@ -93,8 +93,8 @@
       <t-cell
         wx:if="{{productType==='VARIANT_BASED'}}"
         title="产品规格"
-        note="请选择(必填)"
-        url="/pages/admin/catalog/product/variant/index"
+        note="{{variantList.length>0?'已设置':'请选择(必填)'}}"
+        bind:tap="onVariantPage"
         hover
         arrow
       />

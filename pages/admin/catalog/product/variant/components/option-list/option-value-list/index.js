@@ -104,7 +104,7 @@ Component({
 
     onSelectChange(e) {
       const selectedOptionValueIds = e.detail.value;
-      console.log(selectedOptionValueIds);
+      // console.log(selectedOptionValueIds);
       const selectedOptionValueLabels = [];
       const selectedOptionValues = [];
       selectedOptionValueIds.forEach((optionValueId) => {

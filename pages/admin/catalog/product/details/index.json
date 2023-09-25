@@ -1,7 +1,6 @@
 {
-  "navigationBarTitleText": "添加产品",
+  "navigationBarTitleText": "产品详情",
   "usingComponents": {
-    "price-input": "/pages/admin/catalog/product/components/price-input/index",
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-input": "tdesign-miniprogram/input/input",
     "t-switch": "tdesign-miniprogram/switch/switch",

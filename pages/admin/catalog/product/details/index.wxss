@@ -1,4 +1,4 @@
-/* pages/admin/catalog/product/add/index.wxss */
+/* pages/admin/catalog/product/detials/index.wxss */
 page {
   /*解决 margin-bottom 失效的问题*/
   padding-bottom: 80rpx;

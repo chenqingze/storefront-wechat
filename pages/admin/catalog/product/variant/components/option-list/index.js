@@ -14,7 +14,7 @@ Component({
         this.setData({ selectedOptionList });
         const selectedOptionIds = selectedOptionList.map((item) => item.id);
         this.setData({ selectedOptionIds });
-        console.log(this.data);
+        // console.log(this.data);
       },
     },
   },
@@ -110,7 +110,7 @@ Component({
     },
 
     onOptionValuePopup(e) {
-      console.log(e);
+      // console.log(e);
       let selectedOption;
       if (e.type === 'tap') {
         const selectedOptionId = e.currentTarget.dataset.id;

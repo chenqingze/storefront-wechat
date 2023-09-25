@@ -105,14 +105,14 @@ Page({
    */
   onAdd() {
     wx.navigateTo({
-      url: '/pages/admin/catalog/product/add/index',
+      url: '/pages/admin/catalog/product/details/index',
     });
   },
   onProductDetails(e) {
     console.log(e);
     const { productId } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: `/pages/admin/catalog/product/edit/index?productId=${productId}`,
+      url: `/pages/admin/catalog/product/details/index?productId=${productId}`,
     });
   },
   /**

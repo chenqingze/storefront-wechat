@@ -1,7 +1,4 @@
 /* pages/admin/catalog/product/variant/components/option-value-list/index.wxss */
-page {
-  padding-bottom: 80rpx;
-}
 .option-value-list-container {
   height: 95vh;
 }

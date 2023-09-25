@@ -1,52 +1,51 @@
 <!--pages/admin/catalog/product/variant/components/variant-card/index.wxml-->
 <t-cell-group wx:if="{{visible}}" title="{{title}}">
-  <!-- <price-input
-      token="salePrice"
-      label="零售价(元)"
-      bind:priceChangeEvent="onPriceChange"
-      priceValue="{{salePrice}}"
-    />
-    <price-input
-      token="retailPrice"
-      label="市场价(元)"
-      bind:priceChangeEvent="onPriceChange"
-      priceValue="{{retailPrice}}"
-    />
-    <price-input token="cost" label="成本价(元)" bind:priceChangeEvent="onPriceChange" priceValue="{{cost}}" />
-    -->
   <t-input
-    label="卖价(元)"
+    align="right"
+    label="卖价"
     type="number"
-    placeholder="0.00"
+    suffix="元"
+    placeholder="(必填)"
     value="{{variant.salePrice}}"
     data-index="{{variantListIndex}}"
     data-key="salePrice"
     bind:change="inputValueChange"
+    tips="{{salePriceError ? '请输入正确的价格' : ''}}"
   />
   <t-input
-    label="划线价(元)"
+    align="right"
+    label="划线价"
     type="number"
+    suffix="元"
     placeholder="0.00"
     value="{{variant.retailPrice}}"
     data-index="{{variantListIndex}}"
     data-key="retailPrice"
     bind:change="inputValueChange"
+    tips="{{retailPriceError ? '请输入正确的价格' : ''}}"
   />
   <t-input
-    label="成本价(元)"
+    align="right"
+    label="成本价"
     type="number"
+    suffix="元"
     placeholder="0.00"
     value="{{variant.cost}}"
     data-index="{{variantListIndex}}"
     data-key="cost"
     bind:change="inputValueChange"
+    tips="{{costError ? '请输入正确的价格' : ''}}"
   />
   <t-input
-    label="重量(kg)"
-    placeholder="请输入"
+    align="right"
+    label="重量"
+    type="number"
+    suffix="KG"
+    placeholder="请输入(选填)"
     value="{{variant.weight}}"
     data-index="{{variantListIndex}}"
     data-key="weight"
     bind:change="inputValueChange"
+    tips="{{weightWeightError ? '请输入正确的重量' : ''}}"
   />
 </t-cell-group>

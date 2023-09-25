@@ -1,4 +1,7 @@
 /* pages/admin/catalog/product/variant/variants-details/index.wxss */
+page {
+  padding-bottom: 80rpx;
+}
 .variants-container {
   display: block;
   background-color: #f2f2f2;

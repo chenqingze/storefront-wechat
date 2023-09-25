@@ -60,6 +60,16 @@ Component({
   methods: {
     inputValueChange(e) {
       console.log(e);
+
+      const priceErrorKey = `${e.currentTarget.dataset.key}Error`;
+      const priceError = this.data[priceErrorKey] ?? false;
+      const isNumber = /^\d+(\.\d+)?$/.test(e.detail.value) || e.detail.value === '';
+      if (priceError === isNumber) {
+        this.setData({
+          [priceErrorKey]: !isNumber,
+        });
+      }
+
       const { value } = e.detail;
       const { key, index } = e.currentTarget.dataset;
       this.triggerEvent('inputChangeEvent', { value, index, key });

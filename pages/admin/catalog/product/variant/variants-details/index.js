@@ -28,7 +28,16 @@ Page({
     this.data.variantList[index][key] = value;
   },
   onSubmit() {
-    console.log(this.data);
+    // console.log(this.data);
+    const { variantList } = this.data;
+    if (variantList.some((variant) => !variant.salePrice || isNaN(variant.salePrice))) {
+      wx.showToast({ title: '请配置规格明细！', icon: 'warning' });
+      return;
+    }
+    const pages = getCurrentPages(); // 获取页面栈
+    const prevPage = pages[pages.length - 2]; // 上一个页面
+    prevPage.setData({ variantList });
+    wx.navigateBack();
   },
   /**
    * Lifecycle function--Called when page load
@@ -36,9 +45,10 @@ Page({
   onLoad(options) {
     const { optionList, variantList } = JSON.parse(options.data);
     // console.log(optionList);
+    // console.log(variantList);
     const optionValuesCartesian = cartesian(...optionList.map((item) => item.optionValues));
     if (variantList.length == 0) {
-      const variantList = optionValuesCartesian.map((item) => {
+      const variantListTmp = optionValuesCartesian.map((item) => {
         return {
           salePrice: '',
           retailPrice: '',
@@ -47,8 +57,11 @@ Page({
           values: item,
         };
       });
+      this.setData({ optionList, variantList: variantListTmp });
+    } else {
       this.setData({ optionList, variantList });
     }
+    // console.log(this.data);
     // 用于展示过滤
     const optionValuesList = optionList.map((item) => {
       const { optionValues } = item;

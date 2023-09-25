@@ -54,14 +54,16 @@ Page({
       this.data.optionList.push(option);
       optionList = this.data.optionList;
     }
-    console.log(optionList);
-    this.setData({ optionList });
+    // console.log(optionList);
+    // 规格变动，更新规格，清空规格明细variantList
+    this.setData({ optionList, variantList: [] });
   },
 
   onDeleteOption(e) {
     const { optionIdx } = e.currentTarget.dataset;
     const optionList = this.data.optionList.filter((item) => item !== this.data.optionList[optionIdx]);
-    this.setData({ optionList });
+    this.setData({ optionList, variantList: [] });
+    // console.log(this.data);
   },
 
   onVaraintsConfig() {
@@ -72,10 +74,29 @@ Page({
       url: `/pages/admin/catalog/product/variant/variants-details/index?data=${dataStr}`,
     });
   },
+
+  onSubmit() {
+    // console.log(this.data);
+    const { variantList, optionList } = this.data;
+    if (optionList.length !== 0 && variantList.length === 0) {
+      wx.showToast({ title: '请确保信息完善正确！', icon: 'warning' });
+      return;
+    }
+    const pages = getCurrentPages(); // 获取页面栈
+    const prevPage = pages[pages.length - 2]; // 上一个页面
+    // console.log(prevPage);
+    prevPage.setData({ variantList: variantList, optionList: optionList });
+    wx.navigateBack();
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad() {},
+  onLoad(options) {
+    console.log(options);
+    const { optionList, variantList } = JSON.parse(options.data);
+    this.setData({ optionList, variantList });
+  },
 
   /**
    * Lifecycle function--Called when page is initially rendered

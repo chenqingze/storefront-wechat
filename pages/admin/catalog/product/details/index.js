@@ -125,6 +125,8 @@ Page({
       variantList,
       optionList,
     } = this.data;
+    console.log(this.data);
+
     if (productType === 'VARIANT_BASED' && variantList.length === 0) {
       wx.showToast({ title: '请配置商品规格！', icon: 'warning' });
       return;
@@ -141,13 +143,9 @@ Page({
     }
     const optionIds = optionList.map((item) => item.id);
     const variants = variantList.map((item) => {
-      let valueIds;
-      if (item.values.constructor && item.values.constructor == 'Array') {
-        valueIds = item.values.map((value) => value.id);
-      } else {
-        valueIds = item.values.id;
-      }
-
+      // console.log('item=========>', item);
+      const valueIds = item.values.map((value) => value.id);
+      // console.log('valueIds=======>', valueIds);
       return {
         cost: item.cost,
         retailPrice: item.retailPrice,
@@ -156,6 +154,7 @@ Page({
         weight: item.weight,
       };
     });
+    console.log(variants);
     const product = {
       id,
       name,

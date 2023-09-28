@@ -13,7 +13,7 @@ Page({
     variantList: [],
   },
   onOptionValueSelected(e) {
-    console.log(e);
+    // console.log(e);
     const { value } = e.detail;
     const { optionId } = e.currentTarget.dataset;
     const selectedVariantOptionValues = [...this.data.selectedVariantOptionValues];
@@ -37,6 +37,7 @@ Page({
     const pages = getCurrentPages(); // 获取页面栈
     const prevPage = pages[pages.length - 2]; // 上一个页面
     prevPage.setData({ variantList });
+    // console.log(prevPage.data);
     wx.navigateBack();
   },
   /**
@@ -47,16 +48,18 @@ Page({
     // console.log(optionList);
     // console.log(variantList);
     const optionValuesCartesian = cartesian(...optionList.map((item) => item.optionValues));
-    if (variantList.length == 0) {
+    if (variantList.length === 0) {
       const variantListTmp = optionValuesCartesian.map((item) => {
+        // console.log(item);
         return {
           salePrice: '',
           retailPrice: '',
           cost: '',
           weight: '',
-          values: item,
+          values: optionList.length === 1 ? [item] : item,
         };
       });
+      // console.log(variantListTmp);
       this.setData({ optionList, variantList: variantListTmp });
     } else {
       this.setData({ optionList, variantList });
@@ -72,7 +75,7 @@ Page({
       return { optionId: item.id, value: '0' };
     });
     this.setData({ optionValuesList, selectedVariantOptionValues });
-    console.log(this.data);
+    // console.log(this.data);
   },
 
   /**

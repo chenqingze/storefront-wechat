@@ -67,7 +67,7 @@ Page({
   },
 
   onVaraintsConfig() {
-    console.log('onVaraintsConfig');
+    // console.log('onVaraintsConfig');
     const data = { optionList: this.data.optionList, variantList: this.data.variantList };
     const dataStr = JSON.stringify(data);
     wx.navigateTo({
@@ -84,7 +84,7 @@ Page({
     }
     const pages = getCurrentPages(); // 获取页面栈
     const prevPage = pages[pages.length - 2]; // 上一个页面
-    // console.log(prevPage);
+    // console.log(prevPage.data);
     prevPage.setData({ variantList: variantList, optionList: optionList });
     wx.navigateBack();
   },
@@ -93,7 +93,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-    console.log(options);
+    // console.log(options);
     const { optionList, variantList } = JSON.parse(options.data);
     this.setData({ optionList, variantList });
   },

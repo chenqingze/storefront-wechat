@@ -94,8 +94,15 @@ Page({
    */
   onLoad(options) {
     // console.log(options);
-    const { optionList, variantList } = JSON.parse(options.data);
-    this.setData({ optionList, variantList });
+    if (options.data) {
+      const { id, optionList, variantList } = JSON.parse(options.data);
+      if (id && !optionList && !variantList) {
+        // todo:查询该商品下的vairant和options
+        // this.setData({ id, optionList:, variantList: });
+      } else {
+        this.setData({ id, optionList, variantList });
+      }
+    }
   },
 
   /**

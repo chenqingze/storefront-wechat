@@ -38,7 +38,9 @@
     <view class="product-details-section_content">
       <t-cell title="多规格" hover>
         <t-switch
-          defaultValue="{{false}}"
+          defaultValue="{{'STANDARD'}}"
+          custom-value="{{['VARIANT_BASED','STANDARD']}}"
+          value="{{productType}}"
           icon="{{['check', 'close']}}"
           slot="note"
           bind:change="onProductTypeChange"
@@ -93,7 +95,7 @@
       <t-cell
         wx:if="{{productType==='VARIANT_BASED'}}"
         title="产品规格"
-        note="{{variantList.length>0?'已设置':'请选择(必填)'}}"
+        note="{{variantList.length>0||id?'已设置':'请选择(必填)'}}"
         bind:tap="onVariantPage"
         hover
         arrow

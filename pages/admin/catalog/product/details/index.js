@@ -102,9 +102,9 @@ Page({
   },
   onVariantPage() {
     console.log('onVariantPage');
-    const { optionList, variantList } = this.data;
+    const { id, optionList, variantList } = this.data;
     console.log(this.data);
-    const data = JSON.stringify({ optionList, variantList });
+    const data = JSON.stringify({ id, optionList, variantList });
     // console.log(data);
     wx.navigateTo({ url: `/pages/admin/catalog/product/variant/index?data=${data}` });
   },
@@ -204,8 +204,7 @@ Page({
           id,
           name,
           collections = [],
-          brandId,
-          brandName,
+          brand,
           pictures,
           model,
           gtin,
@@ -214,7 +213,6 @@ Page({
           retailPrice,
           cost,
           weight,
-          variants,
         } = product;
         const collectionNames = [];
         const collectionIds = [];
@@ -222,14 +220,15 @@ Page({
           collectionIds.push(item.id);
           collectionNames.push(item.name);
         });
+
         this.setData({
           id,
           name,
           collectionIds,
           collectionNames,
           pictures,
-          brandId,
-          brandName, // todo
+          brandId: brand ? brand.id : '',
+          brandName: brand ? brand.name : '',
           model,
           gtin,
           productType,
@@ -237,7 +236,6 @@ Page({
           retailPrice,
           cost,
           weight,
-          variantList: variants,
         });
       });
     } else {

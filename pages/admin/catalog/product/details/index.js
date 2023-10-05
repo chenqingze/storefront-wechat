@@ -101,7 +101,7 @@ Page({
     }
   },
   onVariantPage() {
-    console.log('onVariantPage');
+    //  console.log('onVariantPage');
     const { id, optionList, variantList } = this.data;
     console.log(this.data);
     const data = JSON.stringify({ id, optionList, variantList });
@@ -125,7 +125,7 @@ Page({
       variantList,
       optionList,
     } = this.data;
-    console.log(this.data);
+    // console.log(this.data);
 
     if (productType === 'VARIANT_BASED' && variantList.length === 0) {
       wx.showToast({ title: '请配置商品规格！', icon: 'warning' });
@@ -154,7 +154,7 @@ Page({
         weight: item.weight,
       };
     });
-    console.log(variants);
+    // console.log(variants);
     const product = {
       id,
       name,
@@ -213,6 +213,8 @@ Page({
           retailPrice,
           cost,
           weight,
+          options = [],
+          variants = [],
         } = product;
         const collectionNames = [];
         const collectionIds = [];
@@ -220,7 +222,23 @@ Page({
           collectionIds.push(item.id);
           collectionNames.push(item.name);
         });
-
+        const optionList = [];
+        options.forEach((option) => {
+          const optionValueIds = [];
+          const optionValueLabels = [];
+          const optionValues = [];
+          variants.forEach((variant) => {
+            variant.values.forEach((value) => {
+              if (value.optionId === option.id) {
+                optionValueIds.push(value.id);
+                optionValueLabels.push(value.label);
+                optionValues.push(value);
+              }
+            });
+          });
+          optionList.push({ ...option, optionValueIds, optionValueLabels, optionValues });
+        });
+        console.log(optionList);
         this.setData({
           id,
           name,
@@ -236,6 +254,8 @@ Page({
           retailPrice,
           cost,
           weight,
+          optionList,
+          variantList: variants,
         });
       });
     } else {

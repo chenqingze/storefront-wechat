@@ -10,7 +10,7 @@ Page({
   },
 
   /**
-   *  弹出层控制
+   *  optionList弹出层控制
    */
   onOptionPopup() {
     this.setData({ visible: true });
@@ -29,7 +29,10 @@ Page({
       visible: e.detail.visible,
     });
   },
-
+  /**
+   *
+   * optionValue弹出层控制
+   */
   onOptionValuePopup(e) {
     // console.log(e);
     this.setData({ visible: true });
@@ -96,12 +99,8 @@ Page({
     // console.log(options);
     if (options.data) {
       const { id, optionList, variantList } = JSON.parse(options.data);
-      if (id && !optionList && !variantList) {
-        // todo:查询该商品下的vairant和options
-        // this.setData({ id, optionList:, variantList: });
-      } else {
-        this.setData({ id, optionList, variantList });
-      }
+      this.setData({ id, optionList, variantList });
+      // console.log(this.data);
     }
   },
 

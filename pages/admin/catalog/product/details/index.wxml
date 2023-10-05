@@ -38,6 +38,7 @@
     <view class="product-details-section_content">
       <t-cell title="多规格" hover>
         <t-switch
+          disabled="{{id}}"
           defaultValue="{{'STANDARD'}}"
           custom-value="{{['VARIANT_BASED','STANDARD']}}"
           value="{{productType}}"

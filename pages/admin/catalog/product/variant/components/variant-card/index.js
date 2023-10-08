@@ -19,10 +19,10 @@ Component({
         if (newVal) {
           let variantOptionValues;
           // console.log(Array.isArray(this.data.variant.values));
-          if (!Array.isArray(this.data.variant.values)) {
-            variantOptionValues = [this.data.variant.values];
+          if (!Array.isArray(this.data.variant.optionValues)) {
+            variantOptionValues = [this.data.variant.optionValues];
           } else {
-            variantOptionValues = this.data.variant.values;
+            variantOptionValues = this.data.variant.optionValues;
           }
           // console.log(variantOptionValues);
           // console.log('newVal=============>', newVal);

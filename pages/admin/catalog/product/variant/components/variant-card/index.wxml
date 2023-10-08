@@ -46,6 +46,6 @@
     data-index="{{variantListIndex}}"
     data-key="weight"
     bind:change="inputValueChange"
-    tips="{{weightWeightError ? '请输入正确的重量' : ''}}"
+    tips="{{weightError ? '请输入正确的重量' : ''}}"
   />
 </t-cell-group>

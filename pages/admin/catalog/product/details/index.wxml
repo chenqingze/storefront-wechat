@@ -87,10 +87,10 @@
           type="number"
           suffix="KG"
           placeholder="请输入(选填)"
-          model:value="{{weightWeight}}"
-          data-key="weightWeight"
+          model:value="{{weight}}"
+          data-key="weight"
           bindchange="onPriceInput"
-          tips="{{weightWeightError ? '请输入正确的重量' : ''}}"
+          tips="{{weightError ? '请输入正确的重量' : ''}}"
         />
       </block>
       <t-cell

@@ -144,13 +144,13 @@ Page({
     const optionIds = optionList.map((item) => item.id);
     const variants = variantList.map((item) => {
       // console.log('item=========>', item);
-      const valueIds = item.values.map((value) => value.id);
-      // console.log('valueIds=======>', valueIds);
+      const optionValueIds = item.optionValues.map((value) => value.id);
+      // console.log('optionValueIds=======>', optionValueIds);
       return {
         cost: item.cost,
         retailPrice: item.retailPrice,
         salePrice: item.salePrice,
-        valueIds: valueIds,
+        optionValueIds: optionValueIds,
         weight: item.weight,
       };
     });
@@ -228,11 +228,13 @@ Page({
           const optionValueLabels = [];
           const optionValues = [];
           variants.forEach((variant) => {
-            variant.values.forEach((value) => {
+            variant.optionValues.forEach((value) => {
               if (value.optionId === option.id) {
-                optionValueIds.push(value.id);
-                optionValueLabels.push(value.label);
-                optionValues.push(value);
+                if (!optionValues.some((existValue) => existValue.id === value.id)) {
+                  optionValueIds.push(value.id);
+                  optionValueLabels.push(value.label);
+                  optionValues.push(value);
+                }
               }
             });
           });

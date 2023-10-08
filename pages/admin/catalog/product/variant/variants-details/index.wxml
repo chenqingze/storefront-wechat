@@ -24,7 +24,7 @@
     variant="{{item}}"
     variantListIndex="{{index}}"
     selectedVariantOptionValues="{{selectedVariantOptionValues}}"
-    title="{{variantTool.evalVariantCardTitle(item.values)}}"
+    title="{{variantTool.evalVariantCardTitle(item.optionValues)}}"
     bind:inputChangeEvent="onInputChange"
   />
 </view>

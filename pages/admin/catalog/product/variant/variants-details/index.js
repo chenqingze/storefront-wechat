@@ -56,7 +56,7 @@ Page({
           retailPrice: '',
           cost: '',
           weight: '',
-          values: optionList.length === 1 ? [item] : item,
+          optionValues: optionList.length === 1 ? [item] : item,
         };
       });
       // console.log(variantListTmp);

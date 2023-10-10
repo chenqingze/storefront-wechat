@@ -20435,12 +20435,12 @@ export const areaData = [
   },
 ];
 
-export const baseUrl = 'http://10.0.0.6:8081';
+export const baseUrl = 'http://10.0.0.6:8080';
 
 export const env = {
   // 开发版
   develop: {
-    baseUrl: 'http://10.0.0.9:8082',
+    baseUrl: 'http://10.0.0.9:8080',
   },
   // 体验版
   trial: {

@@ -1,3 +1,60 @@
 <!--pages/catalog/index.wxml-->
-<text>pages/catalog/index.wxml</text>
+<t-navbar leftIcon="slot">
+  <view class="search-box" slot="left">
+    <t-search shape="round" placeholder="请输入搜索产品" />
+  </view>
+</t-navbar>
+<view class="catalog-container">
+  <view class="category-list-wrapper">
+    <t-side-bar value="{{sideBarIndex}}" default-value="{{0}}" bind:change="onSideBarChange">
+      <t-side-bar-item wx:for="{{collectionList}}" wx:key="index" value="{{index}}" label="{{item.name}}" />
+    </t-side-bar>
+  </view>
+  <view class="product-list-wrapper">
+    <!-- 无数据时展示 -->
+    <view class="empty-wrap" wx:if="{{productList.length === 0 && loadMoreStatus===(0||2)}}">
+      <t-empty size="240rpx" description="暂无相关产品" />
+    </view>
+    <scroll-view
+      class="product-list-wrapper"
+      wx:if="{{productList.length>0}}"
+      enable-passive="{{true}}"
+      scroll-x="{{false}}"
+      scroll-y="{{true}}"
+      scroll-top="{{scrollTop}}"
+      scroll-with-animation="{{true}}"
+      enhanced="{{true}}"
+      show-scrollbar="{{true}}"
+      paging-enabled="{{true}}"
+      bind:scrolltolower="onScrollToLower"
+    >
+      <!-- 产品列表 -->
+      <view
+        class="product-card"
+        wx:for="{{productList}}"
+        wx:key="index"
+        id="{{item.id}}"
+        data-product-id="{{item.id}}"
+        bind:tap="onProductDetails"
+      >
+        <t-image
+          class="img"
+          src="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
+          width="72"
+          height="72"
+          shape="round"
+          mode="aspectFill"
+        />
+        <view class="info-box">
+          <view class="name">{{item.name}}</view>
+          <view class="sale-info">
+            <text class="sale-price" wx:if="{{ item.salePrice }}">¥{{item.salePrice}}</text>
+            <text class="retail-price" wx:if="{{ item.retailPrice }}">¥{{item.retailPrice}}</text>
+          </view>
+        </view>
+      </view>
+      <load-more wx:if="{{productList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
+    </scroll-view>
+  </view>
+</view>
 <admin-menu></admin-menu>

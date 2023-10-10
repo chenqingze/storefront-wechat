@@ -1,5 +1,17 @@
 {
+  "navigationBarTitleText": "",
+  "navigationStyle": "custom",
   "usingComponents": {
-    "admin-menu": "/components/admin-menu/index"
+    "admin-menu": "/components/admin-menu/index",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar",
+    "t-search": "tdesign-miniprogram/search/search",
+    "load-more": "/components/load-more/index",
+    "t-side-bar": "tdesign-miniprogram/side-bar/side-bar",
+    "t-side-bar-item": "tdesign-miniprogram/side-bar-item/side-bar-item",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-image": "tdesign-miniprogram/image/image",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-cell": "tdesign-miniprogram/cell/cell"
   }
 }

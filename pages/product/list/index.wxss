@@ -5,7 +5,7 @@
 }
 .catalog-container {
   display: flex;
-  height: calc(100vh - 80rpx);
+  height: calc(100vh - 130rpx);
   overflow: hidden;
   background-color: #f2f2f2;
 }
@@ -51,6 +51,7 @@
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: flex-start;
+  flex: 1;
 }
 .info-box .name {
   color: #000;
@@ -62,11 +63,15 @@
   justify-content: space-between;
   width: 100%;
 }
-.sale-info .sale-price {
+.sale-info .product-price {
+  font-size: small;
+}
+.sale-info .product-price .sale-price {
   color: rgb(199, 25, 25);
 }
-.sale-info .retail-price {
+.sale-info .product-price .retail-price {
   font-size: 0.5rem;
   text-decoration: line-through;
   color: #bbbbbb;
+  margin-left: 16rpx;
 }

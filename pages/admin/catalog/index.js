@@ -4,7 +4,7 @@ import {
   fetchAllCollectionList,
   fetchProductList,
   fetchProductListByCollection,
-} from '../../../services/catalogService';
+} from '../../../services/adminCatalogService';
 
 Page({
   /**
@@ -109,7 +109,7 @@ Page({
     });
   },
   onProductDetails(e) {
-    console.log(e);
+    // console.log(e);
     const { productId } = e.currentTarget.dataset;
     wx.navigateTo({
       url: `/pages/admin/catalog/product/details/index?productId=${productId}`,

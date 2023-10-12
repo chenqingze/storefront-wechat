@@ -2,7 +2,7 @@ export default [
   {
     icon: 'home',
     text: '首页',
-    url: 'pages/catalog/index',
+    url: 'pages/product/list/index',
   },
   {
     icon: 'order-ascending',

@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/catalog/index",
+    "pages/product/list/index",
     "pages/order/index",
     "pages/admin/catalog/index",
     "pages/admin/catalog/collection/index",
     "pages/admin/order/index",
     "pages/admin/catalog/product/variant/index",
     "pages/admin/catalog/product/variant/variants-details/index",
-    "pages/admin/catalog/product/details/index"
+    "pages/admin/catalog/product/details/index",
+    "pages/product/details/index"
   ],
   "tabBar": {
     "custom": true,
@@ -17,7 +18,7 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/catalog/index",
+        "pagePath": "pages/product/list/index",
         "text": "首页"
       },
       {

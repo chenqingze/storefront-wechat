@@ -1,0 +1,42 @@
+<!--pages/catalog/details/index.wxml-->
+<view class="go-back-btn">
+  <t-icon name="chevron-left" size="24" color="#fff;" bind:click="goBack" />
+</view>
+<view class="product-detail-container">
+  <view class="product-head">
+    <t-swiper
+      wx:if="{{pictures.length > 0}}"
+      height="750rpx"
+      current="{{current}}"
+      autoplay="{{true}}"
+      duration="{{500}}"
+      interval="{{5000}}"
+      navigation="{{navigation}}"
+      list="{{pictures}}"
+    />
+    <view class="product-info">
+      <view class="product-title">
+        <view class="product-name">{{product.name}}</view>
+        <view class="product-share">
+          <t-button open-type="share" size="extra-small" shape="round" icon="share-1" theme="light">分享</t-button>
+        </view>
+      </view>
+      <view class="product-price">
+        <text class="sale-price">¥{{product.salePrice}}</text>
+        <text class="retail-price" wx:if="{{product.retailPrice}}">¥{{product.retailPrice}}</text>
+      </view>
+    </view>
+    <view class="product-select" bindtap="openSelectPopup">
+      <view class="label">已选</view>
+      <view class="content">
+        <view class="{{!selectedOptionValue ? 'tintColor' : ''}}">
+          {{selectedAttrStr ? buyNum : ''}}{{selectedAttrStr || '请选择'}}
+        </view>
+        <t-icon name="chevron-right" size="40rpx" color="#BBBBBB" />
+      </view>
+    </view>
+  </view>
+  <view class="description">
+    <t-divider content="详情介绍" />
+  </view>
+</view>

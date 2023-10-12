@@ -69,7 +69,6 @@ page {
   text-decoration: line-through;
   color: #bbbbbb;
 }
-
 .bottom-button {
   width: 100%;
   position: fixed;

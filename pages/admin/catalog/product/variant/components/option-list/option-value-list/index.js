@@ -1,5 +1,8 @@
 // pages/admin/catalog/product/variant/components/option-value-list/index.js
-import { createOptionValue, fetchAllOptionValueListByOption } from '../../../../../../../../services/catalogService';
+import {
+  createOptionValue,
+  fetchAllOptionValueListByOption,
+} from '../../../../../../../../services/adminCatalogService';
 Component({
   /**
    * Component properties

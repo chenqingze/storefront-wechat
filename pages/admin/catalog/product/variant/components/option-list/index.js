@@ -1,4 +1,4 @@
-import { createOption, fetchAllOptionList } from '../../../../../../../services/catalogService';
+import { createOption, fetchAllOptionList } from '../../../../../../../services/adminCatalogService';
 
 // pages/admin/catalog/product/variant/components/option-popup/index.js
 Component({

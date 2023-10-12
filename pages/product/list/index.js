@@ -1,5 +1,9 @@
 // pages/catalog/index.js
-import { fetchAllCollectionList, fetchProductList, fetchProductListByCollection } from '../../services/catalogService';
+import {
+  fetchAllCollectionList,
+  fetchProductList,
+  fetchProductListByCollection,
+} from '../../../services/catalogService';
 
 Page({
   /**
@@ -96,19 +100,11 @@ Page({
     this.loadData(false);
   },
 
-  /**
-   * 添加产品
-   */
-  onAdd() {
-    wx.navigateTo({
-      url: '/pages/admin/catalog/product/details/index',
-    });
-  },
   onProductDetails(e) {
-    console.log(e);
+    // console.log(e);
     const { productId } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: `/pages/admin/catalog/product/details/index?productId=${productId}`,
+      url: `/pages/product/details/index?productId=${productId}`,
     });
   },
   /**
@@ -117,7 +113,9 @@ Page({
   onLoad() {
     fetchAllCollectionList().then((result) => {
       const { collectionList } = this.data;
-      this.setData({ collectionList: collectionList.concat(result) });
+      this.setData({
+        collectionList: collectionList.concat(result),
+      });
       // this.loadData(); // onshow的时候已经查询过了
     });
   },

@@ -1,4 +1,4 @@
-import { updateProduct, createProduct, fetchProductDetails } from '../../../../../services/catalogService';
+import { updateProduct, createProduct, fetchProductDetails } from '../../../../../services/adminCatalogService';
 // pages/admin/catalog/product/detials/index.js
 Page({
   /**
@@ -38,7 +38,7 @@ Page({
     const { length } = fileList;
     // todo: 封装uploadFile 方法到request内
     const task = wx.uploadFile({
-      url: 'http://localhost:8081/upload/file', // 仅为示例，非真实的接口地址
+      url: 'http://localhost:8080/upload/file', // 仅为示例，非真实的接口地址
       filePath: file.url,
       name: 'file',
       // formData: { user: 'test' },
@@ -103,7 +103,7 @@ Page({
   onVariantPage() {
     //  console.log('onVariantPage');
     const { id, optionList, variantList } = this.data;
-    console.log(this.data);
+    // console.log(this.data);
     const data = JSON.stringify({ id, optionList, variantList });
     // console.log(data);
     wx.navigateTo({ url: `/pages/admin/catalog/product/variant/index?data=${data}` });

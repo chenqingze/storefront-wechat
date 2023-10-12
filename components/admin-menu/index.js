@@ -28,9 +28,9 @@ Component({
         url: '/pages/admin/catalog/collection/index',
       },
       {
-        title: '变体/规格',
+        title: '产品详情',
         icon: 'app',
-        url: '/pages/admin/catalog/product/variant/index',
+        url: '/pages/catalog/product/details/index',
       },
     ],
   },
@@ -47,7 +47,7 @@ Component({
     },
 
     itemClick(e) {
-      // console.log(e.detail);
+      console.log(e.detail);
       const { url } = e.detail.item;
       console.log(url);
       wx.navigateTo({

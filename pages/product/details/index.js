@@ -12,6 +12,9 @@ Page({
     product: {},
   },
 
+  goBack() {
+    wx.navigateBack();
+  },
   /**
    * Lifecycle function--Called when page load
    */

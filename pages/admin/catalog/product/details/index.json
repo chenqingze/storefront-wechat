@@ -1,10 +1,12 @@
 {
   "navigationBarTitleText": "产品详情",
   "usingComponents": {
+    "rich-editor": "/pages/admin/catalog/product/components/rich-editor/index",
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-input": "tdesign-miniprogram/input/input",
     "t-switch": "tdesign-miniprogram/switch/switch",
     "t-upload": "tdesign-miniprogram/upload/upload",
-    "t-button": "tdesign-miniprogram/button/button"
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-divider": "tdesign-miniprogram/divider/divider"
   }
 }

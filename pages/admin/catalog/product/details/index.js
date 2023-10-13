@@ -5,12 +5,14 @@ Page({
    * Page initial data
    */
   data: {
+    visible: false,
     fileList: [],
     id: '',
     name: '',
     collectionNames: [],
     collectionIds: [],
     pictures: [],
+    description: '',
     brandId: '',
     brandName: '',
     model: '',
@@ -78,6 +80,17 @@ Page({
   onUploadImageClick(e) {
     console.log(e.detail.file);
   },
+  onOpenDescriptionEditorPopup() {
+    this.setData({ visible: true });
+  },
+  onCloseDescriptionEditorPopup() {
+    console.log('onCloseDescriptionEditorPopup');
+    this.setData({ visible: false });
+  },
+  onDescriptionEditorConfirm(e) {
+    console.log(e);
+    this.setData({ visible: false, description: e.detail });
+  },
   onProductTypeChange(e) {
     const { value } = e.detail;
     const productType = value ? 'VARIANT_BASED' : 'STANDARD';
@@ -114,6 +127,7 @@ Page({
       name,
       collectionIds,
       pictures,
+      description,
       brandId,
       model,
       gtin,
@@ -160,6 +174,7 @@ Page({
       name,
       collectionIds,
       pictures,
+      description,
       brandId,
       model,
       gtin,
@@ -204,6 +219,7 @@ Page({
           id,
           name,
           collections = [],
+          description,
           brand,
           pictures,
           model,
@@ -247,6 +263,7 @@ Page({
           collectionIds,
           collectionNames,
           pictures,
+          description,
           brandId: brand ? brand.id : '',
           brandName: brand ? brand.name : '',
           model,

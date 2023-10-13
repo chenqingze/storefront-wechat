@@ -1,7 +1,7 @@
 /**app.wxss**/
 @import 'style/iconfont.wxss';
 
-@import 'style/theme.wxss';
+/* @import 'style/theme.wxss'; */
 /* .container {
   height: 100%;
   display: flex;

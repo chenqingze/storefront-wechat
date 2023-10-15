@@ -6,6 +6,10 @@ Component({
    * Component properties
    */
   properties: {
+    show: {
+      value: false,
+      type: Boolean,
+    },
     selectedOptionList: {
       type: Array,
       value: [],
@@ -26,9 +30,9 @@ Component({
   total: 0,
   isLast: false,
   data: {
-    visible: false,
     loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,
     searchValue: '',
+    isOptionValuePopupShow: false,
     selectedOption: undefined,
     selectedOptionList: [],
     allOptionList: [],
@@ -90,7 +94,6 @@ Component({
     },
 
     onSearchValueChange(e) {
-      // console.log(e.detail);
       this.searchFilter(e.detail.value);
     },
 
@@ -99,17 +102,11 @@ Component({
       this.setData({ resultOptionList });
     },
 
-    onPopupVisibleChange(e) {
-      const { visible } = e.detail;
-      this.setData({
-        visible,
-      });
-      if (!visible) {
-        this.triggerEvent('closePopupEvent');
-      }
+    onHideOptionPopup() {
+      this.triggerEvent('hideOptionPopupEvent');
     },
 
-    onOptionValuePopup(e) {
+    onShowOptionValuePopup(e) {
       // console.log(e);
       let selectedOption;
       if (e.type === 'tap') {
@@ -124,14 +121,16 @@ Component({
       if (optionValueListComponent.data.searchValue) {
         optionValueListComponent.setData({ searchValue: '' });
       }
-      this.setData({ visible: true });
+      this.setData({ isOptionValuePopupShow: true });
       // console.log(optionValueListComponent.data);
     },
-
+    onHideOptionValuePopup() {
+      this.setData({ isOptionValuePopupShow: false });
+    },
     onSubmit(e) {
       // console.log('onSubmit', e);
-      this.setData({ visible: false });
-      this.triggerEvent('closePopupEvent');
+      this.setData({ isOptionValuePopupShow: false });
+      this.triggerEvent('hideOptionPopupEvent');
       this.triggerEvent('optionSelectedEvent', e.detail);
     },
   },

@@ -29,7 +29,7 @@
       <t-cell
         title="产品描述"
         note="{{description?'已填写':'请填写(选填)'}}"
-        bind:tap="onOpenDescriptionEditorPopup"
+        bind:tap="onShowDescriptionEditorPopup"
         hover
         arrow
       />
@@ -115,8 +115,8 @@
   <t-button block size="medium" theme="primary" bind:tap="onSubmit"> 确认提交 </t-button>
 </view>
 <rich-editor
-  visible="{{visible}}"
+  show="{{isDescriptionEditorPopupShow}}"
   description="{{description}}"
-  bind:closeDescriptionEditorPopup="onCloseDescriptionEditorPopup"
-  bind:descriptionEditorConfirm="onDescriptionEditorConfirm"
+  bind:hideDescriptionEditorPopupEvent="onHideDescriptionEditorPopup"
+  bind:descriptionEditorConfirmEvent="onDescriptionEditorConfirm"
 />

@@ -5,7 +5,6 @@
   "usingComponents": {
     "collection-item": "/pages/admin/catalog/collection/components/collection-item/index",
     "collection-dialog": "/pages/admin/catalog/collection/components/collection-dialog/index",
-    "t-popup": "tdesign-miniprogram/popup/popup",
     "t-empty": "tdesign-miniprogram/empty/empty",
     "t-button": "tdesign-miniprogram/button/button",
     "t-loading": "tdesign-miniprogram/loading/loading",

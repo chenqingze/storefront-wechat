@@ -4,7 +4,7 @@ Page({
    * Page initial data
    */
   data: {
-    visible: false,
+    isOptionPopupShow: false,
     variantList: [],
     optionList: [],
   },
@@ -12,36 +12,31 @@ Page({
   /**
    *  optionList弹出层控制
    */
-  onOptionPopup() {
-    this.setData({ visible: true });
+  onShowOptionPopup() {
+    this.setData({ isOptionPopupShow: true });
     const optionListComponnet = this.selectComponent('#optionList');
     optionListComponnet.loadData();
     if (optionListComponnet.data.searchValue) {
       optionListComponnet.setData({ searchValue: '' });
     }
   },
-  onClosePopup() {
-    this.setData({ visible: false });
+  onHideOptionPopup() {
+    this.setData({ isOptionPopupShow: false });
   },
 
-  onPopupVisibleChange(e) {
-    this.setData({
-      visible: e.detail.visible,
-    });
-  },
   /**
    *
    * optionValue弹出层控制
    */
   onOptionValuePopup(e) {
     // console.log(e);
-    this.setData({ visible: true });
+    this.setData({ isOptionPopupShow: true });
     const optionListComponnet = this.selectComponent('#optionList');
     optionListComponnet.loadData();
     if (optionListComponnet.data.searchValue) {
       optionListComponnet.setData({ searchValue: '' });
     }
-    optionListComponnet.onOptionValuePopup(e);
+    optionListComponnet.onShowOptionValuePopup(e);
   },
 
   onOptionSelected(e) {

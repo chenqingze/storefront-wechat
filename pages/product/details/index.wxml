@@ -2,8 +2,9 @@
 <view class="go-back-btn">
   <t-icon name="chevron-left" size="24" color="#fff;" bind:click="goBack" />
 </view>
-<view class="product-detail-container">
+<view class="product-details-container">
   <view class="product-head">
+    <!-- 产品图片 -->
     <t-swiper
       wx:if="{{pictures.length > 0}}"
       height="750rpx"
@@ -14,6 +15,7 @@
       navigation="{{navigation}}"
       list="{{pictures}}"
     />
+    <!-- 产品信息 -->
     <view class="product-info">
       <view class="product-title">
         <view class="product-name">{{product.name}}</view>
@@ -26,17 +28,34 @@
         <text class="retail-price" wx:if="{{product.retailPrice}}">¥{{product.retailPrice}}</text>
       </view>
     </view>
-    <view class="product-select" bindtap="openSelectPopup">
+    <!-- 产品选项 -->
+    <view class="variants-select" bindtap="onShowVariantsSelectPopup">
       <view class="label">已选</view>
       <view class="content">
-        <view class="{{!selectedOptionValue ? 'tintColor' : ''}}">
-          {{selectedAttrStr ? buyNum : ''}}{{selectedAttrStr || '请选择'}}
+        <view>
+          <block wx:if="{{product.productType==='STANDARD'}}">{{buyNum}}件 </block>
+          <block wx:else> {{selectedOptionValue}},{{buyNum}}件 </block>
         </view>
         <t-icon name="chevron-right" size="40rpx" color="#BBBBBB" />
       </view>
     </view>
   </view>
+  <!-- 产品描述 -->
   <view class="description">
-    <t-divider content="详情介绍" />
+    <t-divider content="图文详情" />
+    <rich-text nodes="{{product.description}}" space="emsp" />
+  </view>
+  <!-- 购物操作 -->
+  <view class="product-bottom-operation">
+    <buy-bar
+      jumpArray="{{jumpArray}}"
+      soldout="{{soldout}}"
+      isStock="{{isStock}}"
+      shopCartNum="{{cartNum}}"
+      buttonType="{{buttonType}}"
+      bind:toAddCart="toAddCart"
+      bind:toNav="toNav"
+      bind:toBuyNow="buyItNow"
+    />
   </view>
 </view>

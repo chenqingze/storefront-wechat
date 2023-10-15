@@ -8,12 +8,17 @@ Page({
   data: {
     current: 0,
     navigation: { type: 'fraction' },
+    isVariantsSelectPopupShow: false,
+    buyNum: 1,
     pictures: [],
     product: {},
   },
 
   goBack() {
     wx.navigateBack();
+  },
+  onShowVariantsSelectPopup() {
+    this.setData({ isVariantsSelectPopupShow: true });
   },
   /**
    * Lifecycle function--Called when page load
@@ -24,7 +29,6 @@ Page({
     fetchProductDetails(productId).then((product) => {
       // const pictures = product.pictures.map((picture) => `http://localhost:8080/files/${picture.url}`);
       const pictures = [
-        'https://tdesign.gtimg.com/miniprogram/images/cell1.png',
         'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
         'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
       ];

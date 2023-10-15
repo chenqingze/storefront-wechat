@@ -1,5 +1,5 @@
 <!--pages/admin/catalog/product/components/rich-editor/index.wxml-->
-<t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="bottom">
+<t-popup visible="{{show}}" bind:visible-change="onVisibleChange" placement="bottom">
   <view class="block">
     <view class="header">
       <view class="btn btn--cancel" aria-role="button" bind:tap="onDescriptionEditorCancel">取消</view>

@@ -4,7 +4,6 @@
     "option-card": "/pages/admin/catalog/product/variant/components/option-card/index",
     "option-list": "/pages/admin/catalog/product/variant/components/option-list/index",
     "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-popup": "tdesign-miniprogram/popup/popup"
+    "t-button": "tdesign-miniprogram/button/button"
   }
 }

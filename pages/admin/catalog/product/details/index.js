@@ -5,7 +5,7 @@ Page({
    * Page initial data
    */
   data: {
-    visible: false,
+    isDescriptionEditorPopupShow: false,
     fileList: [],
     id: '',
     name: '',
@@ -80,16 +80,16 @@ Page({
   onUploadImageClick(e) {
     console.log(e.detail.file);
   },
-  onOpenDescriptionEditorPopup() {
-    this.setData({ visible: true });
+  onShowDescriptionEditorPopup() {
+    this.setData({ isDescriptionEditorPopupShow: true });
   },
-  onCloseDescriptionEditorPopup() {
-    console.log('onCloseDescriptionEditorPopup');
-    this.setData({ visible: false });
+  onHideDescriptionEditorPopup() {
+    console.log('onHideDescriptionEditorPopup');
+    this.setData({ isDescriptionEditorPopupShow: false });
   },
   onDescriptionEditorConfirm(e) {
     console.log(e);
-    this.setData({ visible: false, description: e.detail });
+    this.setData({ isDescriptionEditorPopupShow: false, description: e.detail });
   },
   onProductTypeChange(e) {
     const { value } = e.detail;

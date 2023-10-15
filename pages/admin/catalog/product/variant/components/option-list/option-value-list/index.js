@@ -8,6 +8,10 @@ Component({
    * Component properties
    */
   properties: {
+    show: {
+      value: false,
+      type: Boolean,
+    },
     option: {
       type: Object,
       value: '',
@@ -118,7 +122,9 @@ Component({
       this.setData({ selectedOptionValueIds, selectedOptionValueLabels, selectedOptionValues });
       // console.log(this.data);
     },
-
+    onHideOptionValuePopup() {
+      this.triggerEvent('hideOptionValuePopupEvent');
+    },
     onSubmit() {
       const { option } = this.data;
       const { selectedOptionValueIds, selectedOptionValueLabels, selectedOptionValues } = this.data;

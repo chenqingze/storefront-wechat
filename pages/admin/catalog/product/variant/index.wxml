@@ -14,17 +14,15 @@
       </view>
     </t-cell>
   </block>
-  <t-cell class="ad-button" title="添加规格" leftIcon="add-circle" bind:tap="onOptionPopup" hover />
+  <t-cell class="ad-button" title="添加规格" leftIcon="add-circle" bind:tap="onShowOptionPopup" hover />
 </view>
 <view class="bottom-button">
   <t-button block size="medium" theme="primary" bind:tap="onSubmit"> 保存 </t-button>
 </view>
-<t-popup visible="{{visible}}" close-btn="{{true}}" placement="bottom" bind:visible-change="onPopupVisibleChange">
-  <option-list
-    selectedOptionList="{{optionList}}"
-    id="optionList"
-    slot="content"
-    bind:closePopupEvent="onClosePopup"
-    bind:optionSelectedEvent="onOptionSelected"
-  />
-</t-popup>
+<option-list
+  id="optionList"
+  show="{{isOptionPopupShow}}"
+  selectedOptionList="{{optionList}}"
+  bind:hideOptionPopupEvent="onHideOptionPopup"
+  bind:optionSelectedEvent="onOptionSelected"
+/>

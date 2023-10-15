@@ -7,19 +7,13 @@ Component({
    * Component properties
    */
   properties: {
-    visible: {
+    show: {
       value: false,
       type: Boolean,
-      observer: function (newVal) {
-        this.setData({ visible: newVal });
-      },
     },
     description: {
       value: '',
       type: String,
-      observer: function (newVal) {
-        this.setData({ description: newVal });
-      },
     },
   },
 
@@ -43,12 +37,12 @@ Component({
       this.setData({ visible: e.detail.visible });
     },
     onDescriptionEditorCancel() {
-      this.triggerEvent('closeDescriptionEditorPopup');
+      this.triggerEvent('hideDescriptionEditorPopupEvent');
     },
     onDescriptionEditorConfirm() {
       this.editorCtx.getContents({
         success: (res) => {
-          this.triggerEvent('descriptionEditorConfirm', res.html);
+          this.triggerEvent('descriptionEditorConfirmEvent', res.html);
         },
         fail: () => {
           console.log('获取editor内容失败！');
@@ -165,11 +159,7 @@ Component({
               // 显示图片
               this.editorCtx.insertImage({
                 src: `http://localhost:8080/files/${image.path}`,
-                data: {
-                  id: 'abcd',
-                  role: 'god',
-                },
-                width: '80%',
+                width: '100%',
                 success: function () {
                   console.log('insert image success');
                 },

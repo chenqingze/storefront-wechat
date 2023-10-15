@@ -1,2 +1,55 @@
 <!--pages/product/details/components/variants-popup/index.wxml-->
-<text>pages/product/details/components/variants-popup/index.wxml</text>
+<t-popup visible="{{show}}" placement="bottom" bind:visible-change="onHideVariantsSelectPopup">
+  <view class="variants-select-container">
+    <view class="popup-close" slot="close-btn" bindtap="onHideVariantsSelectPopup">
+      <t-icon name="close" size="36rpx" />
+    </view>
+    <!-- 产品（变体）名称图片、价格、库存 -->
+    <view class="variant-header">
+      <t-image class="variant-image" />
+      <view class="variant-info">
+        <view>商品变体名称或商品名称</view>
+        <view>¥9999</view>
+      </view>
+    </view>
+
+    <view class="variant-body">
+      <!-- 规格选项 -->
+      <view class="variant-options-container">
+        <view class="option" wx:for="{{allOptions}}" wx:key="id">
+          <view class="option-name">{{item.name}}</view>
+          <block wx:for="{{item.optionValues}}" wx:for-item="optionValue" wx:for-index="optionValueIndex" wx:key="id">
+            <view
+              class="option-value {{optionValue.isSelected ? 'active' : ''}}"
+              data-option-id="{{item.id}}"
+              data-option-value-id="{{optionValue.id}}"
+              data-val="{{optionValue.label}}"
+              bind:tap="onChooseOptionValue"
+            >
+              {{optionValue.label}}
+            </view>
+          </block>
+        </view>
+      </view>
+      <!-- 购买数量 -->
+      <view class="variant-stepper-container">
+        <view class="variant-stepper-title">
+          购买数量
+          <!-- <view class="limit-text" wx:if="{{limitBuyInfo}}"> ({{limitBuyInfo}}) </view> -->
+        </view>
+        <t-stepper
+          class="stepper"
+          value="{{buyNum}}"
+          min="{{1}}"
+          max="{{999}}"
+          theme="outline"
+          t-class-minus="minus"
+          t-class-plus="plus"
+          bind:change="onBuyNumChange"
+        />
+      </view>
+    </view>
+
+    <!-- 购物车/立即购买按钮 -->
+  </view>
+</t-popup>

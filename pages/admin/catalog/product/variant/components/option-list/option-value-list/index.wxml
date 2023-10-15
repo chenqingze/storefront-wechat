@@ -1,12 +1,9 @@
 <!--pages/admin/catalog/product/variant/components/option-value-list/index.wxml-->
-<t-popup
-  visible="{{show}}"
-  close-btn="{{true}}"
-  placement="bottom"
-  prevent-scroll-through="false"
-  bind:visible-change="onHideOptionValuePopup"
->
+<t-popup visible="{{show}}" placement="bottom" bind:visible-change="onHideOptionValuePopup">
   <view class="option-value-list-container">
+    <view class="popup-close" bindtap="onHideOptionValuePopup">
+      <t-icon name="close" size="36rpx" />
+    </view>
     <view class="header">
       <view class="title">选择规格值</view>
       <t-search

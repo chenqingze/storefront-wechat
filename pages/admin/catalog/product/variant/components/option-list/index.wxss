@@ -2,12 +2,19 @@
 .option-list-container {
   height: 95vh;
 }
-.header {
+.option-list-container .popup-close {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 9;
+  color: #999999;
+}
+.option-list-container .header {
   display: block;
   padding: 16rpx 32rpx;
   background-color: #fff;
 }
-.header .title {
+.option-list-container .header .title {
   text-align: center;
   font-size: smaller;
   padding: 20rpx 32rpx;

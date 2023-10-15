@@ -8,6 +8,7 @@
     "t-search": "tdesign-miniprogram/search/search",
     "t-empty": "tdesign-miniprogram/empty/empty",
     "t-button": "tdesign-miniprogram/button/button",
-    "t-input": "tdesign-miniprogram/input/input"
+    "t-input": "tdesign-miniprogram/input/input",
+    "t-icon": "tdesign-miniprogram/icon/icon"
   }
 }

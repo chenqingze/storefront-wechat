@@ -1,1 +1,99 @@
 /* pages/product/details/components/variants-popup/index.wxss */
+.variants-select-container {
+  background-color: #ffffff;
+  position: relative;
+  z-index: 100;
+  border-radius: 16rpx 16rpx 0 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
+  min-height: 450rpx;
+}
+.variants-select-container .popup-close {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 9;
+  color: #999999;
+}
+.variant-header {
+  display: flex;
+  padding: 30rpx 28rpx 0 30rpx;
+}
+.variant-header .variant-image {
+  width: 176rpx;
+  height: 176rpx;
+  border-radius: 8rpx;
+  background: #d8d8d8;
+  margin-right: 24rpx;
+}
+.variant-header .variant-info {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+.variant-body {
+  margin: 0 30rpx 40rpx;
+  max-height: 600rpx;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.variant-body .variant-options-container .option {
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.variant-body .variant-options-container .option .option-name {
+  font-size: 26rpx;
+  color: #333;
+}
+.variant-body .variant-options-container .option .option-value {
+  font-size: 24rpx;
+  color: #333;
+  min-width: 128rpx;
+  height: 56rpx;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  border: 2rpx solid #f5f5f5;
+  margin: 19rpx 26rpx 0 0;
+  padding: 0 16rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.variant-body .variant-options-container .option .option-value.active {
+  border: 2rpx solid #fa4126;
+  color: #fa4126;
+  background: rgba(255, 95, 21, 0.04);
+}
+
+.variant-body .variant-options-container .option .disabled-option-value-selected {
+  background: #f5f5f5 !important;
+  color: #cccccc;
+}
+.variant-body .variant-stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40rpx 0;
+}
+.variant-stepper-container .variant-stepper-title {
+  display: flex;
+  font-size: 26rpx;
+  color: #333;
+}
+.variant-stepper-container .variant-stepper-title .limit-text {
+  margin-left: 10rpx;
+  color: #999999;
+}
+.variant-stepper-container .stepper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 28rpx;
+  height: 48rpx;
+  line-height: 62rpx;
+}
+.variant-stepper-container .stepper .minus {
+  --td-stepper-border-radius: 10%;
+}
+.variant-stepper-container .stepper .plus {
+  --td-stepper-border-radius: 10%;
+}

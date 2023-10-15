@@ -9,22 +9,40 @@ Page({
     current: 0,
     navigation: { type: 'fraction' },
     isVariantsSelectPopupShow: false,
-    buyNum: 1,
+    product: null,
     pictures: [],
-    product: {},
+    buyNum: 1,
+    selectedOptionValueNames: null,
+    selectedVariant: null,
+    showBackTop: false,
   },
-
   goBack() {
     wx.navigateBack();
   },
   onShowVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: true });
   },
+  onHideVariantsSelectPopup() {
+    this.setData({ isVariantsSelectPopupShow: false });
+  },
+
+  onPageScroll: function (e) {
+    console.log(e.scrollTop);
+    if (e.scrollTop > 100) {
+      this.setData({
+        showBackTop: true,
+      });
+    } else {
+      this.setData({
+        showBackTop: false,
+      });
+    }
+  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-    console.log(options);
+    // console.log(options);
     const { productId } = options;
     fetchProductDetails(productId).then((product) => {
       // const pictures = product.pictures.map((picture) => `http://localhost:8080/files/${picture.url}`);
@@ -32,7 +50,9 @@ Page({
         'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
         'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
       ];
-      this.setData({ pictures, product });
+      const defaultVariants = product.variants.find((variant) => variant.defaultVariant === true);
+      const selectedOptionValueNames = defaultVariants.optionValues.map((optionValue) => optionValue.label).join('-');
+      this.setData({ product, pictures, selectedVariant: defaultVariants, selectedOptionValueNames });
       console.log(this.data);
     });
   },

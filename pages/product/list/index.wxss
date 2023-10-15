@@ -41,9 +41,10 @@
   border-bottom: 1px solid #f7f7f7;
 }
 .product-card .img {
-  /* width: 150rpx;
+  width: 150rpx;
   height: 150rpx;
-  border-radius: 8rpx; */
+  border-radius: 8rpx;
+  overflow: hidden;
   margin-right: 20rpx;
 }
 .product-card .info-box {

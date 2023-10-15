@@ -3,8 +3,11 @@
   var haveSelected =function(selectedOptionIds,optionId) { return selectedOptionIds.indexOf(optionId)!== -1; };
   module.exports.haveSelected=haveSelected;
 </wxs>
-<t-popup visible="{{show}}" close-btn="{{true}}" placement="bottom" bind:visible-change="onHideOptionPopup">
+<t-popup visible="{{show}}" placement="bottom" bind:visible-change="onHideOptionPopup">
   <view class="option-list-container">
+    <view class="popup-close" bindtap="onHideOptionPopup">
+      <t-icon name="close" size="36rpx" />
+    </view>
     <view class="header">
       <view class="title">选择规格名</view>
       <t-search

@@ -34,12 +34,19 @@
       <view class="content">
         <view>
           <block wx:if="{{product.productType==='STANDARD'}}">{{buyNum}}件 </block>
-          <block wx:else> {{selectedOptionValue}},{{buyNum}}件 </block>
+          <block wx:else> {{selectedOptionValueNames}},{{buyNum}}件 </block>
         </view>
         <t-icon name="chevron-right" size="40rpx" color="#BBBBBB" />
       </view>
     </view>
+    <variants-select-popup
+      show="{{isVariantsSelectPopupShow}}"
+      product="{{product}}"
+      bind:hideVariantsSelectPopupEvent="onHideVariantsSelectPopup"
+    />
   </view>
+  <!-- 产品评论（暂未实现）-->
+
   <!-- 产品描述 -->
   <view class="description">
     <t-divider content="图文详情" />
@@ -59,3 +66,4 @@
     />
   </view>
 </view>
+<t-back-top wx:if="{{showBackTop}}" theme="half-round"></t-back-top>

@@ -2,6 +2,7 @@
   "navigationBarTitleText": "",
   "navigationStyle": "custom",
   "usingComponents": {
+    "variants-select-popup": "/pages/product/details/components/variants-select-popup/index",
     "buy-bar": "./components/buy-bar/index",
     "t-swiper": "tdesign-miniprogram/swiper/swiper",
     "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
@@ -10,6 +11,7 @@
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-divider": "tdesign-miniprogram/divider/divider",
-    "t-popup": "tdesign-miniprogram/popup/popup"
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-back-top": "tdesign-miniprogram/back-top/back-top"
   }
 }

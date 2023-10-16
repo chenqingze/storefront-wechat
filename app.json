@@ -8,7 +8,8 @@
     "pages/admin/catalog/product/variant/index",
     "pages/admin/catalog/product/variant/variants-details/index",
     "pages/admin/catalog/product/details/index",
-    "pages/product/details/index"
+    "pages/product/details/index",
+    "pages/cart/index"
   ],
   "tabBar": {
     "custom": true,

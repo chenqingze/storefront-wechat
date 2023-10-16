@@ -9,15 +9,27 @@ Page({
     current: 0,
     navigation: { type: 'fraction' },
     isVariantsSelectPopupShow: false,
+    showBackTop: false,
     product: null,
     pictures: [],
     buyNum: 1,
     selectedOptionValueNames: null,
     selectedVariant: null,
-    showBackTop: false,
   },
   goBack() {
     wx.navigateBack();
+  },
+  buyItNow() {
+    this.onShowVariantsSelectPopup(1);
+  },
+  toAddCart() {
+    this.onShowVariantsSelectPopup(2);
+  },
+  toNav(e) {
+    const { url } = e.detail;
+    wx.switchTab({
+      url: url,
+    });
   },
   onShowVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: true });

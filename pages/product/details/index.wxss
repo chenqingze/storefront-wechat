@@ -88,9 +88,38 @@ page {
 }
 .product-bottom-operation {
   position: fixed;
-  left: 0;
   bottom: 0;
   width: 100%;
   background-color: #fff;
   padding-bottom: env(safe-area-inset-bottom);
+  padding: 18rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+.product-bottom-operation .bottom-btn-group {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  flex: 1;
+}
+.icon-btn {
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+.icon-btn .icon-btn-text {
+  font-size: 24rpx;
+  color: #999;
+}
+.product-bottom-operation .add-cart-button {
+  color: #ffffff;
+  font-size: 32rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 88rpx;
+  border-radius: 64rpx;
+  padding: 0 128rpx;
+  margin: 0 32rpx 18rpx;
+  background-color: #0052d9;
 }

@@ -49,7 +49,7 @@
         />
       </view>
     </view>
-
     <!-- 购物车/立即购买按钮 -->
+    <view class="variant-operate-addCart" bind:tap="addCart"> 加入购物车 </view>
   </view>
 </t-popup>

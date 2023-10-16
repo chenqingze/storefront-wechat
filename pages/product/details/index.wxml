@@ -52,18 +52,25 @@
     <t-divider content="图文详情" />
     <rich-text nodes="{{product.description}}" space="emsp" />
   </view>
-  <!-- 购物操作 -->
+  <!-- 底部操作按钮 -->
   <view class="product-bottom-operation">
-    <buy-bar
-      jumpArray="{{jumpArray}}"
-      soldout="{{soldout}}"
-      isStock="{{isStock}}"
-      shopCartNum="{{cartNum}}"
-      buttonType="{{buttonType}}"
-      bind:toAddCart="toAddCart"
-      bind:toNav="toNav"
-      bind:toBuyNow="buyItNow"
-    />
+    <view class="bottom-btn-group">
+      <view class="icon-btn">
+        <t-icon name="home" size="18" />
+        <view class="icon-btn-text">首页</view>
+      </view>
+      <view class="icon-btn">
+        <t-icon name="star" size="18" />
+        <view class="icon-btn-text">收藏</view>
+      </view>
+      <view class="icon-btn">
+        <t-badge count="2" offset="{{ [2, -2] }}" class="wrapper">
+          <t-icon name="cart" size="18" />
+          <view class="icon-btn-text">购物车</view>
+        </t-badge>
+      </view>
+    </view>
+    <view class="add-cart-button"> 加入购物车 </view>
   </view>
 </view>
 <t-back-top wx:if="{{showBackTop}}" theme="half-round"></t-back-top>

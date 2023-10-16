@@ -45,14 +45,14 @@
   height: 150rpx;
   border-radius: 8rpx;
   overflow: hidden;
-  margin-right: 20rpx;
 }
 .product-card .info-box {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  flex: 1;
+  flex: 1 1 auto;
+  margin: 0 0 0 20rpx;
 }
 .info-box .name {
   color: #000;

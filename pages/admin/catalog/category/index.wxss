@@ -1,19 +1,19 @@
-/* pages/setting/catalog/collection/index.wxss */
+/* pages/setting/catalog/category/index.wxss */
 page {
   background-color: #fff;
   /*解决 margin-bottom 失效的问题*/
   padding-bottom: 80rpx;
 }
-.collection-container {
+.category-container {
   display: block;
 }
-.collection-container .empty-wrapper {
+.category-container .empty-wrapper {
   margin-top: 184rpx;
   margin-bottom: 120rpx;
   height: 300rpx;
 }
 
-.collection-container .collection-list-wrapper {
+.category-container .category-list-wrapper {
   background-color: #f2f2f2;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;

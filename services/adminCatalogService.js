@@ -5,21 +5,21 @@ const catalogBaseUrl = `${baseUrl}/catalog`;
 /**
  * 添加产品分类
  */
-const createCollection = (collecctionData) => {
-  return new Request().post(`${catalogBaseUrl}/collections`, collecctionData);
+const createCategory = (collecctionData) => {
+  return new Request().post(`${catalogBaseUrl}/categories`, collecctionData);
 };
 /**
  * 编辑产品分类
  */
-const updateCollection = (collectionId, collecctionData) => {
-  return new Request().put(`${catalogBaseUrl}/collections/${collectionId}`, collecctionData);
+const updateCategory = (categoryId, collecctionData) => {
+  return new Request().put(`${catalogBaseUrl}/categories/${categoryId}`, collecctionData);
 };
 /**
  * 删除产品分类
- * @param {产品分类主键} collectionId
+ * @param {产品分类主键} categoryId
  */
-const deleteCollection = (collectionId) => {
-  return new Request().delete(`${catalogBaseUrl}/collections/${collectionId}`);
+const deleteCategory = (categoryId) => {
+  return new Request().delete(`${catalogBaseUrl}/categories/${categoryId}`);
 };
 /**
  * 添加选项
@@ -84,29 +84,29 @@ const updateProduct = (productId, product) => {
 /**
  * 一次性获取所有分类
  */
-const fetchAllCollectionList = () => {
-  return new Request().get(`${catalogBaseUrl}/collections`);
+const fetchAllCategoryList = () => {
+  return new Request().get(`${catalogBaseUrl}/categories`);
 };
 /**
  * 分页获取分类
  */
-const fetchCollectionList = (page = 0, size = 15) => {
-  return new Request().get(`${catalogBaseUrl}/collections?page=${page}&size=${size}`);
+const fetchCategoryList = (page = 0, size = 15) => {
+  return new Request().get(`${catalogBaseUrl}/categories?page=${page}&size=${size}`);
 };
-const fetchCollectionDetails = (collectionId) => {
-  return new Request().get(`${catalogBaseUrl}/collections/${collectionId}`);
+const fetchCategoryDetails = (categoryId) => {
+  return new Request().get(`${catalogBaseUrl}/categories/${categoryId}`);
 };
 const fetchProductList = (page = 0, size = 15) => {
   return new Request().get(`${catalogBaseUrl}/products?page=${page}&size=${size}`);
 };
 /**
  * 根据产品分类获取产品列表
- * @param {*} collectionId
+ * @param {*} categoryId
  * @param {*} page
  * @param {*} size
  */
-const fetchProductListByCollection = (collectionId, page = 0, size = 15) => {
-  return new Request().get(`${catalogBaseUrl}/collections/${collectionId}/products?page=${page}&size=${size}`);
+const fetchProductListByCategory = (categoryId, page = 0, size = 15) => {
+  return new Request().get(`${catalogBaseUrl}/categories/${categoryId}/products?page=${page}&size=${size}`);
 };
 /**
  * 查询产品详情
@@ -117,12 +117,12 @@ const fetchProductDetails = (productId) => {
 };
 
 export {
-  createCollection,
-  updateCollection,
-  deleteCollection,
-  fetchCollectionDetails,
-  fetchCollectionList,
-  fetchAllCollectionList,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  fetchCategoryDetails,
+  fetchCategoryList,
+  fetchAllCategoryList,
   createOption,
   updateOption,
   deleteOption,
@@ -136,5 +136,5 @@ export {
   updateProduct,
   fetchProductDetails,
   fetchProductList,
-  fetchProductListByCollection,
+  fetchProductListByCategory,
 };

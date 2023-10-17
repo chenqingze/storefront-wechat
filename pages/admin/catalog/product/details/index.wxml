@@ -6,8 +6,8 @@
       <t-input align="right" label="产品名称" model:value="{{name}}" placeholder="请输入" />
       <t-cell
         title="产品分类"
-        note="{{collectionNames.length>0?collectionNames:'请选择(选填)'}}"
-        url="/pages/admin/catalog/collection/index?forSelection=true&collectionIds={{collectionIds}}"
+        note="{{categoryNames.length>0?categoryNames:'请选择(选填)'}}"
+        url="/pages/admin/catalog/category/index?forSelection=true&categoryIds={{categoryIds}}"
         hover
         arrow
       />

@@ -1,9 +1,9 @@
 // pages/setting/catalog/index.js
 
 import {
-  fetchAllCollectionList,
+  fetchAllCategoryList,
   fetchProductList,
-  fetchProductListByCollection,
+  fetchProductListByCategory,
 } from '../../../services/adminCatalogService';
 
 Page({
@@ -15,7 +15,7 @@ Page({
   total: 0,
   last: false,
   data: {
-    collectionList: [{ name: '全部分类', id: '0', path: '/.', displayOrder: 0, parentId: null, visible: true }],
+    categoryList: [{ name: '全部分类', id: '0', path: '/.', displayOrder: 0, parentId: null, visible: true }],
     productList: [],
     sideBarIndex: 0,
     loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,
@@ -70,7 +70,7 @@ Page({
           wx.showToast({ title: '查询失败，请稍候重试', icon: 'error' });
         });
     } else {
-      fetchProductListByCollection(this.data.collectionList[sideBarIndex].id, _pageNum, this.pageSize)
+      fetchProductListByCategory(this.data.categoryList[sideBarIndex].id, _pageNum, this.pageSize)
         .then((result) => {
           // console.log(result);
           const { content, totalElements, last } = result;
@@ -119,9 +119,9 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad() {
-    fetchAllCollectionList().then((result) => {
-      const { collectionList } = this.data;
-      this.setData({ collectionList: collectionList.concat(result) });
+    fetchAllCategoryList().then((result) => {
+      const { categoryList } = this.data;
+      this.setData({ categoryList: categoryList.concat(result) });
       // this.loadData(); // onshow的时候已经查询过了
     });
   },

@@ -1,4 +1,4 @@
-<!--pages/admin/catalog/collection/collection-item/index.wxml-->
+<!--pages/admin/catalog/category/category-item/index.wxml-->
 <t-swipe-cell>
   <t-cell title="{{name}}" bordered="{{true}}" hover />
   <view slot="right" class="btn-wrapper">

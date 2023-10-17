@@ -3,8 +3,8 @@
   "onReachBottomDistance": 300,
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "collection-item": "/pages/admin/catalog/collection/components/collection-item/index",
-    "collection-dialog": "/pages/admin/catalog/collection/components/collection-dialog/index",
+    "category-item": "/pages/admin/catalog/category/components/category-item/index",
+    "category-dialog": "/pages/admin/catalog/category/components/category-dialog/index",
     "t-empty": "tdesign-miniprogram/empty/empty",
     "t-button": "tdesign-miniprogram/button/button",
     "t-loading": "tdesign-miniprogram/loading/loading",

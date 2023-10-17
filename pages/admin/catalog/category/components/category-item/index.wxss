@@ -1,4 +1,4 @@
-/* pages/admin/catalog/collection/collection-item/index.wxss */
+/* pages/admin/catalog/category/category-item/index.wxss */
 
 .btn-wrapper {
   height: 100%;

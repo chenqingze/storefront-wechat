@@ -1,4 +1,4 @@
-/* pages/admin/catalog/collection/components/collection-dialog/index.wxss */
+/* pages/admin/catalog/category/components/category-dialog/index.wxss */
 
 .dialog-input {
   box-sizing: border-box;

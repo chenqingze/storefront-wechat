@@ -2,7 +2,7 @@
 <view class="catalog-container">
   <view class="category-list-wrapper">
     <t-side-bar value="{{sideBarIndex}}" default-value="{{0}}" bind:change="onSideBarChange">
-      <t-side-bar-item wx:for="{{collectionList}}" wx:key="index" value="{{index}}" label="{{item.name}}" />
+      <t-side-bar-item wx:for="{{categoryList}}" wx:key="index" value="{{index}}" label="{{item.name}}" />
     </t-side-bar>
   </view>
   <view class="product-list-wrapper">

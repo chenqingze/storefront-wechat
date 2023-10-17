@@ -1,11 +1,11 @@
 import {
-  createCollection,
-  fetchCollectionDetails,
-  updateCollection,
-  fetchCollectionList,
+  createCategory,
+  fetchCategoryDetails,
+  updateCategory,
+  fetchCategoryList,
 } from '../../../../services/catalogService';
 
-// pages/setting/catalog/collection/index.js
+// pages/setting/catalog/category/index.js
 Page({
   /**
    * Page initial data
@@ -15,9 +15,9 @@ Page({
   total: 0,
   isLast: false,
   data: {
-    selectedCollectionNames: [], // 选中的分类名称
-    selectedCollectionIds: [], // 选中的分类id
-    collectionList: [], // 后端返回的有分类
+    selectedCategoryNames: [], // 选中的分类名称
+    selectedCategoryIds: [], // 选中的分类id
+    categoryList: [], // 后端返回的有分类
     pageLoading: false,
     hasLoaded: false,
     loadMoreStatus: 0, // 0:idle（空闲） 1:loading（加载中）  2:noMoreData（没有更多数据） 3:error（错误加载失败）,    loading: true,
@@ -38,7 +38,7 @@ Page({
         pageLoading: true,
       });
     }
-    const { loadMoreStatus, collectionList } = this.data;
+    const { loadMoreStatus, categoryList } = this.data;
     if (loadMoreStatus === 1) return;
     if (loadMoreStatus !== 0 && reset === false) return;
     this.setData({
@@ -59,11 +59,11 @@ Page({
       pagenationObj.pageNum++;
     }
     // console.log(pagenationObj);
-    fetchCollectionList(pagenationObj.pageNum, pagenationObj.pageSize)
+    fetchCategoryList(pagenationObj.pageNum, pagenationObj.pageSize)
       .then((result) => {
         // console.log(result);
         const { content, totalElements, last } = result;
-        const _collectionList = reset ? content : collectionList.concat(content);
+        const _categoryList = reset ? content : categoryList.concat(content);
         const _loadMoreStatus = last ? 2 : 0;
         this.pageNum = pagenationObj.pageNum;
         this.total = totalElements;
@@ -75,7 +75,7 @@ Page({
           hasLoaded: true,
           loadMoreStatus: _loadMoreStatus,
           loading: false,
-          collectionList: _collectionList,
+          categoryList: _categoryList,
         });
       })
       .catch(() => {
@@ -96,9 +96,9 @@ Page({
   onLoad(options) {
     // console.log(options);
     if (options) {
-      const { forSelection, collectionIds } = options;
-      const selectedCollectionIds = collectionIds ? collectionIds.split(',') : [];
-      this.setData({ forSelection, selectedCollectionIds });
+      const { forSelection, categoryIds } = options;
+      const selectedCategoryIds = categoryIds ? categoryIds.split(',') : [];
+      this.setData({ forSelection, selectedCategoryIds });
       // console.log(this.data);
     }
     this.loadData(true);
@@ -126,7 +126,7 @@ Page({
       return;
     }
     if (mode === 'edit') {
-      fetchCollectionDetails(id).then((data) =>
+      fetchCategoryDetails(id).then((data) =>
         this.setData({
           dialogConfig: {
             visible: true,
@@ -144,29 +144,29 @@ Page({
   onSelectChange(e) {
     // console.log(e);
     const { value } = e.detail;
-    const selectedCollectionNames = [];
-    const selectedItems = this.data.collectionList.filter((item) => value.includes(item.id));
+    const selectedCategoryNames = [];
+    const selectedItems = this.data.categoryList.filter((item) => value.includes(item.id));
     selectedItems.forEach((item) => {
-      selectedCollectionNames.push(item.name);
+      selectedCategoryNames.push(item.name);
     });
-    this.setData({ selectedCollectionNames, selectedCollectionIds: value });
+    this.setData({ selectedCategoryNames, selectedCategoryIds: value });
     // console.log(this.data);
   },
-  confirmSelectedCollection() {
+  confirmSelectedCategory() {
     if (!this.data.forSelection) return;
     const pages = getCurrentPages(); // 获取页面栈
     const prevPage = pages[pages.length - 2]; // 上一个页面
     prevPage.setData({
-      collectionNames: this.data.selectedCollectionNames,
-      collectionIds: this.data.selectedCollectionIds,
+      categoryNames: this.data.selectedCategoryNames,
+      categoryIds: this.data.selectedCategoryIds,
     });
     wx.navigateBack({
       //返回上一页面
       delta: 1,
     });
   },
-  createCollection(e) {
-    createCollection(e.detail)
+  createCategory(e) {
+    createCategory(e.detail)
       .then(() => {
         wx.showToast({ title: '添加成功', icon: 'success' });
         this.setData({ loadMoreStatus: 0 });
@@ -177,9 +177,9 @@ Page({
       });
   },
 
-  updateCollection(e) {
+  updateCategory(e) {
     // console.log(e.detail);
-    updateCollection(e.detail.id, e.detail).then(
+    updateCategory(e.detail.id, e.detail).then(
       () => {
         wx.showToast({ title: '编辑成功', icon: 'success' });
         this.loadData(true);
@@ -220,9 +220,9 @@ Page({
    * Called when page reach bottom
    */
   onReachBottom() {
-    const { collectionList } = this.data;
+    const { categoryList } = this.data;
     const { total = 0 } = this;
-    if (collectionList.length === total) {
+    if (categoryList.length === total) {
       this.setData({
         loadMoreStatus: 2,
       });

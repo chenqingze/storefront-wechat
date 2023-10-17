@@ -1,6 +1,6 @@
-import { deleteCollection } from '../../../../../../services/catalogService';
+import { deleteCategory } from '../../../../../../services/catalogService';
 
-// pages/admin/catalog/collection/collection-item/index.js
+// pages/admin/catalog/category/category-item/index.js
 Component({
   attached: function () {
     // 在组件实例进入页面节点树时执行
@@ -34,7 +34,7 @@ Component({
       this.triggerEvent('openDialog', e);
     },
     onDelete() {
-      deleteCollection(this.data.id).then(wx.showToast({ title: '删除成功', icon: 'success' }));
+      deleteCategory(this.data.id).then(wx.showToast({ title: '删除成功', icon: 'success' }));
     },
   },
 });

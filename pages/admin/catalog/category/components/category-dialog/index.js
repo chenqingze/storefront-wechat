@@ -1,4 +1,4 @@
-// pages/admin/catalog/collection/components/collection-dialog/index.js
+// pages/admin/catalog/category/components/category-dialog/index.js
 Component({
   /**
    * Component properties
@@ -55,13 +55,13 @@ Component({
       }
       if (this.data.operatingMode === 'add') {
         const { name } = this.data;
-        this.triggerEvent('createCollection', { name });
+        this.triggerEvent('createCategory', { name });
         this.setData({ visible: false });
         return;
       }
       if (this.data.operatingMode === 'edit') {
         const { id, name } = this.data;
-        this.triggerEvent('updateCollection', { id, name });
+        this.triggerEvent('updateCategory', { id, name });
         this.setData({ visible: false });
         return;
       }

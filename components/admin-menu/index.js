@@ -25,7 +25,7 @@ Component({
       {
         title: '分类管理',
         icon: 'app',
-        url: '/pages/admin/catalog/collection/index',
+        url: '/pages/admin/catalog/category/index',
       },
       {
         title: '产品详情',

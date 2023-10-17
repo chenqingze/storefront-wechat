@@ -9,8 +9,8 @@ Page({
     fileList: [],
     id: '',
     name: '',
-    collectionNames: [],
-    collectionIds: [],
+    categoryNames: [],
+    categoryIds: [],
     pictures: [],
     description: '',
     brandId: '',
@@ -125,7 +125,7 @@ Page({
     const {
       id,
       name,
-      collectionIds,
+      categoryIds,
       pictures,
       description,
       brandId,
@@ -172,7 +172,7 @@ Page({
     const product = {
       id,
       name,
-      collectionIds,
+      categoryIds,
       pictures,
       description,
       brandId,
@@ -218,7 +218,7 @@ Page({
         const {
           id,
           name,
-          collections = [],
+          categories = [],
           description,
           brand,
           pictures,
@@ -232,11 +232,11 @@ Page({
           options = [],
           variants = [],
         } = product;
-        const collectionNames = [];
-        const collectionIds = [];
-        collections.forEach((item) => {
-          collectionIds.push(item.id);
-          collectionNames.push(item.name);
+        const categoryNames = [];
+        const categoryIds = [];
+        categories.forEach((item) => {
+          categoryIds.push(item.id);
+          categoryNames.push(item.name);
         });
         const optionList = [];
         options.forEach((option) => {
@@ -260,8 +260,8 @@ Page({
         this.setData({
           id,
           name,
-          collectionIds,
-          collectionNames,
+          categoryIds,
+          categoryNames,
           pictures,
           description,
           brandId: brand ? brand.id : '',
@@ -274,7 +274,7 @@ Page({
           cost,
           weight,
           optionList,
-          variantList: variants,
+          variantList: variants ?? [],
         });
       });
     } else {

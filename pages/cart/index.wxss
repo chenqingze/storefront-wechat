@@ -1,1 +1,29 @@
 /* pages/cart/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+.cart-container {
+  width: 100%;
+}
+.bottom-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 100rpx;
+  z-index: 2;
+  background-color: #ffffff;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-bar .checkout-btn {
+  border-radius: 48rpx;
+  color: #ffffff;
+  margin: 0 32rpx;
+  font-size: 32rpx;
+  height: 72rpx;
+  text-align: center;
+  line-height: 68rpx;
+  padding: 0 32rpx;
+  background-color: #0052d9;
+}

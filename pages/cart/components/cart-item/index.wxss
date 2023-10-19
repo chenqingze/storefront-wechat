@@ -1,0 +1,48 @@
+/* pages/cart/components/cart-item/index.wxss */
+.cart-item-checkbox-icon {
+  align-self: center;
+}
+.cart-item-card {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  /* margin: 20rpx;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #f7f7f7; */
+}
+.cart-item-card .img {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.cart-item-card .info-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  margin: 0 0 0 20rpx;
+}
+.info-box .name {
+  color: #000;
+  font-size: 36rpx;
+  line-height: 46rpx;
+}
+.info-box .sale-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.sale-info .cart-item-price {
+  font-size: small;
+}
+.sale-info .cart-item-price .sale-price {
+  color: rgb(199, 25, 25);
+}
+.sale-info .cart-item-price .retail-price {
+  font-size: 0.5rem;
+  text-decoration: line-through;
+  color: #bbbbbb;
+  margin-left: 16rpx;
+}

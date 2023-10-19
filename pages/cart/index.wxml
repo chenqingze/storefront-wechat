@@ -1,2 +1,7 @@
 <!--pages/cart/index.wxml-->
-<text>pages/cart/index.wxml</text>
+<view class="cart-container">
+  <t-checkbox-group value="{{current}}" bind:change="handleGroupChange" style="margin: 0 24rpx">
+    <cart-item wx:for="{{[1,2,3,4,5,6,7,8,9,0]}}" />
+  </t-checkbox-group>
+</view>
+<view class="bottom-bar"> <t-checkbox>全选</t-checkbox> <view class="checkout-btn"> 去结算(2)</view> </view>

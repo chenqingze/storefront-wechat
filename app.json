@@ -23,6 +23,10 @@
         "text": "首页"
       },
       {
+        "pagePath": "pages/cart/index",
+        "text": "购物车"
+      },
+      {
         "pagePath": "pages/order/index",
         "text": "订单"
       }

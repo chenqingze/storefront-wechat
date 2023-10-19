@@ -1,0 +1,16 @@
+<!--pages/cart/components/cart-item/index.wxml-->
+<t-checkbox t-class-icon="cart-item-checkbox-icon" content-disabled="{{true}}">
+  <view class="cart-item-card" slot="content">
+    <t-image class="img" src="https://tdesign.gtimg.com/miniprogram/images/cell1.png" shape="round" mode="aspectFill" />
+    <view class="info-box">
+      <view class="name">{{item.name}}</view>
+      <view class="sale-info">
+        <view class="cart-item-price">
+          <text class="sale-price">¥{{item.salePrice}}</text>
+          <text class="retail-price" wx:if="{{ item.retailPrice }}">¥{{item.retailPrice}}</text>
+        </view>
+        <t-stepper defaultValue="1" max="99" theme="outline" />
+      </view>
+    </view>
+  </view>
+</t-checkbox>

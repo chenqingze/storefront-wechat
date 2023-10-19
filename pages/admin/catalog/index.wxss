@@ -1,7 +1,9 @@
 /* pages/setting/catalog/index.wxss */
 page {
   margin-bottom: 80rpx;
+  background-color: #f2f2f2;
 }
+
 .catalog-container {
   display: flex;
   height: calc(100vh - 80rpx);

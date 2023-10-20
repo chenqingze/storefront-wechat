@@ -43,8 +43,10 @@
         <view class="info-box">
           <view class="name">{{item.name}}</view>
           <view class="sale-info">
-            <text class="sale-price" wx:if="{{ item.salePrice }}">¥{{item.salePrice}}</text>
-            <text class="retail-price" wx:if="{{ item.retailPrice }}">¥{{item.retailPrice}}</text>
+            <view class="product-price">
+              <text class="sale-price" wx:if="{{ item.salePrice }}">¥{{item.salePrice}}</text>
+              <text class="retail-price" wx:if="{{ item.retailPrice }}">¥{{item.retailPrice}}</text>
+            </view>
           </view>
         </view>
       </view>

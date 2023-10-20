@@ -30,10 +30,10 @@ Page({
   onSubmit() {
     // console.log(this.data);
     const { variantList } = this.data;
-    if (variantList.some((variant) => !variant.salePrice || isNaN(variant.salePrice))) {
-      wx.showToast({ title: '请配置规格明细！', icon: 'warning' });
-      return;
-    }
+    // if (variantList.some((variant) => !variant.retailPrice || isNaN(variant.retailPrice))) {
+    //   wx.showToast({ title: '请配置规格明细市场价！', icon: 'warning' });
+    //   return;
+    // }
     const pages = getCurrentPages(); // 获取页面栈
     const prevPage = pages[pages.length - 2]; // 上一个页面
     prevPage.setData({ variantList });

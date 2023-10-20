@@ -18,14 +18,14 @@
     <!-- 产品信息 -->
     <view class="product-info">
       <view class="product-title">
-        <view class="product-name">{{product.name}}</view>
+        <view class="product-name">{{name}}</view>
         <view class="product-share">
           <t-button open-type="share" size="extra-small" shape="round" icon="share-1" theme="light">分享</t-button>
         </view>
       </view>
       <view class="product-price">
-        <text class="sale-price">¥{{product.salePrice}}</text>
-        <text class="retail-price" wx:if="{{product.retailPrice}}">¥{{product.retailPrice}}</text>
+        <text class="sale-price">¥{{salePrice?salePrice:retailPrice}}</text>
+        <text class="retail-price" wx:if="{{retailPrice}}">¥{{retailPrice}}</text>
       </view>
     </view>
     <!-- 产品选项 -->
@@ -33,7 +33,7 @@
       <view class="label">已选</view>
       <view class="content">
         <view>
-          <block wx:if="{{product.productType==='STANDARD'}}">{{buyNum}}件 </block>
+          <block wx:if="{{productType==='STANDARD'}}">{{buyNum}}件 </block>
           <block wx:else> {{selectedOptionValueNames}},{{buyNum}}件 </block>
         </view>
         <t-icon name="chevron-right" size="40rpx" color="#BBBBBB" />
@@ -43,6 +43,7 @@
       show="{{isVariantsSelectPopupShow}}"
       product="{{product}}"
       bind:hideVariantsSelectPopupEvent="onHideVariantsSelectPopup"
+      bind:selectedOptionValueForVariantEvent="selectedOptionValueForVariant"
     />
   </view>
   <!-- 产品评论（暂未实现）-->

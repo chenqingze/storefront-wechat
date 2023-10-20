@@ -39,7 +39,7 @@
       >
         <t-image
           class="img"
-          src="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
+          src="{{product.primaryPicture?product.primaryPicture:'https://tdesign.gtimg.com/miniprogram/images/cell1.png'}}"
           shape="round"
           mode="aspectFill"
         />

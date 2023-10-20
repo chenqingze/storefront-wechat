@@ -23,9 +23,12 @@ Component({
    */
   data: {
     productType: 'STANDARD',
+    primaryPicture: '',
+    name: '',
+    salePrice: null,
+    retailPrice: null,
     allOptions: [],
     allOptionValues: [],
-    defaultVariant: null,
     selectedVariant: null,
     selectedOptionValues: [],
   },
@@ -47,66 +50,87 @@ Component({
       return newArray;
     },
     initData(product) {
-      const { productType, variants, options } = product;
-      let allOptionValues = [];
-      // 根据variant获取所有的的规格值
-      variants.forEach((variant) => {
-        const _optionValues = [...variant.optionValues];
-        allOptionValues = allOptionValues.concat(_optionValues);
-      });
-      // 规格值去重
-      allOptionValues = this.distinctOptionValues(allOptionValues);
-      // 获取默认选中的variant
-      const defaultVariant = variants.filter((variant) => variant.defaultVariant).at(0);
-      const defaultSelectedOptionValueIds = defaultVariant.optionValues.map((optionValue) => optionValue.id);
-      allOptionValues.forEach((optionValue) => {
-        if (defaultSelectedOptionValueIds.includes(optionValue.id)) {
-          optionValue.isSelected = true;
-        } else {
-          optionValue.isSelected = false;
-        }
-      });
-      // 拼装所有规格
-      const allOptions = [...options];
-      allOptions.forEach((option) => {
-        const _optionValues = [];
+      const { productType, variants, options, name, primaryPicture, salePrice, retailPrice } = product;
+      if (product.productType === 'STANDARD') {
+        this.setData({ productType, name, primaryPicture, salePrice, retailPrice });
+      } else if (product.productType === 'VARIANT_BASED') {
+        let allOptionValues = [];
+        // 根据variant获取所有的的规格值
+        variants.forEach((variant) => {
+          const _optionValues = [...variant.optionValues];
+          allOptionValues = allOptionValues.concat(_optionValues);
+        });
+        // 规格值去重
+        allOptionValues = this.distinctOptionValues(allOptionValues);
+        // 获取默认选中的variant
+        const selectedVariant = { ...variants.at(0) };
+        const defaultSelectedOptionValueIds = selectedVariant.optionValues.map((optionValue) => optionValue.id);
         allOptionValues.forEach((optionValue) => {
-          if (optionValue.optionId === option.id) {
-            _optionValues.push(optionValue);
+          if (defaultSelectedOptionValueIds.includes(optionValue.id)) {
+            optionValue.isSelected = true;
+          } else {
+            optionValue.isSelected = false;
           }
         });
-        option.optionValues = _optionValues;
-      });
-      this.setData({
-        productType,
-        allOptions,
-        allOptionValues,
-        defaultVariant,
-        selectedVariant: defaultVariant,
-        selectedOptionValues: defaultVariant.optionValues,
-      });
+        // 拼装所有规格
+        const allOptions = [...options];
+        allOptions.forEach((option) => {
+          const _optionValues = [];
+          allOptionValues.forEach((optionValue) => {
+            if (optionValue.optionId === option.id) {
+              _optionValues.push(optionValue);
+            }
+          });
+          option.optionValues = _optionValues;
+        });
+        this.setData({
+          productType,
+          allOptions,
+          allOptionValues,
+          selectedVariant,
+          primaryPicture,
+          name: selectedVariant.name ? selectedVariant.name : name,
+          salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,
+          retailPrice: selectedVariant.retailPrice ? selectedVariant.retailPrice : retailPrice,
+          selectedOptionValues: [...selectedVariant.optionValues],
+        });
+      }
     },
     onChooseOptionValue(e) {
-      console.log(this.data);
+      const { name, salePrice, retailPrice } = this.data.product;
       const { optionId, optionValueId } = e.currentTarget.dataset;
-      const _allOptions = this.data.allOptions;
-      let _selectedOptionValue;
-      const _selectedOptionIndex = _allOptions.findIndex((option) => option.id === optionId);
-      _allOptions.at(_selectedOptionIndex).optionValues.forEach((optionValue) => {
+      const { allOptions } = this.data;
+      let selectedOptionValue;
+      const selectedOptionIndex = allOptions.findIndex((option) => option.id === optionId);
+      allOptions.at(selectedOptionIndex).optionValues.forEach((optionValue) => {
         if (optionValue.id === optionValueId) {
           optionValue.isSelected = true;
-          _selectedOptionValue = optionValue;
+          selectedOptionValue = optionValue;
         } else {
           optionValue.isSelected = false;
         }
       });
-      const _selectedOptionValues = this.data.selectedOptionValues;
-      const _selectedOptionValuesIndex = _selectedOptionValues.findIndex(
+      const { selectedOptionValues } = this.data;
+      const selectedOptionValuesIndex = selectedOptionValues.findIndex(
         (selectedOptionValue) => selectedOptionValue.optionId === optionId,
       );
-      _selectedOptionValues[_selectedOptionValuesIndex] = _selectedOptionValue;
-      this.setData({ allOptions: _allOptions, selectedOptionValues: _selectedOptionValues });
-      console.log(this.data);
+      selectedOptionValues[selectedOptionValuesIndex] = selectedOptionValue;
+      // 查找默认选择的variant
+      const selectedOptionValueIds = selectedOptionValues.map((selectedOptionValue) => selectedOptionValue.id);
+      const selectedVariant = this.data.product.variants.find((_variant) => {
+        const variantOptionValueIds = _variant.optionValues.map((optionValue) => optionValue.id);
+        return variantOptionValueIds.every((optionValueId) => selectedOptionValueIds.includes(optionValueId));
+      });
+      this.setData({
+        allOptions,
+        selectedOptionValues,
+        name: selectedVariant.name ? selectedVariant.name : name,
+        salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,
+        retailPrice: selectedVariant.retailPrice ? selectedVariant.retailPrice : retailPrice,
+        selectedOptionValues: [...selectedVariant.optionValues],
+      });
+      this.triggerEvent('selectedOptionValueForVariantEvent', selectedVariant);
+      // console.log(this.data);
     },
     onHideVariantsSelectPopup() {
       this.triggerEvent('hideVariantsSelectPopupEvent');

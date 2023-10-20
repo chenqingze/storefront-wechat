@@ -63,13 +63,17 @@ page {
   justify-content: space-between;
   width: 100%;
 }
-.sale-info .sale-price {
+.sale-info .product-price {
+  font-size: small;
+}
+.sale-info .product-price .sale-price {
   color: rgb(199, 25, 25);
 }
-.sale-info .retail-price {
+.sale-info .product-price .retail-price {
   font-size: 0.5rem;
   text-decoration: line-through;
   color: #bbbbbb;
+  margin-left: 16rpx;
 }
 .bottom-button {
   width: 100%;

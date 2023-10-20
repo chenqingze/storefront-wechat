@@ -6,10 +6,10 @@
     </view>
     <!-- 产品（变体）名称图片、价格、库存 -->
     <view class="variant-header">
-      <t-image class="variant-image" />
+      <t-image class="variant-image" src="{{primaryPicture.url}}" />
       <view class="variant-info">
-        <view>商品变体名称或商品名称</view>
-        <view>¥9999</view>
+        <view>{{name}}</view>
+        <view>{{salePrice?salePrice:retailPrice}}</view>
       </view>
     </view>
 

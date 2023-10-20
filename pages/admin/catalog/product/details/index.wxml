@@ -57,25 +57,25 @@
       <block wx:if="{{productType==='STANDARD'}}">
         <t-input
           align="right"
-          label="卖价"
+          label="市场价"
           type="number"
           suffix="元"
           placeholder="(必填)"
-          model:value="{{salePrice}}"
-          data-key="salePrice"
-          bindchange="onPriceInput"
-          tips="{{salePriceError ? '请输入正确的价格' : ''}}"
-        />
-        <t-input
-          align="right"
-          label="划线价"
-          type="number"
-          suffix="元"
-          placeholder="0.00"
           model:value="{{retailPrice}}"
           data-key="retailPrice"
           bindchange="onPriceInput"
           tips="{{retailPriceError ? '请输入正确的价格' : ''}}"
+        />
+        <t-input
+          align="right"
+          label="销售价"
+          type="number"
+          suffix="元"
+          placeholder="0.00"
+          model:value="{{salePrice}}"
+          data-key="salePrice"
+          bindchange="onPriceInput"
+          tips="{{salePriceError ? '请输入正确的价格' : ''}}"
         />
         <t-input
           align="right"
@@ -91,6 +91,52 @@
         <t-input
           align="right"
           label="重量"
+          type="number"
+          suffix="KG"
+          placeholder="请输入(选填)"
+          model:value="{{weight}}"
+          data-key="weight"
+          bindchange="onPriceInput"
+          tips="{{weightError ? '请输入正确的重量' : ''}}"
+        />
+      </block>
+      <block wx:if="{{productType==='VARIANT_BASED'}}">
+        <t-input
+          align="right"
+          label="默认市场价"
+          type="number"
+          suffix="元"
+          placeholder="(必填)"
+          model:value="{{retailPrice}}"
+          data-key="retailPrice"
+          bindchange="onPriceInput"
+          tips="{{retailPriceError ? '请输入正确的价格' : ''}}"
+        />
+        <t-input
+          align="right"
+          label="默认销售价"
+          type="number"
+          suffix="元"
+          placeholder="0.00"
+          model:value="{{salePrice}}"
+          data-key="salePrice"
+          bindchange="onPriceInput"
+          tips="{{salePriceError ? '请输入正确的价格' : ''}}"
+        />
+        <t-input
+          align="right"
+          label="默认成本价"
+          type="number"
+          suffix="元"
+          placeholder="0.00"
+          model:value="{{cost}}"
+          data-key="cost"
+          bindchange="onPriceInput"
+          tips="{{costError ? '请输入正确的价格' : ''}}"
+        />
+        <t-input
+          align="right"
+          label="默认重量"
           type="number"
           suffix="KG"
           placeholder="请输入(选填)"

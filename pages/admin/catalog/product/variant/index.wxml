@@ -10,7 +10,7 @@
     <t-cell bind:tap="onVaraintsConfig" hover arrow>
       <view class="cell-content-wrapper" slot="title">
         <view class="label">规格明细</view>
-        <view class="value">{{variantList.length>0?'已设置,点击查看':'请选择'}}</view>
+        <view class="value">请设置(可选)</view>
       </view>
     </t-cell>
   </block>

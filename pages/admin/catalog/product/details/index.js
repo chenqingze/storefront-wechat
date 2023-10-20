@@ -7,7 +7,7 @@ Page({
   data: {
     isDescriptionEditorPopupShow: false,
     fileList: [],
-    id: '',
+    id: undefined,
     name: '',
     categoryNames: [],
     categoryIds: [],
@@ -93,7 +93,8 @@ Page({
   },
   onProductTypeChange(e) {
     const { value } = e.detail;
-    const productType = value ? 'VARIANT_BASED' : 'STANDARD';
+    console.log(e.detail);
+    const productType = value;
     // 控制数据完整性
     if (value) {
       this.setData({ salePrice: '', retailPrice: '', cost: '', weight: '' });
@@ -150,8 +151,8 @@ Page({
         wx.showToast({ title: '请填写产品名称！', icon: 'warning' });
         return;
       }
-      if (!salePrice) {
-        wx.showToast({ title: '请配填写产品售价！', icon: 'warning' });
+      if (!retailPrice) {
+        wx.showToast({ title: '请配填写产品市场价！', icon: 'warning' });
         return;
       }
     }

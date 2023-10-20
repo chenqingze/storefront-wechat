@@ -13,6 +13,9 @@ Page({
     product: null,
     pictures: [],
     buyNum: 1,
+    name: '',
+    retailPrice: '',
+    salePrice: '',
     selectedOptionValueNames: null,
     selectedVariant: null,
   },
@@ -37,9 +40,33 @@ Page({
   onHideVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: false });
   },
-
+  selectedOptionValueForVariant(e) {
+    const { productType, name, pictures, salePrice, retailPrice } = this.data.product;
+    // console.log(e);
+    const selectedVariant = e.detail;
+    // const pictures = product.pictures.map((picture) => `http://localhost:8080/files/${picture.url}`);
+    const _pictures =
+      selectedVariant.pictures && selectedVariant.pictures.length > 0
+        ? selectedVariant.pictures
+        : pictures && pictures.length > 0
+        ? pictures
+        : [
+            'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+            'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
+          ];
+    const selectedOptionValueNames = selectedVariant.optionValues.map((optionValue) => optionValue.label).join('-');
+    this.setData({
+      productType,
+      pictures: _pictures,
+      selectedVariant,
+      name: selectedVariant.name ? selectedVariant.name : name,
+      salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,
+      retailPrice: selectedVariant.retailPrice ? selectedVariant.retailPrice : retailPrice,
+      selectedOptionValueNames,
+    });
+  },
   onPageScroll: function (e) {
-    console.log(e.scrollTop);
+    // console.log(e.scrollTop);
     if (e.scrollTop > 100) {
       this.setData({
         showBackTop: true,
@@ -57,15 +84,39 @@ Page({
     // console.log(options);
     const { productId } = options;
     fetchProductDetails(productId).then((product) => {
-      // const pictures = product.pictures.map((picture) => `http://localhost:8080/files/${picture.url}`);
-      const pictures = [
-        'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
-        'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
-      ];
-      const defaultVariants = product.variants.find((variant) => variant.defaultVariant === true);
-      const selectedOptionValueNames = defaultVariants.optionValues.map((optionValue) => optionValue.label).join('-');
-      this.setData({ product, pictures, selectedVariant: defaultVariants, selectedOptionValueNames });
-      console.log(this.data);
+      const { productType, variants, name, pictures, salePrice, retailPrice } = product;
+      if (productType === 'STANDARD') {
+        // todo:删掉测试图片链接，使用珍珠的图片链接
+        const _pictures = [
+          'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+          'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
+        ];
+        this.setData({ product, productType, name, pictures: _pictures, salePrice, retailPrice });
+      } else if (productType === 'VARIANT_BASED') {
+        const selectedVariant = variants.at(0);
+        // const pictures = product.pictures.map((picture) => `http://localhost:8080/files/${picture.url}`);
+        const _pictures =
+          selectedVariant.pictures && selectedVariant.pictures.length > 0
+            ? selectedVariant.pictures
+            : pictures && pictures.length > 0
+            ? pictures
+            : [
+                'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png',
+                'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png',
+              ];
+        const selectedOptionValueNames = selectedVariant.optionValues.map((optionValue) => optionValue.label).join('-');
+        this.setData({
+          product,
+          productType,
+          pictures: _pictures,
+          selectedVariant,
+          name: selectedVariant.name ? selectedVariant.name : name,
+          salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,
+          retailPrice: selectedVariant.retailPrice ? selectedVariant.retailPrice : retailPrice,
+          selectedOptionValueNames,
+        });
+      }
+      // console.log(this.data);
     });
   },
 

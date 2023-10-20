@@ -108,7 +108,7 @@ Page({
         this.setData({
           product,
           productType,
-          pictures: _pictures,
+          pictures: _picture,
           selectedVariant,
           name: selectedVariant.name ? selectedVariant.name : name,
           salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,

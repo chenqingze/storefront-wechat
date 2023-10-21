@@ -15,6 +15,10 @@ Component({
           this.initData(product);
         }
       },
+      quantity: {
+        type: Number,
+        value: 1,
+      },
     },
   },
 
@@ -97,6 +101,8 @@ Component({
       }
     },
     onChooseOptionValue(e) {
+      // 修改默认数量
+      this.onBuyQuantityChange(1);
       const { name, salePrice, retailPrice } = this.data.product;
       const { optionId, optionValueId } = e.currentTarget.dataset;
       const { allOptions } = this.data;
@@ -135,11 +141,18 @@ Component({
     onHideVariantsSelectPopup() {
       this.triggerEvent('hideVariantsSelectPopupEvent');
     },
-    onBuyNumChange(e) {
-      const { value } = e.detail;
+    onBuyQuantityChange(e) {
+      console.log(e);
+      let value;
+      if (e.type && e.type === 'change') {
+        value = e.detail.value;
+      } else {
+        value = e;
+      }
       this.setData({
-        buyNum: value,
+        quantity: value,
       });
+      this.triggerEvent('buyQuantityChangeEvent', value);
     },
   },
 });

@@ -12,7 +12,7 @@ Page({
     showBackTop: false,
     product: null,
     pictures: [],
-    buyNum: 1,
+    quantity: 1,
     name: '',
     retailPrice: '',
     salePrice: '',
@@ -39,6 +39,10 @@ Page({
   },
   onHideVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: false });
+  },
+  onBuyQuantityChange(e) {
+    const quantity = e.detail;
+    this.setData({ quantity });
   },
   selectedOptionValueForVariant(e) {
     const { productType, name, pictures, salePrice, retailPrice } = this.data.product;
@@ -108,7 +112,7 @@ Page({
         this.setData({
           product,
           productType,
-          pictures: _picture,
+          pictures: _pictures,
           selectedVariant,
           name: selectedVariant.name ? selectedVariant.name : name,
           salePrice: selectedVariant.salePrice ? selectedVariant.salePrice : salePrice,

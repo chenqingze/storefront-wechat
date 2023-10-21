@@ -39,13 +39,13 @@
         </view>
         <t-stepper
           class="stepper"
-          value="{{buyNum}}"
+          value="{{quantity}}"
           min="{{1}}"
           max="{{999}}"
           theme="outline"
           t-class-minus="minus"
           t-class-plus="plus"
-          bind:change="onBuyNumChange"
+          bind:change="onBuyQuantityChange"
         />
       </view>
     </view>

@@ -1,2 +1,6 @@
 <!--pages/order/index.wxml-->
 <text>pages/order/index.wxml</text>
+<button bind:tap="getUserProfile"> 获取头像昵称 </button>
+<button open-type="getUserInfo" bind:getuserinfo="getUserInfo"> 获取头像昵称 </button>
+<button open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">获取手机号</button>
+<button open-type="getRealtimePhoneNumber" bindgetrealtimephonenumber="getrealtimephonenumber">获取手实时机号</button>

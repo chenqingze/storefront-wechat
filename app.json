@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/product/list/index",
+    "pages/cart/index",
+    "pages/my/index",
     "pages/order/index",
     "pages/admin/catalog/index",
     "pages/admin/catalog/category/index",
@@ -8,8 +10,7 @@
     "pages/admin/catalog/product/variant/index",
     "pages/admin/catalog/product/variant/variants-details/index",
     "pages/admin/catalog/product/details/index",
-    "pages/product/details/index",
-    "pages/cart/index"
+    "pages/product/details/index"
   ],
   "tabBar": {
     "custom": true,
@@ -27,8 +28,8 @@
         "text": "购物车"
       },
       {
-        "pagePath": "pages/order/index",
-        "text": "订单"
+        "pagePath": "pages/my/index",
+        "text": "我的"
       }
     ]
   },

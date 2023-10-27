@@ -1,0 +1,4 @@
+<!--pages/my/index.wxml-->
+<text>pages/my/index.wxml</text>
+<button class="login-btn" open-type="getPhoneNumber" bindgetphonenumber="">手机授权登录</button>
+<button class="login-btn" bind:tap="">授权登录</button>

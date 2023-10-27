@@ -1,0 +1,30 @@
+/* components/login-popup/index.wxss */
+.login-container {
+  background-color: #ffffff;
+  position: relative;
+  z-index: 100;
+  border-radius: 16rpx 16rpx 0 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
+  min-height: 450rpx;
+}
+.login-container .popup-close {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  z-index: 999;
+  color: #999999;
+}
+.login-container .logo {
+  width: 100%;
+  text-align: center;
+}
+.login-container .login-btn {
+  border-radius: 48rpx;
+  color: #ffffff;
+  margin: 0 32rpx 32rpx;
+  font-size: 32rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 88rpx;
+  background-color: #0052d9;
+}

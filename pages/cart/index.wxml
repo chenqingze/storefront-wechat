@@ -5,3 +5,4 @@
   </t-checkbox-group>
 </view>
 <view class="bottom-bar"> <t-checkbox>全选</t-checkbox> <view class="checkout-btn"> 去结算(2)</view> </view>
+<login-popup />

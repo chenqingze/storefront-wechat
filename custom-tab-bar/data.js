@@ -10,8 +10,8 @@ export default [
     url: 'pages/cart/index',
   },
   {
-    icon: 'order-ascending',
-    text: '订单',
-    url: 'pages/order/index',
+    icon: 'user',
+    text: '我的',
+    url: 'pages/my/index',
   },
 ];

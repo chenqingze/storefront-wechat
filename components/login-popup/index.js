@@ -34,10 +34,10 @@ Component({
           success() {
             //session_key 未过期，并且在本生命周期一直有效
             wechatLogin(getPhoneNumberCode)
-              .then((userInfo) =>
-                // wx.setStorageSync('logs', logs);
-                console.log(userInfo),
-              )
+              .then((userInfo) => {
+                wx.setStorageSync('userInfo', JSON.stringify(userInfo));
+                console.log(userInfo);
+              })
               .catch((err) => console.error(err));
           },
           fail() {

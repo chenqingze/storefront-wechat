@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "购物车",
   "usingComponents": {
-    "login-popup": "/components/login-popup/index",
     "cart-item": "/pages/cart/components/cart-item/index",
     "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
     "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group"

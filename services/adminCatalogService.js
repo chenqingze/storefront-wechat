@@ -1,6 +1,6 @@
 import { baseUrl } from '../config/index';
 import { Request } from '../utils/request';
-const catalogBaseUrl = `${baseUrl}/catalog`;
+const catalogBaseUrl = `${baseUrl}/admin/catalog`;
 
 /**
  * 添加产品分类

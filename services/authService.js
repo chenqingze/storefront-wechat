@@ -7,4 +7,8 @@ const wechatLogin = (code) => {
   return new Request().get(`${authBaseUrl}/login?code=${code}`);
 };
 
-export { wechatLogin };
+const checkXAuthToken = (xAuthToken) => {
+  return new Request().get(`${authBaseUrl}/checkXAuthToken?xAuthToken=${xAuthToken}`);
+};
+
+export { wechatLogin, checkXAuthToken };

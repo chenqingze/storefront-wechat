@@ -1,3 +1,4 @@
+import { addItemToCart } from '../../../services/cartService';
 import { fetchProductDetails } from '../../../services/catalogService';
 
 // pages/catalog/details/index.js
@@ -12,7 +13,7 @@ Page({
     showBackTop: false,
     product: null,
     pictures: [],
-    quantity: 1,
+    quantity: 1, // 选择购买的数量
     name: '',
     retailPrice: '',
     salePrice: '',
@@ -22,17 +23,36 @@ Page({
   goBack() {
     wx.navigateBack();
   },
-  buyItNow() {
-    this.onShowVariantsSelectPopup(1);
-  },
-  toAddCart() {
-    this.onShowVariantsSelectPopup(2);
-  },
   toNav(e) {
     const { url } = e.detail;
     wx.switchTab({
       url: url,
     });
+  },
+  onAddItemToCart(e) {
+    console.log(e.type !== 'addItemToCartEvent');
+    const { product } = this.data;
+    // 判断是否显示VariantsSelectPopup
+    if (product.productType === 'VARIANT_BASED' && e.type !== 'addItemToCartEvent') {
+      this.onShowVariantsSelectPopup();
+      return;
+    }
+    // 提交加入购物车请求
+    if (product.productType === 'STANDARD') {
+      const cartId = getApp().getUserInfo().userId;
+      const productId = product.id;
+      const { quantity } = this.data;
+      const cartItem = { cartId, productId, variantId: null, quantity };
+      // 直接加入购物车
+      addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
+    } else if (product.productType === 'VARIANT_BASED') {
+      const cartId = getApp().getUserInfo().userId;
+      const productId = product.id;
+      const variantId = this.data.selectedVariant.id;
+      const { quantity } = this.data;
+      const cartItem = { cartId, productId, variantId, quantity };
+      addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
+    }
   },
   onShowVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: true });
@@ -44,7 +64,7 @@ Page({
     const quantity = e.detail;
     this.setData({ quantity });
   },
-  selectedOptionValueForVariant(e) {
+  onSelectedOptionValueForVariant(e) {
     const { productType, name, pictures, salePrice, retailPrice } = this.data.product;
     // console.log(e);
     const selectedVariant = e.detail;
@@ -86,6 +106,7 @@ Page({
    */
   onLoad(options) {
     // console.log(options);
+    // 查询商品详情
     const { productId } = options;
     fetchProductDetails(productId).then((product) => {
       const { productType, variants, name, pictures, salePrice, retailPrice } = product;

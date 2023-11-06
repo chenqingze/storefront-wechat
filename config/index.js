@@ -20435,7 +20435,8 @@ export const areaData = [
   },
 ];
 
-export const baseUrl = 'http://10.0.0.6:8080';
+// export const baseUrl = 'http://10.0.0.6:8080';
+export const baseUrl = 'http://localhost:8080';
 
 export const env = {
   // 开发版

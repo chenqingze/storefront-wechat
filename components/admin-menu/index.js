@@ -1,5 +1,10 @@
 // components/setting-menu/index.js
 Component({
+  attached: function () {
+    // 注册监听器函数
+    getApp().registerListener(this.checkAdminButtonShowStatus.bind(this));
+    this.checkAdminButtonShowStatus();
+  },
   /**
    * Component properties
    */
@@ -9,6 +14,7 @@ Component({
    * Component initial data
    */
   data: {
+    show: false,
     placement: 'left',
     sidebar: [],
     menuItems: [
@@ -39,6 +45,10 @@ Component({
    * Component methods
    */
   methods: {
+    checkAdminButtonShowStatus() {
+      console.log(getApp().globalData);
+      this.setData({ show: getApp().globalData.isLogined && getApp().globalData.isAdmin });
+    },
     openAdminMenu() {
       this.setData({
         visible: true,

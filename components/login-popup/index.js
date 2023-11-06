@@ -1,11 +1,11 @@
 import { wechatLogin } from '../../services/authService';
-
+import { fetchCartItemTotalQuantity } from '../../services/cartService';
 // components/login-popup/index.js
 Component({
   attached: function () {
     // 注册监听器函数
-    getApp().registerListener(this.onLoginStatusChange.bind(this));
-    this.onLoad();
+    this.checkLoginPopupShowStatus();
+    getApp().registerListener(this.checkLoginPopupShowStatus.bind(this));
   },
   /**
    * Component properties
@@ -23,9 +23,6 @@ Component({
    * Component methods
    */
   methods: {
-    onLoad() {
-      this.setData({ show: !getApp().globalData.isLogined });
-    },
     bindPhoneNumberAndLogin(e) {
       const getPhoneNumberCode = e.detail.code;
       if (getPhoneNumberCode) {
@@ -36,6 +33,11 @@ Component({
             wechatLogin(getPhoneNumberCode)
               .then((userInfo) => {
                 wx.setStorageSync('userInfo', JSON.stringify(userInfo));
+                getApp().globalData.isLogined = true;
+                getApp().triggerListeners();
+                fetchCartItemTotalQuantity(userInfo.userId).then(
+                  (cartItemTotalQuantity) => (getApp().globalData.cartItemTotalQuantity = cartItemTotalQuantity),
+                );
                 that.setData({ show: false });
                 console.log(userInfo);
               })
@@ -51,8 +53,13 @@ Component({
                   wechatLogin(getPhoneNumberCode)
                     .then((userInfo) => {
                       wx.setStorageSync('userInfo', JSON.stringify(userInfo));
-                      getApp.globalData.isLogined = true;
+                      getApp().globalData.isLogined = true;
+                      getApp().triggerListeners();
+                      fetchCartItemTotalQuantity(userInfo.userId).then(
+                        (cartItemTotalQuantity) => (getApp().globalData.cartItemTotalQuantity = cartItemTotalQuantity),
+                      );
                       console.log(userInfo);
+                      that.setData({ show: false });
                     })
                     .catch((err) => console.error(err));
                 } else {
@@ -68,7 +75,7 @@ Component({
         });
       }
     },
-    onLoginStatusChange() {
+    checkLoginPopupShowStatus() {
       console.log('测试。。。。');
       this.setData({ show: !getApp().globalData.isLogined });
     },

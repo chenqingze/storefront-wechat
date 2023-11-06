@@ -1,5 +1,11 @@
 <!--components/setting-menu/index.wxml-->
-<t-fab icon="system-setting" bind:click="openAdminMenu" aria-label="设置" style="bottom: 240rpx"></t-fab>
+<t-fab
+  wx:if="{{show}}"
+  icon="system-setting"
+  bind:click="openAdminMenu"
+  aria-label="设置"
+  style="bottom: 240rpx"
+></t-fab>
 
 <t-drawer
   visible="{{visible}}"

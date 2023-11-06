@@ -1,10 +1,13 @@
 import { baseUrl } from '../config/index';
 import { Request } from '../utils/request';
 const cartBaseUrl = `${baseUrl}/carts`;
+const fetchCartItemTotalQuantity = (cartId) => {
+  return new Request().get(`${cartBaseUrl}/${cartId}/total-quantity`);
+};
 const fetchCartItemList = (cartId) => {
   return new Request().get(`${cartBaseUrl}/${cartId}/items`);
 };
-const createCartItem = (cartItem) => {
+const addItemToCart = (cartId, cartItem) => {
   return new Request().post(`${cartBaseUrl}/${cartId}/items`, cartItem);
 };
 const deleteCartItem = (cartItemId) => {
@@ -14,4 +17,4 @@ const updateCartItemQuantity = (quantity) => {
   return new Request().put(`${cartBaseUrl}/${cartId}/items/${cartItemId}`, quantity);
 };
 
-export { fetchCartItemList, createCartItem, deleteCartItem, updateCartItemQuantity };
+export { fetchCartItemTotalQuantity, fetchCartItemList, addItemToCart, deleteCartItem, updateCartItemQuantity };

@@ -1,4 +1,5 @@
 // pages/admin/catalog/product/variant/index.js
+const { cartesian } = require('../../../../../utils/util');
 Page({
   /**
    * Page initial data
@@ -53,8 +54,19 @@ Page({
       optionList = this.data.optionList;
     }
     // console.log(optionList);
-    // 规格变动，更新规格，清空规格明细variantList
-    this.setData({ optionList, variantList: [] });
+    const optionValuesCartesian = cartesian(...optionList.map((item) => item.optionValues));
+    const variantList = optionValuesCartesian.map((item) => {
+      // console.log(item);
+      return {
+        salePrice: '',
+        retailPrice: '',
+        cost: '',
+        weight: '',
+        optionValues: optionList.length === 1 ? [item] : item,
+      };
+    });
+    // 规格变动，更新规格，重新生成规格明细（清空规格明细）variantList
+    this.setData({ optionList, variantList });
   },
 
   onDeleteOption(e) {
@@ -74,7 +86,7 @@ Page({
   },
 
   onSubmit() {
-    // console.log(this.data);
+    console.log(this.data);
     const { variantList, optionList } = this.data;
     if (optionList.length !== 0 && variantList.length === 0) {
       wx.showToast({ title: '请确保信息完善正确！', icon: 'warning' });

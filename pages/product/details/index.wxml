@@ -59,21 +59,22 @@
         <view class="icon-btn-text">收藏</view>
       </view>
       <view class="icon-btn">
-        <t-badge count="2" offset="{{ [2, -2] }}" class="wrapper">
+        <t-badge count="{{allQuantity}}" offset="{{ [2, -2] }}" class="wrapper">
           <t-icon name="cart" size="18" />
           <view class="icon-btn-text">购物车</view>
         </t-badge>
       </view>
     </view>
-    <view class="add-cart-button"> 加入购物车 </view>
+    <view class="add-cart-button" bind:tap="onAddItemToCart"> 加入购物车 </view>
   </view>
 </view>
 <t-back-top wx:if="{{showBackTop}}" theme="half-round"></t-back-top>
 <variants-select-popup
   show="{{isVariantsSelectPopupShow}}"
   product="{{product}}"
-  quantity="{{quantity}}"
+  buyQuantity="{{quantity}}"
   bind:buyQuantityChangeEvent="onBuyQuantityChange"
   bind:hideVariantsSelectPopupEvent="onHideVariantsSelectPopup"
-  bind:selectedOptionValueForVariantEvent="selectedOptionValueForVariant"
+  bind:selectedOptionValueForVariantEvent="onSelectedOptionValueForVariant"
+  bind:addItemToCartEvent="onAddItemToCart"
 />

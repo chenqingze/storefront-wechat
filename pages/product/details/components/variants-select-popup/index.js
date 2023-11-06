@@ -15,10 +15,10 @@ Component({
           this.initData(product);
         }
       },
-      quantity: {
-        type: Number,
-        value: 1,
-      },
+    },
+    buyQuantity: {
+      type: Number,
+      value: 1,
     },
   },
 
@@ -150,9 +150,13 @@ Component({
         value = e;
       }
       this.setData({
-        quantity: value,
+        buyQuantity: value,
       });
       this.triggerEvent('buyQuantityChangeEvent', value);
+    },
+    onAddItemToCart() {
+      this.triggerEvent('addItemToCartEvent');
+      this.setData({ show: false });
     },
   },
 });

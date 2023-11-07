@@ -13,8 +13,5 @@ const addItemToCart = (cartId, cartItem) => {
 const deleteCartItem = (cartItemId) => {
   return new Request().delete(`${cartBaseUrl}/${cartId}/items/${cartItemId}`);
 };
-const updateCartItemQuantity = (quantity) => {
-  return new Request().put(`${cartBaseUrl}/${cartId}/items/${cartItemId}`, quantity);
-};
 
-export { fetchCartItemTotalQuantity, fetchCartItemList, addItemToCart, deleteCartItem, updateCartItemQuantity };
+export { fetchCartItemTotalQuantity, fetchCartItemList, addItemToCart, deleteCartItem };

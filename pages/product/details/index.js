@@ -30,6 +30,10 @@ Page({
     });
   },
   onAddItemToCart(e) {
+    const isLogined = this.selectComponent('#loginPopup').checkLoginStatus();
+    if (!isLogined) {
+      return;
+    }
     console.log(e.type !== 'addItemToCartEvent');
     const { product } = this.data;
     // 判断是否显示VariantsSelectPopup
@@ -40,17 +44,16 @@ Page({
     // 提交加入购物车请求
     if (product.productType === 'STANDARD') {
       const cartId = getApp().getUserInfo().userId;
-      const productId = product.id;
+      const variantId = product.defaultVariantId;
       const { quantity } = this.data;
-      const cartItem = { cartId, productId, variantId: null, quantity };
+      const cartItem = { cartId, variantId, quantity };
       // 直接加入购物车
       addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
     } else if (product.productType === 'VARIANT_BASED') {
       const cartId = getApp().getUserInfo().userId;
-      const productId = product.id;
       const variantId = this.data.selectedVariant.id;
       const { quantity } = this.data;
-      const cartItem = { cartId, productId, variantId, quantity };
+      const cartItem = { cartId, variantId, quantity };
       addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
     }
   },

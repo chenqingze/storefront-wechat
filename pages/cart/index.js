@@ -4,7 +4,6 @@ Page({
    * Page initial data
    */
   data: {},
-
   /**
    * Lifecycle function--Called when page load
    */
@@ -20,6 +19,10 @@ Page({
    */
   onShow() {
     this.getTabBar().init();
+    const isLogined = this.selectComponent('#loginPopup').checkLoginStatus();
+    if (!isLogined) {
+      return;
+    }
   },
 
   /**

@@ -78,3 +78,4 @@
   bind:selectedOptionValueForVariantEvent="onSelectedOptionValueForVariant"
   bind:addItemToCartEvent="onAddItemToCart"
 />
+<login-popup id="loginPopup" />

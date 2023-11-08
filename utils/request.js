@@ -29,10 +29,10 @@ export class Request {
       //   title: 'title',
       //   mask: true,
       // });
-      const token = getApp().getToken();
+      const accessToken = getApp().getAccessToken();
       const defaultHeader = { 'content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' };
-      const header = token ? Object.assign({ 'X-Auth-Token': token }, defaultHeader) : defaultHeader;
-      console.log(header);
+      const header = accessToken ? Object.assign({ 'X-Auth-Token': accessToken }, defaultHeader) : defaultHeader;
+      // console.log(header);
       this.requestTask = wx.request({
         method,
         url,

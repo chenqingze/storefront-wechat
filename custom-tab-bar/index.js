@@ -14,7 +14,6 @@ Component({
           : `/${this.data.list[event.detail.value].url}`,
       });
     },
-
     init() {
       const page = getCurrentPages().pop();
       const route = page ? page.route.split('?')[0] : '';

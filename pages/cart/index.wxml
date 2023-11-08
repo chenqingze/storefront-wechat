@@ -1,8 +1,15 @@
 <!--pages/cart/index.wxml-->
 <view class="cart-container">
-  <t-checkbox-group value="{{current}}" bind:change="handleGroupChange" style="margin: 0 24rpx">
-    <cart-item wx:for="{{[1,2,3,4,5,6,7,8,9,0]}}" />
+  <t-checkbox-group value="{{selectedItemIndex}}" bind:change="onCheckboxSelectChange">
+    <block wx:for="{{cartItemList}}" wx:key="index">
+      <t-checkbox value="{{index}}" t-class-icon="cart-item-checkbox-icon" content-disabled="{{true}}">
+        <cart-item cartItem="{{item}}" itemIndex="{{index}}" bind:quantityChangeEvent="onQuantityChange" />
+      </t-checkbox>
+    </block>
+    <view class="bottom-bar">
+      <t-checkbox check-all="{{true}}">全选</t-checkbox> <view class="checkout-btn"> 去结算({{totalQuantity}})</view>
+    </view>
   </t-checkbox-group>
 </view>
-<view class="bottom-bar"> <t-checkbox>全选</t-checkbox> <view class="checkout-btn"> 去结算(2)</view> </view>
+
 <login-popup id="loginPopup" failUrl="/pages/product/list/index" type="switchTab" />

@@ -1,7 +1,5 @@
 /* pages/cart/components/cart-item/index.wxss */
-.cart-item-checkbox-icon {
-  align-self: center;
-}
+
 .cart-item-card {
   display: flex;
   flex-flow: row nowrap;

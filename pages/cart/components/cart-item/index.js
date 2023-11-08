@@ -3,7 +3,14 @@ Component({
   /**
    * Component properties
    */
-  properties: {},
+  properties: {
+    cartItem: {
+      type: Object,
+    },
+    itemIndex: {
+      type: Number,
+    },
+  },
 
   /**
    * Component initial data
@@ -13,5 +20,11 @@ Component({
   /**
    * Component methods
    */
-  methods: {},
+  methods: {
+    onQuantityChange(e) {
+      const { index } = e.currentTarget.dataset;
+      const { value } = e.detail;
+      this.triggerEvent('quantityChangeEvent', { index, value });
+    },
+  },
 });

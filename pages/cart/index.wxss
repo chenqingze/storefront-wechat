@@ -5,6 +5,9 @@ page {
 .cart-container {
   width: 100%;
 }
+.cart-item-checkbox-icon {
+  align-self: center;
+}
 .bottom-bar {
   width: 100%;
   position: fixed;

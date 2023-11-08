@@ -1,13 +1,54 @@
+import { fetchCartItemList, updateCartItem } from '../../services/cartService';
+
 // pages/cart/index.js
 Page({
   /**
    * Page initial data
    */
-  data: {},
+  data: {
+    selectedItemIndex: [],
+    totalQuantity: 0,
+    cartItemList: [],
+  },
+  onQuantityChange(e) {
+    const { index, value } = e.detail;
+    this.data.cartItemList[index].quantity = value;
+    const totalQuantity = this.data.selectedItemIndex.reduce(
+      (accumulator, currentIdx) => accumulator + this.data.cartItemList[currentIdx].quantity,
+      0,
+    );
+    this.setData({ totalQuantity });
+    const { variantId, quantity } = this.data.cartItemList[index];
+    // console.log(variantId);
+    const cartId = getApp().getUserInfo().userId;
+    updateCartItem(cartId, variantId, { variantId, quantity }).then();
+  },
+  onCheckboxSelectChange(e) {
+    const selectedItemIndex = e.detail.value.filter((value) => !['', null, undefined, NaN].includes(value));
+    const totalQuantity = selectedItemIndex.reduce(
+      (accumulator, currentIdx) => accumulator + this.data.cartItemList[currentIdx].quantity,
+      0,
+    );
+    // console.log('===selectedItemIndex==totalQuantity=', selectedItemIndex, totalQuantity);
+    this.setData({ selectedItemIndex, totalQuantity });
+  },
+  loadData(page, size) {
+    const cartId = getApp().getUserInfo().userId;
+    fetchCartItemList(cartId, page, size).then((res) => this.setData({ cartItemList: res.content ?? [] }));
+  },
+  initData() {
+    const { isLogined } = getApp().globalData;
+    if (!isLogined) {
+      return;
+    }
+    this.loadData();
+  },
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad() {},
+  onLoad() {
+    getApp().registerListener(this.initData.bind(this));
+  },
 
   /**
    * Lifecycle function--Called when page is initially rendered
@@ -23,6 +64,8 @@ Page({
     if (!isLogined) {
       return;
     }
+    // console.log('======isLogined========', isLogined);
+    this.loadData();
   },
 
   /**

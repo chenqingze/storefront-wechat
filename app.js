@@ -1,10 +1,10 @@
 // app.js
 import updateManager from './common/updateManager';
 import { fetchCartItemTotalQuantity } from './services/cartService';
-import { checkXAuthToken } from '/services/authService';
+import { checkAccessToken } from '/services/authService';
 App({
-  onLaunch() {
-    this.checkToken().then((userInfo) => {
+  async onLaunch() {
+    await this.checkAccessToken().then((userInfo) => {
       fetchCartItemTotalQuantity(userInfo.userId).then(
         (cartItemTotalQuantity) => (this.globalData.cartItemTotalQuantity = cartItemTotalQuantity),
       );
@@ -31,34 +31,36 @@ App({
       listeners[i]();
     }
   },
-  checkToken: function () {
+  checkAccessToken: function () {
     return new Promise((resolve, reject) => {
-      const token = this.getToken();
+      const accessToken = this.getAccessToken();
       // 检查token 是否存在
-      if (!token) {
+      if (!accessToken) {
         this.globalData.isLogined = false;
         reject();
         return;
       }
       // 检查token是否过期
-      checkXAuthToken(token)
+      checkAccessToken(accessToken)
         .then(() => {
-          // xAuthToken没过期
+          // access_token没过期
           // do nothing
-          console.log('========xAuthToken没过期');
+          // console.log('========access_token没过期');
           this.globalData.isLogined = true;
           resolve(this.getUserInfo());
         })
         .catch((err) => {
-          console.log('===xAuthToken过期，显示授权登录=====', err);
-          // xAuthToken过期，删除本地用户信息
+          // console.log('===access_token过期，显示授权登录=====', err);
+          // access_token过期，删除本地用户信息
           wx.removeStorageSync('userInfo');
           // 访问需要认证的页面需要弹出显示授权登录
           this.globalData.isLogined = false;
-          reject();
+          reject(err);
         });
     });
   },
   getUserInfo: () => (wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')) : undefined),
-  getToken: () => (wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')).xAuthToken : undefined),
+  getAccessToken: () => {
+    return wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')).accessToken : undefined;
+  },
 });

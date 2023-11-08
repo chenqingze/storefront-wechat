@@ -1,7 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
     "t-image": "tdesign-miniprogram/image/image",
     "t-stepper": "tdesign-miniprogram/stepper/stepper"
   }

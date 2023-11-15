@@ -1,0 +1,14 @@
+<!--pages/order/components/product-card/index.wxml-->
+<view class="product-card">
+  <t-image
+    class="img"
+    src="{{product.primaryPicture?product.primaryPicture:'https://tdesign.gtimg.com/miniprogram/images/cell1.png'}}"
+    shape="round"
+    mode="aspectFill"
+  />
+  <view class="product-name">产品名称</view>
+  <view class="buy-info">
+    <view class="unit-price">¥700W</view>
+    <view class="quantity">x2</view>
+  </view>
+</view>

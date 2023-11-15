@@ -1,0 +1,77 @@
+page {
+  background-color: #f5f5f5;
+}
+.address-flex-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.address-detail {
+  font-size: 30rpx;
+  margin-top: 32rpx;
+}
+.t-cell__title {
+  width: 144rpx;
+  padding-right: 32rpx;
+  flex: none !important;
+}
+.textarea__wrapper {
+  width: 100%;
+}
+.textarea__wrapper .t-textarea {
+  padding: 0 !important;
+}
+.address__tag {
+  justify-content: flex-start !important;
+}
+.form-address .label-list {
+  background: #f5f5f5;
+  color: #333;
+  min-width: 100rpx;
+  margin-right: 32rpx;
+  font-size: 26rpx;
+  border: 2rpx solid transparent;
+  width: auto;
+}
+.form-address .label-list::after {
+  content: none;
+}
+.form-address .active-btn {
+  color: #0052d9;
+  border: 2rpx solid #d9e1ff;
+  background: rgba(255, 95, 21, 0.04);
+}
+.form-address .active-btn::after {
+  border: 4rpx solid #d9e1ff;
+}
+.submit {
+  box-sizing: border-box;
+  padding: 64rpx 30rpx 88rpx 30rpx;
+}
+.bottom-fixed {
+  border-top: 1rpx solid #e5e5e5;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx 32rpx calc(env(safe-area-inset-bottom) + 12rpx) 32rpx;
+}
+.dialog__button-confirm {
+  color: #0052d9 !important;
+}
+.form-address .form-content {
+  --td-input-vertical-padding: 0;
+}
+
+.dialog__input {
+  margin-top: 32rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  --td-input-vertical-padding: 12px;
+  --td-input-bg-color: #f3f3f3;
+}

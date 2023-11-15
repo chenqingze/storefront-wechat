@@ -1,6 +1,22 @@
 <!--pages/order/index.wxml-->
-<text>pages/order/index.wxml</text>
-<button bind:tap="getUserProfile"> 获取头像昵称 </button>
-<button open-type="getUserInfo" bind:getuserinfo="getUserInfo"> 获取头像昵称 </button>
-<button open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">获取手机号</button>
-<button open-type="getRealtimePhoneNumber" bindgetrealtimephonenumber="getrealtimephonenumber">获取手实时机号</button>
+<t-navbar title="订单" left-arrow bind:go-back="handleBack" />
+<t-tabs defaultValue="{{0}}">
+  <t-tab-panel label="全部" value="0" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />
+  <t-tab-panel label="待付款" value="1" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />
+  <t-tab-panel label="待配送" value="2" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />
+  <t-tab-panel label="待收货" value="3" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />
+  <t-tab-panel label="已完成" value="4" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />
+</t-tabs>
+<t-pull-down-refresh
+  id="pull-down-refresh"
+  normal-bar-height="{{200}}"
+  max-bar-height="{{272}}"
+  refreshTimeout="{{3000}}"
+  background="#f5f5f5"
+  use-loading-slot
+  loading-size="60rpx"
+  bindrefresh="onPullDownRefresh_"
+  t-class-indicator="t-class-indicator"
+>
+  <order-card wx:for="{{[1,2,3,4,5,6]}}"></order-card>
+</t-pull-down-refresh>

@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "product-cart": "/pages/order/components/product-card/index",
+    "t-button": "tdesign-miniprogram/button/button"
+  }
+}

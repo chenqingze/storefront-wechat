@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "t-image": "tdesign-miniprogram/image/image",
-    "t-stepper": "tdesign-miniprogram/stepper/stepper"
+    "t-stepper": "tdesign-miniprogram/stepper/stepper",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog"
   }
 }

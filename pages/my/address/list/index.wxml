@@ -1,0 +1,31 @@
+<view class="address-container">
+  <view class="address-list" wx:if="{{addressList.length > 0}}">
+    <block wx:for="{{addressList}}" wx:for-index="index" wx:for-item="address" wx:key="addressId">
+      <t-cell-group theme="card">
+        <t-swipe-cell address="{{address}}" data-id="{{address.id}}">
+          <t-cell title="左滑单操作" note="辅助信息" bordered="{{false}}">
+            <t-button theme="default" icon="edit-2" slot="note" shape="square" size="medium" bind:tap="onEditAddress" />
+          </t-cell>
+          <view slot="right" class="btn delete-btn" bind:tap="onDeleteAddress">删除</view>
+        </t-swipe-cell>
+      </t-cell-group>
+    </block>
+  </view>
+  <view wx:else class="no-address">
+    <t-empty icon="" description="暂无收货地址，赶快添加吧" />
+  </view>
+  <view class="bottom-fixed">
+    <t-button
+      theme="primary"
+      size="medium"
+      shape="round"
+      block
+      bind:tap="createHandle"
+      disabled="{{addressList.length >= 20}}"
+    >
+      新增收货地址
+    </t-button>
+    <view class="footer" wx:if="{{addressList.length >= 20}}">最多支持添加20个收货地址</view>
+  </view>
+</view>
+<t-toast id="t-toast" />

@@ -1,0 +1,29 @@
+<!--pages/order/components/order-card/index.wxml-->
+<view class="order-card">
+  <view class="order-status">
+    <text>2023-12-10 10:10:10</text>
+    <text>已付款</text>
+  </view>
+  <view class="product-list">
+    <product-cart></product-cart>
+  </view>
+  <view class="total-price-info">
+    <text>总价</text>
+    <text>¥ 1000W </text>
+    <text>，运费</text>
+    <text>¥ 0.1 </text>
+    <text decode>&nbsp;</text>
+    <text class="bold-price" decode="{{true}}">实付&nbsp;</text>
+    <text class="real-pay">¥ 1000W </text>
+  </view>
+  <view class="operate-btns">
+    <block>
+      <t-button class="btn" size="extra-small" theme="light" shape="round">取消订单</t-button>
+      <t-button class="btn" size="extra-small" theme="primary" shape="round">去支付</t-button>
+    </block>
+    <block wx:if="{{false}}">
+      <t-button class="btn" size="extra-small" theme="light" shape="round">删除订单</t-button>
+      <t-button class="btn" size="extra-small" theme="primary" shape="round">再次购买</t-button>
+    </block>
+  </view>
+</view>

@@ -14,7 +14,7 @@
         </block>
       </view>
       <t-stepper
-        defaultValue="{{cartItem.quantity}}"
+        value="{{quantity}}"
         max="999"
         theme="outline"
         data-index="{{itemIndex}}"
@@ -23,3 +23,4 @@
     </view>
   </view>
 </view>
+<t-dialog id="t-dialog" />

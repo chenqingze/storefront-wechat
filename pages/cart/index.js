@@ -1,5 +1,4 @@
-import { fetchCartItemList, updateCartItem } from '../../services/cartService';
-
+import { deleteCartItem, fetchCartItemList, updateCartItem } from '../../services/cartService';
 // pages/cart/index.js
 Page({
   /**
@@ -9,6 +8,10 @@ Page({
     selectedItemIndex: [],
     totalQuantity: 0,
     cartItemList: [],
+  },
+  onCheckout() {
+    // const { selectedItemIndex, cartItemList } = this.data;
+    // const selectedItem = selectedItemIndex.map((index) => cartItemList[index]);
   },
   onQuantityChange(e) {
     const { index, value } = e.detail;
@@ -21,7 +24,12 @@ Page({
     const { variantId, quantity } = this.data.cartItemList[index];
     // console.log(variantId);
     const cartId = getApp().getUserInfo().userId;
-    updateCartItem(cartId, variantId, { variantId, quantity }).then();
+    if (value === 0) {
+      deleteCartItem(cartId, variantId).then(() => this.loadData());
+    }
+    if (value > 0) {
+      updateCartItem(cartId, variantId, { variantId, quantity }).then();
+    }
   },
   onCheckboxSelectChange(e) {
     const selectedItemIndex = e.detail.value.filter((value) => !['', null, undefined, NaN].includes(value));
@@ -49,12 +57,10 @@ Page({
   onLoad() {
     getApp().registerListener(this.initData.bind(this));
   },
-
   /**
    * Lifecycle function--Called when page is initially rendered
    */
   onReady() {},
-
   /**
    * Lifecycle function--Called when page show
    */
@@ -67,7 +73,6 @@ Page({
     // console.log('======isLogined========', isLogined);
     this.loadData();
   },
-
   /**
    * Lifecycle function--Called when page hide
    */

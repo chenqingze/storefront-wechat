@@ -1,5 +1,4 @@
 <!--components/login-popup/index.wxml-->
-<!--pages/product/details/components/variants-popup/index.wxml-->
 <t-popup visible="{{show}}" placement="bottom" bind:visible-change="onHideLoginPopup">
   <view class="login-container">
     <view class="popup-close" slot="close-btn" bindtap="onHideLoginPopup">
@@ -8,8 +7,8 @@
     <view class="logo">
       <t-avatar image="/assets/logo.jpeg" size="128px" />
     </view>
-    <button class="login-btn" open-type="getPhoneNumber" bind:getphonenumber="bindPhoneNumberAndLogin"
-      >微信一键授权登录</button
-    >
+    <button class="login-btn" open-type="getPhoneNumber" bind:getphonenumber="bindPhoneNumberAndLogin">
+      微信一键授权登录
+    </button>
   </view>
 </t-popup>

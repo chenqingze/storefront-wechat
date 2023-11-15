@@ -7,7 +7,8 @@
       </t-checkbox>
     </block>
     <view class="bottom-bar">
-      <t-checkbox check-all="{{true}}">全选</t-checkbox> <view class="checkout-btn"> 去结算({{totalQuantity}})</view>
+      <t-checkbox check-all="{{true}}">全选</t-checkbox>
+      <view class="checkout-btn" bind:tap="onCheckout"> 去结算({{totalQuantity}})</view>
     </view>
   </t-checkbox-group>
 </view>

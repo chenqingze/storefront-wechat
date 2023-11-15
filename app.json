@@ -10,7 +10,10 @@
     "pages/admin/catalog/product/variant/index",
     "pages/admin/catalog/product/variant/variants-details/index",
     "pages/admin/catalog/product/details/index",
-    "pages/product/details/index"
+    "pages/product/details/index",
+    "pages/order/order-confirm/index",
+    "pages/my/address/details/index",
+    "pages/my/address/list/index"
   ],
   "tabBar": {
     "custom": true,
@@ -35,7 +38,9 @@
   },
   "requiredPrivateInfos": ["chooseAddress"],
   "lazyCodeLoading": "requiredComponents",
-  "usingComponents": { "login-popup": "/components/login-popup/index" },
+  "usingComponents": {
+    "login-popup": "/components/login-popup/index"
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

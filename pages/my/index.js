@@ -4,6 +4,16 @@ Page({
    * Page initial data
    */
   data: {},
+  navToOrder() {
+    wx.navigateTo({
+      url: '/pages/order/index',
+    });
+  },
+  navToAddress() {
+    wx.navigateTo({
+      url: '/pages/my/address/list/index',
+    });
+  },
   /**
    * Lifecycle function--Called when page load
    */

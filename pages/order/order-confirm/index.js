@@ -1,13 +1,16 @@
-// pages/order/index.js
+// pages/order/order-confirm/index.js
 Page({
   /**
    * Page initial data
    */
   data: {},
+
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad() {},
+  onLoad(options) {
+    console.log(options);
+  },
 
   /**
    * Lifecycle function--Called when page is initially rendered

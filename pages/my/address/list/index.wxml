@@ -1,12 +1,27 @@
 <view class="address-container">
   <view class="address-list" wx:if="{{addressList.length > 0}}">
-    <block wx:for="{{addressList}}" wx:for-index="index" wx:for-item="address" wx:key="addressId">
+    <block wx:for="{{addressList}}" wx:for-index="index" wx:for-item="address" wx:key="id">
       <t-cell-group theme="card">
         <t-swipe-cell address="{{address}}" data-id="{{address.id}}">
-          <t-cell title="左滑单操作" note="辅助信息" bordered="{{false}}">
-            <t-button theme="default" icon="edit-2" slot="note" shape="square" size="medium" bind:tap="onEditAddress" />
+          <t-cell
+            description="{{address.name+' '+address.phoneNumber}}"
+            title="{{address.provinceName+address.cityName+(address.countyName?address.countyName:'')+(address.townName?address.townName:'')+(address.villageName?address.villageName:'')+address.detailAddress}}"
+            bordered="{{false}}"
+          >
+            <t-button
+              theme="light"
+              icon="edit-2"
+              slot="right-icon"
+              shape="square"
+              variant="text"
+              size="medium"
+              data-address-id="{{address.id}}"
+              bind:tap="onEditAddress"
+            />
           </t-cell>
-          <view slot="right" class="btn delete-btn" bind:tap="onDeleteAddress">删除</view>
+          <view slot="right" class="btn delete-btn" data-address-id="{{address.id}}" bind:tap="onDeleteAddress"
+            >删除</view
+          >
         </t-swipe-cell>
       </t-cell-group>
     </block>

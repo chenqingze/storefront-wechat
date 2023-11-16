@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchDeliveryAddressList } from '../../../../services/customerService';
+import { fetchAllDeliveryAddressList, removeDeliveryAddress } from '../../../../services/customerService';
 
 Page({
   data: {
@@ -26,9 +26,9 @@ Page({
   },
   loadData() {
     const customerId = getApp().getUserInfo().userId;
-    fetchDeliveryAddressList(customerId).then((addressList) => {
+    fetchAllDeliveryAddressList(customerId).then((addressList) => {
       addressList.forEach((address) => {
-        if (address.id === id) {
+        if (address.defaultAddress) {
           address.checked = true;
         }
       });
@@ -91,16 +91,13 @@ Page({
     }
   },
   onDeleteAddress(e) {
-    const { id } = e.currentTarget.dataset;
-    this.setData({
-      addressList: this.data.addressList.filter((address) => address.id !== id),
-      deleteID: '',
-      showDeleteConfirm: false,
-    });
+    const customerId = getApp().getUserInfo().userId;
+    const { addressId } = e.currentTarget.dataset;
+    removeDeliveryAddress(customerId, addressId).then();
   },
-  onEditAddress({ detail }) {
-    const { id } = detail || {};
-    wx.navigateTo({ url: `/pages/my/address/detials/index?id=${id}` });
+  onEditAddress(e) {
+    const { addressId } = e.currentTarget.dataset;
+    wx.navigateTo({ url: `/pages/my/address/detials/index?id=${addressId}` });
   },
   selectHandle({ detail }) {
     if (this.selectMode) {

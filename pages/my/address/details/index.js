@@ -1,4 +1,6 @@
-import { areaData } from '../../../../config/index';
+import { regionData } from '../../../../config/index';
+import { addDeliveryAddress } from '../../../../services/customerService';
+import Toast from 'tdesign-miniprogram/toast/index';
 
 const innerPhoneReg = '^1(?:3\\d|4[4-9]|5[0-35-9]|6[67]|7[0-8]|8\\d|9\\d)\\d{8}$';
 const innerNameReg = '^[a-zA-Z\\d\\u4e00-\\u9fa5]+$';
@@ -12,49 +14,43 @@ Page({
     multipleSlots: true,
   },
   data: {
-    locationState: {
+    address: {
       labelIndex: null,
-      addressId: '',
-      addressTag: '',
-      cityCode: '',
-      cityName: '',
+      id: '',
+      name: '',
+      phoneNumber: '',
       countryCode: '',
       countryName: '',
-      detailAddress: '',
-      districtCode: '',
-      districtName: '',
-      isDefault: false,
-      name: '',
-      phone: '',
       provinceCode: '',
       provinceName: '',
-      isEdit: false,
-      isOrderDetail: false,
-      isOrderSure: false,
+      cityCode: '',
+      cityName: '',
+      countyCode: '',
+      countyName: '',
+      detailAddress: '',
+      tag: '',
+      defaultAddress: false,
     },
-    areaData: areaData,
+    regionData: regionData,
     labels: labelsOptions,
-    areaPickerVisible: false,
+    regionPickerVisible: false,
     submitActive: false,
     visible: false,
     labelValue: '',
     columns: 3,
   },
   privateData: {
-    verifyTips: '',
+    verifyTips: '请完善信息后保存！',
   },
   onLoad(options) {
     const { id } = options;
-    this.init(id);
-  },
-  init(id) {
     if (id) {
-      this.getAddressDetail(Number(id));
+      this.getAddressDetail(id);
     }
   },
   getAddressDetail(id) {
     fetchDeliveryAddress(id).then((detail) => {
-      this.setData({ locationState: detail }, () => {
+      this.setData({ address: detail }, () => {
         const { isLegal, tips } = this.onVerifyInputLegal();
         this.setData({
           submitActive: isLegal,
@@ -67,47 +63,40 @@ Page({
     const { item } = e.currentTarget.dataset;
     if (item === 'address') {
       const { selectedOptions = [] } = e.detail;
-      this.setData(
-        {
-          'locationState.provinceCode': selectedOptions[0].value,
-          'locationState.provinceName': selectedOptions[0].label,
-          'locationState.cityName': selectedOptions[1].label,
-          'locationState.cityCode': selectedOptions[1].value,
-          'locationState.districtCode': selectedOptions[2].value,
-          'locationState.districtName': selectedOptions[2].label,
-          areaPickerVisible: false,
-        },
-        () => {
-          const { isLegal, tips } = this.onVerifyInputLegal();
-          this.setData({
-            submitActive: isLegal,
-          });
-          this.privateData.verifyTips = tips;
-        },
-      );
+      this.setData({
+        'address.provinceCode': selectedOptions[0].value,
+        'address.provinceName': selectedOptions[0].label,
+        'address.cityName': selectedOptions[1].label,
+        'address.cityCode': selectedOptions[1].value,
+        'address.countyCode': selectedOptions[2].value,
+        'address.countyName': selectedOptions[2].label,
+        regionPickerVisible: false,
+      });
+      const { isLegal, tips } = this.onVerifyInputLegal();
+      console.log(isLegal, tips);
+      this.setData({
+        submitActive: isLegal,
+      });
+      this.privateData.verifyTips = tips;
     } else {
       const { value = '' } = e.detail;
-      this.setData(
-        {
-          [`locationState.${item}`]: value,
-        },
-        () => {
-          const { isLegal, tips } = this.onVerifyInputLegal();
-          this.setData({
-            submitActive: isLegal,
-          });
-          this.privateData.verifyTips = tips;
-        },
-      );
+      this.setData({
+        [`address.${item}`]: value,
+      });
+      const { isLegal, tips } = this.onVerifyInputLegal();
+      this.setData({
+        submitActive: isLegal,
+      });
+      this.privateData.verifyTips = tips;
     }
   },
-  onPickArea() {
-    this.setData({ areaPickerVisible: true });
+  onPickRegion() {
+    this.setData({ regionPickerVisible: true });
   },
   onPickLabels(e) {
     const { item } = e.currentTarget.dataset;
     const {
-      locationState: { labelIndex = undefined },
+      address: { labelIndex = undefined },
       labels = [],
     } = this.data;
     let payload = {
@@ -118,7 +107,7 @@ Page({
       payload = { labelIndex: null, addressTag: '' };
     }
     this.setData({
-      'locationState.labelIndex': payload.labelIndex,
+      'address.labelIndex': payload.labelIndex,
     });
     this.triggerEvent('triggerUpdateValue', payload);
   },
@@ -144,12 +133,12 @@ Page({
   onCheckDefaultAddress({ detail }) {
     const { value } = detail;
     this.setData({
-      'locationState.isDefault': value,
+      'address.isDefault': value,
     });
   },
 
   onVerifyInputLegal() {
-    const { name, phone, detailAddress, districtName } = this.data.locationState;
+    const { name, phoneNumber, detailAddress, countyName } = this.data.address;
     const prefixPhoneReg = String(this.properties.phoneReg || innerPhoneReg);
     const prefixNameReg = String(this.properties.nameReg || innerNameReg);
     const nameRegExp = new RegExp(prefixNameReg);
@@ -167,19 +156,19 @@ Page({
         tips: '收货人仅支持输入中文、英文（区分大小写）、数字',
       };
     }
-    if (!phone || !phone.trim()) {
+    if (!phoneNumber || !phoneNumber.trim()) {
       return {
         isLegal: false,
         tips: '请填写手机号',
       };
     }
-    if (!phoneRegExp.test(phone)) {
+    if (!phoneRegExp.test(phoneNumber)) {
       return {
         isLegal: false,
         tips: '请填写正确的手机号',
       };
     }
-    if (!districtName || !districtName.trim()) {
+    if (!countyName || !countyName.trim()) {
       return {
         isLegal: false,
         tips: '请选择省市区信息',
@@ -281,7 +270,7 @@ Page({
       });
     });
   },
-  formSubmit() {
+  onSubmit() {
     const { submitActive } = this.data;
     if (!submitActive) {
       Toast({
@@ -293,17 +282,17 @@ Page({
       });
       return;
     }
-    const { locationState } = this.data;
-    console.log(locationState);
-    wx.navigateBack({ delta: 1 });
+    const { address } = this.data;
+    console.log(address);
+    const { userId } = getApp().getUserInfo();
+    addDeliveryAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
   },
-
   getWeixinAddress(e) {
-    const { locationState } = this.data;
+    const { address } = this.data;
     const weixinAddress = e.detail;
     this.setData(
       {
-        locationState: { ...locationState, ...weixinAddress },
+        address: { ...address, ...weixinAddress },
       },
       () => {
         const { isLegal, tips } = this.onVerifyInputLegal();

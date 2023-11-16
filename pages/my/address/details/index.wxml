@@ -11,7 +11,7 @@
             data-item="name"
             maxlength="20"
             type="text"
-            value="{{locationState.name}}"
+            value="{{address.name}}"
             placeholder="收货人姓名"
             bind:change="onInputValue"
           />
@@ -23,11 +23,11 @@
             t-class="field-text"
             borderless
             type="number"
-            value="{{locationState.phone}}"
+            value="{{address.phoneNumber}}"
             maxlength="11"
             placeholder="配送员联系您的手机号码"
             bind:change="onInputValue"
-            data-item="phone"
+            data-item="phoneNumber"
           />
         </t-cell>
         <t-cell t-class-title="t-cell-title" title="地区">
@@ -36,8 +36,8 @@
             borderless
             placeholder="省/市/区"
             data-item="address"
-            value="{{locationState.provinceName ? locationState.provinceName+'/':'' }}{{locationState.cityName ? locationState.cityName+'/':''}}{{locationState.districtName}}"
-            catch:tap="onPickArea"
+            value="{{address.provinceName ? address.provinceName+'/':'' }}{{address.cityName ? address.cityName+'/':''}}{{address.countyName}}"
+            catch:tap="onPickRegion"
             disabled
           />
           <t-icon slot="right-icon" name="location" size="48rpx" catch:tap="onSearchAddress" />
@@ -47,7 +47,7 @@
             <t-textarea
               slot="note"
               type="text"
-              value="{{locationState.detailAddress}}"
+              value="{{address.detailAddress}}"
               placeholder="门牌号等(例如:10栋1001号)"
               autosize
               bind:change="onInputValue"
@@ -62,7 +62,7 @@
               wx:for-item="label"
               wx:key="index"
               size="extra-small"
-              t-class="label-list {{locationState.labelIndex === index ? 'active-btn':''}}"
+              t-class="label-list {{address.labelIndex === index ? 'active-btn':''}}"
               bindtap="onPickLabels"
               data-item="{{index}}"
             >
@@ -80,17 +80,19 @@
         </t-button>
       </view> -->
       <view class="bottom-fixed">
-        <t-button theme="primary" size="medium" shape="round" block bind:tap="formSubmit"> 保存 </t-button>
+        <t-button theme="primary" size="medium" shape="round" block bind:tap="onSubmit" disabled="{{!submitActive}}">
+          保存
+        </t-button>
       </view>
     </form>
   </view>
   <t-cascader
     data-item="address"
     data-type="1"
-    visible="{{areaPickerVisible}}"
+    visible="{{regionPickerVisible}}"
     theme="tab"
-    options="{{areaData}}"
-    value="{{locationState.districtCode}}"
+    options="{{regionData}}"
+    value="{{address.districtCode}}"
     title="选择地区"
     bind:change="onInputValue"
   ></t-cascader>

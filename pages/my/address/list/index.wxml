@@ -19,9 +19,9 @@
               bind:tap="onEditAddress"
             />
           </t-cell>
-          <view slot="right" class="btn delete-btn" data-address-id="{{address.id}}" bind:tap="onDeleteAddress"
-            >删除</view
-          >
+          <view slot="right" class="btn delete-btn" data-address-id="{{address.id}}" bind:tap="onDeleteAddress">
+            删除
+          </view>
         </t-swipe-cell>
       </t-cell-group>
     </block>

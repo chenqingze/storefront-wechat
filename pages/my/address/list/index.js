@@ -5,25 +5,8 @@ import { fetchAllDeliveryAddressList, removeDeliveryAddress } from '../../../../
 Page({
   data: {
     addressList: [],
-    deleteID: '',
-    showDeleteConfirm: false,
-    isOrderSure: false,
   },
 
-  /** 选择模式 */
-  selectMode: false,
-  /** 是否已经选择地址，不置为true的话页面离开时会触发取消选择行为 */
-  hasSelect: false,
-
-  onLoad(query) {
-    const { selectMode = '', isOrderSure = '', id = '' } = query;
-    this.setData({
-      isOrderSure: !!isOrderSure,
-      id,
-    });
-    this.selectMode = !!selectMode;
-    this.loadData();
-  },
   loadData() {
     const customerId = getApp().getUserInfo().userId;
     fetchAllDeliveryAddressList(customerId).then((addressList) => {
@@ -93,11 +76,11 @@ Page({
   onDeleteAddress(e) {
     const customerId = getApp().getUserInfo().userId;
     const { addressId } = e.currentTarget.dataset;
-    removeDeliveryAddress(customerId, addressId).then();
+    removeDeliveryAddress(customerId, addressId).then(this.loadData());
   },
   onEditAddress(e) {
     const { addressId } = e.currentTarget.dataset;
-    wx.navigateTo({ url: `/pages/my/address/detials/index?id=${addressId}` });
+    wx.navigateTo({ url: `/pages/my/address/details/index?id=${addressId}` });
   },
   selectHandle({ detail }) {
     if (this.selectMode) {
@@ -110,5 +93,9 @@ Page({
   },
   createHandle() {
     wx.navigateTo({ url: '/pages/my/address/details/index' });
+  },
+  onLoad() {},
+  onShow() {
+    this.loadData();
   },
 });

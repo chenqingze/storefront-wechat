@@ -1,13 +1,14 @@
 import { regionData } from '../../../../config/index';
-import { addDeliveryAddress } from '../../../../services/customerService';
+import {
+  fetchDeliveryAddressDetails,
+  addDeliveryAddress,
+  updateDeliveryAddress,
+} from '../../../../services/customerService';
 import Toast from 'tdesign-miniprogram/toast/index';
 
 const innerPhoneReg = '^1(?:3\\d|4[4-9]|5[0-35-9]|6[67]|7[0-8]|8\\d|9\\d)\\d{8}$';
 const innerNameReg = '^[a-zA-Z\\d\\u4e00-\\u9fa5]+$';
-const labelsOptions = [
-  { id: 0, name: '家' },
-  { id: 1, name: '公司' },
-];
+const tagOptions = ['家', '公司'];
 
 Page({
   options: {
@@ -15,7 +16,6 @@ Page({
   },
   data: {
     address: {
-      labelIndex: null,
       id: '',
       name: '',
       phoneNumber: '',
@@ -32,11 +32,10 @@ Page({
       defaultAddress: false,
     },
     regionData: regionData,
-    labels: labelsOptions,
+    tags: tagOptions,
     regionPickerVisible: false,
     submitActive: false,
     visible: false,
-    labelValue: '',
     columns: 3,
   },
   privateData: {
@@ -44,13 +43,19 @@ Page({
   },
   onLoad(options) {
     const { id } = options;
+    console.log(id);
     if (id) {
       this.getAddressDetail(id);
     }
   },
-  getAddressDetail(id) {
-    fetchDeliveryAddress(id).then((detail) => {
-      this.setData({ address: detail }, () => {
+  getAddressDetail(addressId) {
+    const customerId = getApp().getUserInfo().userId;
+    fetchDeliveryAddressDetails(customerId, addressId).then((address) => {
+      const { tag } = address;
+      if (tag && !tagOptions.includes(tag)) {
+        tagOptions.push(tag);
+      }
+      this.setData({ address }, () => {
         const { isLegal, tips } = this.onVerifyInputLegal();
         this.setData({
           submitActive: isLegal,
@@ -93,23 +98,11 @@ Page({
   onPickRegion() {
     this.setData({ regionPickerVisible: true });
   },
-  onPickLabels(e) {
+  onPickTags(e) {
     const { item } = e.currentTarget.dataset;
-    const {
-      address: { labelIndex = undefined },
-      labels = [],
-    } = this.data;
-    let payload = {
-      labelIndex: item,
-      addressTag: labels[item].name,
-    };
-    if (item === labelIndex) {
-      payload = { labelIndex: null, addressTag: '' };
-    }
     this.setData({
-      'address.labelIndex': payload.labelIndex,
+      'address.tag': item,
     });
-    this.triggerEvent('triggerUpdateValue', payload);
   },
   addLabels() {
     this.setData({
@@ -117,25 +110,25 @@ Page({
     });
   },
   confirmHandle() {
-    const { labels, labelValue } = this.data;
+    const { tags, tagValue } = this.data;
     this.setData({
       visible: false,
-      labels: [...labels, { id: labels[labels.length - 1].id + 1, name: labelValue }],
-      labelValue: '',
+      tags: [...tags, tagValue],
+      tagValue: '',
     });
   },
   cancelHandle() {
     this.setData({
       visible: false,
-      labelValue: '',
+      tagValue: '',
     });
   },
-  onCheckDefaultAddress({ detail }) {
-    const { value } = detail;
-    this.setData({
-      'address.isDefault': value,
-    });
-  },
+  // onCheckDefaultAddress({ detail }) {
+  //   const { value } = detail;
+  //   this.setData({
+  //     'address.defaultAddress': value,
+  //   });
+  // },
 
   onVerifyInputLegal() {
     const { name, phoneNumber, detailAddress, countyName } = this.data.address;
@@ -285,7 +278,11 @@ Page({
     const { address } = this.data;
     console.log(address);
     const { userId } = getApp().getUserInfo();
-    addDeliveryAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
+    if (address.id) {
+      updateDeliveryAddress(userId, address.id, address).then(wx.navigateBack({ delta: 1 }));
+    } else {
+      addDeliveryAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
+    }
   },
   getWeixinAddress(e) {
     const { address } = this.data;

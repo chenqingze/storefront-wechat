@@ -6,8 +6,8 @@ const customerBaseUrl = `${baseUrl}/customers`;
 const addDeliveryAddress = (customerId, address) => {
   return new Request().post(`${customerBaseUrl}/${customerId}/addresses`, address);
 };
-const updateDeliveryAddress = (customerId, address) => {
-  return new Request().put(`${customerBaseUrl}/${customerId}/addresses`, address);
+const updateDeliveryAddress = (customerId, addressId, address) => {
+  return new Request().put(`${customerBaseUrl}/${customerId}/addresses/${addressId}`, address);
 };
 const removeDeliveryAddress = (customerId, addressId) => {
   return new Request().delete(`${customerBaseUrl}/${customerId}/addresses/${addressId}`);
@@ -15,4 +15,14 @@ const removeDeliveryAddress = (customerId, addressId) => {
 const fetchAllDeliveryAddressList = (customerId) => {
   return new Request().get(`${customerBaseUrl}/${customerId}/addresses`);
 };
-export { addDeliveryAddress, updateDeliveryAddress, removeDeliveryAddress, fetchAllDeliveryAddressList };
+
+const fetchDeliveryAddressDetails = (customerId, addressId) => {
+  return new Request().get(`${customerBaseUrl}/${customerId}/addresses/${addressId}`);
+};
+export {
+  addDeliveryAddress,
+  updateDeliveryAddress,
+  removeDeliveryAddress,
+  fetchAllDeliveryAddressList,
+  fetchDeliveryAddressDetails,
+};

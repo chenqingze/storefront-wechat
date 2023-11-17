@@ -59,8 +59,22 @@ App({
         });
     });
   },
-  getUserInfo: () => (wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')) : undefined),
+  // getUserInfo: () => (wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')) : undefined),
+  getUserInfo: () => {
+    return {
+      accessToken: 'd33edde8-faa5-4888-a872-406ef00f6e89',
+      accountNonExpired: true,
+      accountNonLocked: true,
+      authorities: [],
+      credentialsNonExpired: true,
+      enabled: true,
+      name: null,
+      userId: 1,
+      username: '18853996882',
+    };
+  },
   getAccessToken: () => {
-    return wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')).accessToken : undefined;
+    // return wx.getStorageSync('userInfo') ? JSON.parse(wx.getStorageSync('userInfo')).accessToken : undefined;
+    return 'd33edde8-faa5-4888-a872-406ef00f6e89';
   },
 });

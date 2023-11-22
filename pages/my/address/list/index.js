@@ -3,10 +3,11 @@ import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchAllDeliveryAddressList, removeDeliveryAddress } from '../../../../services/customerService';
 
 Page({
+  /** 选择模式 */
+  selectMode: false,
   data: {
     addressList: [],
   },
-
   loadData() {
     const customerId = getApp().getUserInfo().userId;
     fetchAllDeliveryAddressList(customerId).then((addressList) => {
@@ -52,10 +53,10 @@ Page({
       },
     });
   },
-  confirmDeleteHandle({ detail }) {
-    const { id } = detail || {};
-    if (id !== undefined) {
-      this.setData({ deleteID: id, showDeleteConfirm: true });
+  onDeleteAddress(e) {
+    const customerId = getApp().getUserInfo().userId;
+    const { addressId } = e.currentTarget.dataset;
+    removeDeliveryAddress(customerId, addressId).then(() => {
       Toast({
         context: this,
         selector: '#t-toast',
@@ -63,38 +64,31 @@ Page({
         theme: 'success',
         duration: 1000,
       });
-    } else {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '需要组件库发新版才能拿到地址ID',
-        icon: '',
-        duration: 1000,
-      });
-    }
-  },
-  onDeleteAddress(e) {
-    const customerId = getApp().getUserInfo().userId;
-    const { addressId } = e.currentTarget.dataset;
-    removeDeliveryAddress(customerId, addressId).then(this.loadData());
+      this.loadData();
+    });
   },
   onEditAddress(e) {
     const { addressId } = e.currentTarget.dataset;
     wx.navigateTo({ url: `/pages/my/address/details/index?id=${addressId}` });
   },
-  selectHandle({ detail }) {
+  selectHandle(e) {
     if (this.selectMode) {
-      this.hasSelect = true;
-      // resolveAddress(detail);
+      const pages = getCurrentPages(); // 获取页面栈
+      const prevPage = pages[pages.length - 2]; // 上一个页面
+      const { address, addressId } = e.currentTarget.dataset;
+      prevPage.setData({ address, addressId });
       wx.navigateBack({ delta: 1 });
     } else {
-      this.editAddressHandle({ detail });
+      this.onEditAddress(e);
     }
   },
   createHandle() {
     wx.navigateTo({ url: '/pages/my/address/details/index' });
   },
-  onLoad() {},
+  onLoad(options) {
+    const { selectMode = false } = options;
+    this.selectMode = !!selectMode;
+  },
   onShow() {
     this.loadData();
   },

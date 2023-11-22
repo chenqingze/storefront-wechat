@@ -7,6 +7,9 @@
             description="{{address.name+' '+address.phoneNumber}}"
             title="{{address.provinceName+address.cityName+(address.countyName?address.countyName:'')+(address.townName?address.townName:'')+(address.villageName?address.villageName:'')+address.detailAddress}}"
             bordered="{{false}}"
+            data-address-id="{{address.id}}"
+            data-address="{{address}}"
+            bind:tap="selectHandle"
           >
             <t-button
               theme="light"

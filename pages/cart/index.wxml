@@ -1,6 +1,6 @@
 <!--pages/cart/index.wxml-->
 <view class="cart-container">
-  <t-checkbox-group value="{{selectedItemIndex}}" bind:change="onCheckboxSelectChange">
+  <t-checkbox-group value="{{selectedItemIndexes}}" bind:change="onCheckboxSelectChange">
     <block wx:for="{{cartItemList}}" wx:key="index">
       <t-checkbox value="{{index}}" t-class-icon="cart-item-checkbox-icon" content-disabled="{{true}}">
         <cart-item cartItem="{{item}}" itemIndex="{{index}}" bind:quantityChangeEvent="onQuantityChange" />
@@ -8,6 +8,10 @@
     </block>
     <view class="bottom-bar">
       <t-checkbox check-all="{{true}}">全选</t-checkbox>
+      <view class="total-info">
+        <view>商品合计：<text class="total-price">¥{{totalPrice}}</text></view>
+        <text>订单明细</text>
+      </view>
       <view class="checkout-btn" bind:tap="onCheckout"> 去结算({{totalQuantity}})</view>
     </view>
   </t-checkbox-group>

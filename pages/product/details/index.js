@@ -19,12 +19,14 @@ Page({
     salePrice: '',
     selectedOptionValueNames: null,
     selectedVariant: null,
+    cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0,
   },
   goBack() {
     wx.navigateBack();
   },
   toNav(e) {
-    const { url } = e.detail;
+    console.log(e.currentTarget.dataset);
+    const { url } = e.currentTarget.dataset;
     wx.switchTab({
       url: url,
     });
@@ -42,20 +44,22 @@ Page({
       return;
     }
     // 提交加入购物车请求
+    const cartId = getApp().getUserInfo().userId;
+    let variantId = '';
     if (product.productType === 'STANDARD') {
-      const cartId = getApp().getUserInfo().userId;
-      const variantId = product.defaultVariantId;
-      const { quantity } = this.data;
-      const cartItem = { cartId, variantId, quantity };
-      // 直接加入购物车
-      addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
+      variantId = product.defaultVariantId;
     } else if (product.productType === 'VARIANT_BASED') {
-      const cartId = getApp().getUserInfo().userId;
-      const variantId = this.data.selectedVariant.id;
-      const { quantity } = this.data;
-      const cartItem = { cartId, variantId, quantity };
-      addItemToCart(cartId, cartItem).then(() => console.log('加入购物车成功！'));
+      variantId = this.data.selectedVariant.id;
     }
+    const { quantity } = this.data;
+    const cartItem = { cartId, variantId, quantity };
+    // 直接加入购物车
+    addItemToCart(cartId, cartItem).then(() => {
+      console.log('加入购物车成功！');
+      getApp()
+        .getTotalCartItemQuantity(cartId)
+        .then(() => this.setData({ cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0 }));
+    });
   },
   onShowVariantsSelectPopup() {
     this.setData({ isVariantsSelectPopupShow: true });
@@ -104,10 +108,14 @@ Page({
       });
     }
   },
+  initData() {
+    this.setData({ cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0 });
+  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
+    getApp().registerListener(this.initData.bind(this));
     // console.log(options);
     // 查询商品详情
     const { productId } = options;

@@ -150,6 +150,7 @@ Component({
           console.log(res);
           // 上传图片
           wx.uploadFile({
+            header: { 'X-Auth-Token': getApp()?.getAccessToken() },
             filePath: res.tempFilePaths[0],
             name: 'file',
             url: 'http://localhost:8080/upload/file',

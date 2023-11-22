@@ -8,7 +8,8 @@ const wechatLogin = (code) => {
 };
 
 const checkAccessToken = (accessToken) => {
-  return new Request().get(`${authBaseUrl}/me?access_token=${accessToken}`);
+  const header = { 'X-Auth-Token': accessToken };
+  return new Request().get(`${authBaseUrl}/me?access_token=${accessToken}`, undefined, header);
 };
 
 export { wechatLogin, checkAccessToken };

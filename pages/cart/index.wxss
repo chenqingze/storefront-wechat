@@ -19,6 +19,17 @@ page {
   justify-content: space-between;
   align-items: center;
 }
+.bottom-bar .total-info {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+  font-size: 24rpx;
+  text-align: right;
+}
+.bottom-bar .total-info .total-price {
+  color: red;
+  font-size: 32rpx;
+}
 .bottom-bar .checkout-btn {
   border-radius: 48rpx;
   color: #ffffff;

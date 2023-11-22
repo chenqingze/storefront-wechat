@@ -58,8 +58,8 @@
         <t-icon name="star" size="18" />
         <view class="icon-btn-text">收藏</view>
       </view>
-      <view class="icon-btn">
-        <t-badge count="{{allQuantity}}" offset="{{ [2, -2] }}" class="wrapper">
+      <view class="icon-btn" data-url="/pages/cart/index" bind:tap="toNav">
+        <t-badge count="{{cartItemTotalQuantity}}" offset="{{ [2, -2] }}" show-zero="{{false}}" class="wrapper">
           <t-icon name="cart" size="18" />
           <view class="icon-btn-text">购物车</view>
         </t-badge>

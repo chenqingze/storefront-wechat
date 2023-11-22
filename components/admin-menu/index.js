@@ -1,4 +1,4 @@
-// components/setting-menu/index.js
+// components/admin-menu/index.js
 Component({
   attached: function () {
     // 注册监听器函数
@@ -60,6 +60,7 @@ Component({
       console.log(e.detail);
       const { url } = e.detail.item;
       console.log(url);
+      this.setData({ visible: false });
       wx.navigateTo({
         url: url,
       });

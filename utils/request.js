@@ -7,31 +7,34 @@ export class Request {
   //   new Request();
   // }
 
-  get(url, data) {
-    return this.request('GET', url, data);
+  get(url, data, customHeaders) {
+    return this.request('GET', url, data, customHeaders);
   }
 
-  post(url, data) {
-    return this.request('POST', url, data);
+  post(url, data, customHeaders) {
+    return this.request('POST', url, data, customHeaders);
   }
 
-  put(url, data) {
-    return this.request('PUT', url, data);
+  put(url, data, customHeaders) {
+    return this.request('PUT', url, data, customHeaders);
   }
 
-  delete(url, data) {
-    return this.request('DELETE', url, data);
+  delete(url, data, customHeaders) {
+    return this.request('DELETE', url, data, customHeaders);
   }
 
-  request(method, url, data, extraOptions) {
+  request(method, url, data, customheaders, extraOptions) {
     return new Promise((resolve, reject) => {
       // wx.showLoading({
       //   title: 'title',
       //   mask: true,
       // });
-      const accessToken = getApp().getAccessToken();
+      const accessToken = getApp()?.getAccessToken();
       const defaultHeader = { 'content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' };
-      const header = accessToken ? Object.assign({ 'X-Auth-Token': accessToken }, defaultHeader) : defaultHeader;
+      let header = accessToken ? Object.assign({ 'X-Auth-Token': accessToken }, defaultHeader) : defaultHeader;
+      if (customheaders) {
+        header = Object.assign(header, customheaders);
+      }
       // console.log(header);
       this.requestTask = wx.request({
         method,

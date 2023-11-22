@@ -1,22 +1,27 @@
 import { deleteCartItem, fetchCartItemList, updateCartItem } from '../../services/cartService';
+import { Decimal } from 'decimal.js';
 // pages/cart/index.js
 Page({
   /**
    * Page initial data
    */
   data: {
-    selectedItemIndex: [],
+    selectedItemIndexes: [],
     totalQuantity: 0,
+    totalPrice: 0,
     cartItemList: [],
   },
   onCheckout() {
-    // const { selectedItemIndex, cartItemList } = this.data;
-    // const selectedItem = selectedItemIndex.map((index) => cartItemList[index]);
+    const { selectedItemIndexes, cartItemList } = this.data;
+    const selectedItemIds = selectedItemIndexes.map((index) => cartItemList[index].id);
+    wx.navigateTo({
+      url: `/pages/order/order-confirm/index?ids=${selectedItemIds}`,
+    });
   },
   onQuantityChange(e) {
     const { index, value } = e.detail;
     this.data.cartItemList[index].quantity = value;
-    const totalQuantity = this.data.selectedItemIndex.reduce(
+    const totalQuantity = this.data.selectedItemIndexes.reduce(
       (accumulator, currentIdx) => accumulator + this.data.cartItemList[currentIdx].quantity,
       0,
     );
@@ -30,15 +35,31 @@ Page({
     if (value > 0) {
       updateCartItem(cartId, variantId, { variantId, quantity }).then();
     }
+    this.onCheckboxSelectChange();
   },
   onCheckboxSelectChange(e) {
-    const selectedItemIndex = e.detail.value.filter((value) => !['', null, undefined, NaN].includes(value));
-    const totalQuantity = selectedItemIndex.reduce(
+    let selectedItemIndexes;
+    if (e) {
+      selectedItemIndexes = e.detail.value.filter((value) => !['', null, undefined, NaN].includes(value));
+    } else {
+      selectedItemIndexes = this.data.selectedItemIndexes;
+    }
+    const totalQuantity = selectedItemIndexes.reduce(
       (accumulator, currentIdx) => accumulator + this.data.cartItemList[currentIdx].quantity,
       0,
     );
-    // console.log('===selectedItemIndex==totalQuantity=', selectedItemIndex, totalQuantity);
-    this.setData({ selectedItemIndex, totalQuantity });
+    const totalPrice = selectedItemIndexes.reduce(
+      (accumulator, currentIdx) =>
+        Decimal.mul(
+          this.data.cartItemList[currentIdx].quantity,
+          this.data.cartItemList[currentIdx].salePrice ?? this.data.cartItemList[currentIdx].retailPrice,
+        )
+          .plus(accumulator)
+          .toFixed(2),
+      0,
+    );
+    // console.log('===selectedItemIndex==totalQuantity=', selectedItemIndexes, totalQuantity);
+    this.setData({ selectedItemIndexes, totalQuantity, totalPrice });
   },
   loadData(page, size) {
     const cartId = getApp().getUserInfo().userId;

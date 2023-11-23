@@ -1,15 +1,23 @@
+import { fetchDefaultDeliveryAddressDetails } from '../../../services/customerService';
+
 // pages/order/order-confirm/index.js
 Page({
   /**
    * Page initial data
    */
-  data: {},
+  data: {
+    address: undefined,
+  },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad(options) {
-    console.log(options);
+  onLoad({ ids }) {
+    console.log(ids);
+    const customerId = getApp().getUserInfo().userId;
+    fetchDefaultDeliveryAddressDetails(customerId).then((address) => {
+      this.setData({ address });
+    });
   },
 
   /**

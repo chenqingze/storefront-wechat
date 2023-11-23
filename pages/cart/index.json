@@ -3,6 +3,7 @@
   "usingComponents": {
     "cart-item": "/pages/cart/components/cart-item/index",
     "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
-    "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group"
+    "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog"
   }
 }

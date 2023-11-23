@@ -1,31 +1,36 @@
 <view class="address-container">
   <view class="address-list" wx:if="{{addressList.length > 0}}">
-    <block wx:for="{{addressList}}" wx:for-index="index" wx:for-item="address" wx:key="id">
+    <block wx:for="{{addressList}}" wx:for-item="address">
       <t-cell-group theme="card">
-        <t-swipe-cell address="{{address}}" data-id="{{address.id}}">
-          <t-cell
-            description="{{address.name+' '+address.phoneNumber}}"
-            title="{{address.provinceName+address.cityName+(address.countyName?address.countyName:'')+(address.townName?address.townName:'')+(address.villageName?address.villageName:'')+address.detailAddress}}"
-            bordered="{{false}}"
-            data-address-id="{{address.id}}"
-            data-address="{{address}}"
-            bind:tap="selectHandle"
-          >
-            <t-button
-              theme="light"
-              icon="edit-2"
-              slot="right-icon"
-              shape="square"
-              variant="text"
-              size="medium"
-              data-address-id="{{address.id}}"
-              bind:tap="onEditAddress"
-            />
-          </t-cell>
-          <view slot="right" class="btn delete-btn" data-address-id="{{address.id}}" bind:tap="onDeleteAddress">
-            删除
-          </view>
-        </t-swipe-cell>
+        <t-radio-group value="{{defaultSelectedValue}}" bind:change="onDefaultAddressChange">
+          <t-swipe-cell address="{{address}}">
+            <t-cell
+              description="{{address.name+' '+address.phoneNumber}}"
+              title="{{address.provinceName+address.cityName+(address.countyName?address.countyName:'')+(address.townName?address.townName:'')+(address.villageName?address.villageName:'')+address.detailAddress}}"
+              bordered="{{false}}"
+            >
+              <t-radio
+                default-checked="{{address.defaultAddress}}"
+                value="{{index}}"
+                slot="left-icon"
+                block="{{false}}"
+              />
+              <t-button
+                theme="light"
+                icon="edit-2"
+                slot="right-icon"
+                shape="square"
+                variant="text"
+                size="medium"
+                data-address-id="{{address.id}}"
+                bind:tap="onEditAddress"
+              />
+            </t-cell>
+            <view slot="right" class="btn delete-btn" data-address-id="{{address.id}}" bind:tap="onDeleteAddress">
+              删除
+            </view>
+          </t-swipe-cell>
+        </t-radio-group>
       </t-cell-group>
     </block>
   </view>

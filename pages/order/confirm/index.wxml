@@ -1,0 +1,35 @@
+<!--pages/order/confirm/index.wxml-->
+<t-navbar class="title-navbar" left-arrow title="确认订单" />
+<view class="address-container">
+  <t-cell-group theme="card">
+    <t-cell bindtap="onAddressTap" hover arrow>
+      <view class="order-address" slot="title">
+        <t-icon name="location" color="#333333" size="40rpx" />
+        <view class="address-content">
+          <view class="title">
+            <view class="address-tag" wx:if="{{address.tag}}"> {{address.tag}} </view>
+            {{address.provinceName}} {{address.cityName}} {{address.countyName}}
+          </view>
+          <view class="detail">{{address.detailAddress}}</view>
+          <view class="info"> {{address.name}} {{address.phoneNumber}} </view>
+        </view>
+      </view>
+    </t-cell>
+  </t-cell-group>
+</view>
+<view class="product-list-container">
+  <t-cell-group theme="card">
+    <t-cell
+      wx:for="{{[0,1,2,3,4,5,6,8,9]}}"
+      title="多行带图片"
+      align="top"
+      image="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
+      hover
+    >
+      <view slot="right-icon">
+        <view>¥99999.99</view>
+        <view>x99</view>
+      </view>
+    </t-cell>
+  </t-cell-group>
+</view>

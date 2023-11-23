@@ -19,10 +19,19 @@ const fetchAllDeliveryAddressList = (customerId) => {
 const fetchDeliveryAddressDetails = (customerId, addressId) => {
   return new Request().get(`${customerBaseUrl}/${customerId}/addresses/${addressId}`);
 };
+
+const fetchDefaultDeliveryAddressDetails = (customerId) => {
+  return new Request().get(`${customerBaseUrl}/${customerId}/addresses/default`);
+};
+const setDefaultDeliveryAddress = (customerId, addressId) => {
+  return new Request().put(`${customerBaseUrl}/${customerId}/addresses/${addressId}/set-default`);
+};
 export {
   addDeliveryAddress,
   updateDeliveryAddress,
   removeDeliveryAddress,
   fetchAllDeliveryAddressList,
   fetchDeliveryAddressDetails,
+  fetchDefaultDeliveryAddressDetails,
+  setDefaultDeliveryAddress,
 };

@@ -1,0 +1,64 @@
+/* pages/order/order-confirm/index.wxss */
+page {
+  background: #f6f6f6;
+}
+.title-navbar {
+  /* --td-navbar-color: #fff; */
+  --td-navbar-bg-color: #f6f6f6;
+}
+.address-container {
+  margin: 24rpx 0rpx;
+}
+.address-container .order-address {
+  display: flex;
+  width: 100%;
+}
+.address-container .order-address .address-content {
+  flex: 1;
+}
+.order-address .address__right {
+  align-self: center;
+}
+.address-container .order-address .title {
+  display: flex;
+  align-items: center;
+  height: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #999999;
+  line-height: 40rpx;
+}
+.address-container .order-address .title .address-tag {
+  width: 52rpx;
+  height: 29rpx;
+  border: 1rpx solid #0091ff;
+  background-color: rgba(122, 167, 251, 0.1);
+  text-align: center;
+  line-height: 29rpx;
+  border-radius: 8rpx;
+  color: #0091ff;
+  font-size: 20rpx;
+  margin-right: 12rpx;
+}
+.address-container .order-address .detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 48rpx;
+  margin: 8rpx 0;
+}
+.address-container .order-address .info {
+  height: 40rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #333333;
+  line-height: 40rpx;
+}
+.product-list-container {
+  margin: 24rpx 0rpx;
+}

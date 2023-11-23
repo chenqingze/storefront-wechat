@@ -1,4 +1,4 @@
-<!--pages/order/index.wxml-->
+<!--pages/order/list/index.wxml-->
 <t-navbar title="订单" left-arrow bind:go-back="handleBack" />
 <t-tabs defaultValue="{{0}}">
   <t-tab-panel label="全部" value="0" badge-props="{{ { dot: false, offset: ['-10rpx', '4rpx'] } }}" />

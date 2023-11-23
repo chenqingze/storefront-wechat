@@ -1,4 +1,5 @@
 <!--pages/my/index.wxml-->
 <text>pages/my/index.wxml</text>
-<button bind:tap="navToOrder">订单</button>
-<button bind:tap="navToAddress">地址</button>
+<button bind:tap="navTo" data-url="/pages/order/list/index">订单列表</button>
+<button bind:tap="navTo" data-url="/pages/order/confirm/index">订单确认/提交</button>
+<button bind:tap="navTo" data-url="/pages/my/address/list/index">地址</button>

@@ -3,7 +3,6 @@
     "pages/product/list/index",
     "pages/cart/index",
     "pages/my/index",
-    "pages/order/index",
     "pages/admin/catalog/index",
     "pages/admin/catalog/category/index",
     "pages/admin/order/index",
@@ -11,7 +10,8 @@
     "pages/admin/catalog/product/variant/variants-details/index",
     "pages/admin/catalog/product/details/index",
     "pages/product/details/index",
-    "pages/order/order-confirm/index",
+    "pages/order/list/index",
+    "pages/order/confirm/index",
     "pages/my/address/details/index",
     "pages/my/address/list/index"
   ],

@@ -1,5 +1,6 @@
 import { deleteCartItem, fetchCartItemList, updateCartItem } from '../../services/cartService';
 import { Decimal } from 'decimal.js';
+import Dialog from 'tdesign-miniprogram/dialog/index';
 // pages/cart/index.js
 Page({
   /**
@@ -13,9 +14,20 @@ Page({
   },
   onCheckout() {
     const { selectedItemIndexes, cartItemList } = this.data;
+    if (selectedItemIndexes.length <= 0) {
+      Dialog.confirm({
+        context: this,
+        content: '没有选中任何商品',
+        confirmBtn: '确定',
+      })
+        .then(() => console.log('点击了确定'))
+        .catch(() => console.log('点击了取消'))
+        .finally(() => Dialog.close());
+      return;
+    }
     const selectedItemIds = selectedItemIndexes.map((index) => cartItemList[index].id);
     wx.navigateTo({
-      url: `/pages/order/order-confirm/index?ids=${selectedItemIds}`,
+      url: `/pages/order/confirm/index?ids=${selectedItemIds}`,
     });
   },
   onQuantityChange(e) {

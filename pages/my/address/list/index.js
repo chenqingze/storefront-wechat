@@ -1,6 +1,10 @@
 /* eslint-disable no-param-reassign */
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchAllDeliveryAddressList, removeDeliveryAddress } from '../../../../services/customerService';
+import {
+  fetchAllDeliveryAddressList,
+  removeDeliveryAddress,
+  setDefaultDeliveryAddress,
+} from '../../../../services/customerService';
 
 Page({
   /** 选择模式 */
@@ -11,12 +15,13 @@ Page({
   loadData() {
     const customerId = getApp().getUserInfo().userId;
     fetchAllDeliveryAddressList(customerId).then((addressList) => {
-      addressList.forEach((address) => {
+      let defaultSelectedValue;
+      addressList.forEach((address, index) => {
         if (address.defaultAddress) {
-          address.checked = true;
+          defaultSelectedValue = index;
         }
       });
-      this.setData({ addressList });
+      this.setData({ addressList, defaultSelectedValue });
     });
   },
   getWXAddressHandle() {
@@ -71,16 +76,21 @@ Page({
     const { addressId } = e.currentTarget.dataset;
     wx.navigateTo({ url: `/pages/my/address/details/index?id=${addressId}` });
   },
-  selectHandle(e) {
-    if (this.selectMode) {
-      const pages = getCurrentPages(); // 获取页面栈
-      const prevPage = pages[pages.length - 2]; // 上一个页面
-      const { address, addressId } = e.currentTarget.dataset;
-      prevPage.setData({ address, addressId });
-      wx.navigateBack({ delta: 1 });
-    } else {
-      this.onEditAddress(e);
-    }
+  onDefaultAddressChange(e) {
+    const index = e.detail.value;
+    const customerId = getApp().getUserInfo().userId;
+    const address = this.data.addressList[index];
+    const addressId = address.id;
+    setDefaultDeliveryAddress(customerId, addressId).then(() => {
+      if (this.selectMode) {
+        const pages = getCurrentPages(); // 获取页面栈
+        const prevPage = pages[pages.length - 2]; // 上一个页面
+        prevPage.setData({ address, addressId });
+        wx.navigateBack({ delta: 1 });
+      } else {
+        this.loadData();
+      }
+    });
   },
   createHandle() {
     wx.navigateTo({ url: '/pages/my/address/details/index' });

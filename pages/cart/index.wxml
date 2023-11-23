@@ -16,5 +16,5 @@
     </view>
   </t-checkbox-group>
 </view>
-
 <login-popup id="loginPopup" failUrl="/pages/product/list/index" type="switchTab" />
+<t-dialog id="t-dialog" />

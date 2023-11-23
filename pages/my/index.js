@@ -4,16 +4,13 @@ Page({
    * Page initial data
    */
   data: {},
-  navToOrder() {
+  navTo(e) {
+    const { url } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '/pages/order/index',
+      url: url,
     });
   },
-  navToAddress() {
-    wx.navigateTo({
-      url: '/pages/my/address/list/index',
-    });
-  },
+
   /**
    * Lifecycle function--Called when page load
    */

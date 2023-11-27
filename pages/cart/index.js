@@ -1,4 +1,4 @@
-import { deleteCartItem, fetchCartItemList, updateCartItem } from '../../services/cartService';
+import { deleteCartItem, fetchCartItemList, updateCartItem, selectedCartItems } from '../../services/cartService';
 import { Decimal } from 'decimal.js';
 import Dialog from 'tdesign-miniprogram/dialog/index';
 // pages/cart/index.js
@@ -25,9 +25,9 @@ Page({
         .finally(() => Dialog.close());
       return;
     }
-    const selectedItemIds = selectedItemIndexes.map((index) => cartItemList[index].id);
+    const selectedCartItems = JSON.stringify(selectedItemIndexes.map((index) => cartItemList[index]));
     wx.navigateTo({
-      url: `/pages/order/confirm/index?ids=${selectedItemIds}`,
+      url: `/pages/order/confirm/index?selectedCartItems=${selectedCartItems}`,
     });
   },
   onQuantityChange(e) {
@@ -56,15 +56,20 @@ Page({
     } else {
       selectedItemIndexes = this.data.selectedItemIndexes;
     }
+    const { cartItemList } = this.data;
+    // 购物车商品的被选中状态同步到数据库:todo完善后端
+    const cartId = getApp().getUserInfo().userId;
+    const selectedItemIds = selectedItemIndexes.map((index) => cartItemList[index].variantId);
+    selectedCartItems(cartId, selectedItemIds).then();
     const totalQuantity = selectedItemIndexes.reduce(
-      (accumulator, currentIdx) => accumulator + this.data.cartItemList[currentIdx].quantity,
+      (accumulator, currentIdx) => accumulator + cartItemList[currentIdx].quantity,
       0,
     );
     const totalPrice = selectedItemIndexes.reduce(
       (accumulator, currentIdx) =>
         Decimal.mul(
-          this.data.cartItemList[currentIdx].quantity,
-          this.data.cartItemList[currentIdx].salePrice ?? this.data.cartItemList[currentIdx].retailPrice,
+          cartItemList[currentIdx].quantity,
+          cartItemList[currentIdx].salePrice ?? cartItemList[currentIdx].retailPrice,
         )
           .plus(accumulator)
           .toFixed(2),

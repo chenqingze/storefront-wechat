@@ -1,8 +1,8 @@
 import { regionData } from '../../../../config/index';
 import {
-  fetchDeliveryAddressDetails,
-  addDeliveryAddress,
-  updateDeliveryAddress,
+  fetchShippingAddressDetails,
+  addShippingAddress,
+  updateShippingAddress,
 } from '../../../../services/customerService';
 import Toast from 'tdesign-miniprogram/toast/index';
 
@@ -50,7 +50,7 @@ Page({
   },
   getAddressDetail(addressId) {
     const customerId = getApp().getUserInfo().userId;
-    fetchDeliveryAddressDetails(customerId, addressId).then((address) => {
+    fetchShippingAddressDetails(customerId, addressId).then((address) => {
       const { tag } = address;
       if (tag && !tagOptions.includes(tag)) {
         tagOptions.push(tag);
@@ -279,9 +279,9 @@ Page({
     console.log(address);
     const { userId } = getApp().getUserInfo();
     if (address.id) {
-      updateDeliveryAddress(userId, address.id, address).then(wx.navigateBack({ delta: 1 }));
+      updateShippingAddress(userId, address.id, address).then(wx.navigateBack({ delta: 1 }));
     } else {
-      addDeliveryAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
+      addShippingAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
     }
   },
   getWeixinAddress(e) {

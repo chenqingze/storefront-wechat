@@ -1,6 +1,7 @@
 /* pages/order/order-confirm/index.wxss */
 page {
   background: #f6f6f6;
+  padding-bottom: 160rpx;
 }
 .title-navbar {
   /* --td-navbar-color: #fff; */
@@ -61,4 +62,23 @@ page {
 }
 .product-list-container {
   margin: 24rpx 0rpx;
+}
+.price-details-container {
+  font-size: 32rpx;
+}
+.bottom-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0rpx;
+  z-index: 2;
+  background-color: #ffffff;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 32rpx;
+}
+
+.bottom-bar .payment-btn {
+  margin: 0 96rpx;
 }

@@ -8,6 +8,8 @@
               description="{{address.name+' '+address.phoneNumber}}"
               title="{{address.provinceName+address.cityName+(address.countyName?address.countyName:'')+(address.townName?address.townName:'')+(address.villageName?address.villageName:'')+address.detailAddress}}"
               bordered="{{false}}"
+              data-address="{{address}}"
+              bind:tap="onSelectHandle"
             >
               <t-radio
                 default-checked="{{address.defaultAddress}}"

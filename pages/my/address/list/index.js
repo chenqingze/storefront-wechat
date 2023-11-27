@@ -12,18 +12,7 @@ Page({
   data: {
     addressList: [],
   },
-  loadData() {
-    const customerId = getApp().getUserInfo().userId;
-    fetchAllDeliveryAddressList(customerId).then((addressList) => {
-      let defaultSelectedValue;
-      addressList.forEach((address, index) => {
-        if (address.defaultAddress) {
-          defaultSelectedValue = index;
-        }
-      });
-      this.setData({ addressList, defaultSelectedValue });
-    });
-  },
+  // todo：完善
   getWXAddressHandle() {
     wx.chooseAddress({
       success: (res) => {
@@ -58,6 +47,32 @@ Page({
       },
     });
   },
+  // 只有selectMode=true时才触发选择操作
+  onSelectHandle(e) {
+    const { address } = e.currentTarget.dataset;
+    const addressId = address.id;
+    if (!this.selectMode) {
+      return;
+    }
+    const customerId = getApp().getUserInfo().userId;
+    setDefaultDeliveryAddress(customerId, addressId).then(() => {
+      const pages = getCurrentPages(); // 获取页面栈
+      const prevPage = pages[pages.length - 2]; // 上一个页面
+      prevPage.setData({ address, addressId });
+      wx.navigateBack({ delta: 1 });
+    });
+  },
+  // 只有selectMode=false时才触发选择操作
+  onDefaultAddressChange(e) {
+    if (this.selectMode) {
+      return;
+    }
+    const index = e.detail.value;
+    const customerId = getApp().getUserInfo().userId;
+    const address = this.data.addressList[index];
+    const addressId = address.id;
+    setDefaultDeliveryAddress(customerId, addressId).then(() => this.loadData());
+  },
   onDeleteAddress(e) {
     const customerId = getApp().getUserInfo().userId;
     const { addressId } = e.currentTarget.dataset;
@@ -76,27 +91,23 @@ Page({
     const { addressId } = e.currentTarget.dataset;
     wx.navigateTo({ url: `/pages/my/address/details/index?id=${addressId}` });
   },
-  onDefaultAddressChange(e) {
-    const index = e.detail.value;
-    const customerId = getApp().getUserInfo().userId;
-    const address = this.data.addressList[index];
-    const addressId = address.id;
-    setDefaultDeliveryAddress(customerId, addressId).then(() => {
-      if (this.selectMode) {
-        const pages = getCurrentPages(); // 获取页面栈
-        const prevPage = pages[pages.length - 2]; // 上一个页面
-        prevPage.setData({ address, addressId });
-        wx.navigateBack({ delta: 1 });
-      } else {
-        this.loadData();
-      }
-    });
-  },
+
   createHandle() {
     wx.navigateTo({ url: '/pages/my/address/details/index' });
   },
-  onLoad(options) {
-    const { selectMode = false } = options;
+  loadData() {
+    const customerId = getApp().getUserInfo().userId;
+    fetchAllDeliveryAddressList(customerId).then((addressList) => {
+      let defaultSelectedValue;
+      addressList.forEach((address, index) => {
+        if (address.defaultAddress) {
+          defaultSelectedValue = index;
+        }
+      });
+      this.setData({ addressList, defaultSelectedValue });
+    });
+  },
+  onLoad({ selectMode = false }) {
     this.selectMode = !!selectMode;
   },
   onShow() {

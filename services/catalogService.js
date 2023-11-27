@@ -48,7 +48,10 @@ const fetchProductListByCategory = (categoryId, page = 0, size = 15) => {
 const fetchProductDetails = (productId) => {
   return new Request().get(`${catalogBaseUrl}/products/${productId}`);
 };
-
+const fetchVariantListByIds = (ids) => {
+  const idsString = ids.join();
+  return new Request().get(`${catalogBaseUrl}/variants?ids=${idsString}`);
+};
 export {
   fetchCategoryDetails,
   fetchCategoryList,
@@ -59,4 +62,5 @@ export {
   fetchProductDetails,
   fetchProductList,
   fetchProductListByCategory,
+  fetchVariantListByIds,
 };

@@ -2,7 +2,7 @@
 <t-navbar class="title-navbar" left-arrow title="确认订单" />
 <view class="address-container">
   <t-cell-group theme="card">
-    <t-cell bindtap="onAddressTap" hover arrow>
+    <t-cell bindtap="onTapAddress" hover arrow>
       <view class="order-address" slot="title">
         <t-icon name="location" color="#333333" size="40rpx" />
         <view class="address-content">
@@ -20,16 +20,41 @@
 <view class="product-list-container">
   <t-cell-group theme="card">
     <t-cell
-      wx:for="{{[0,1,2,3,4,5,6,8,9]}}"
+      wx:for="{{cartItemList}}"
+      wx:key="id"
       title="多行带图片"
       align="top"
       image="https://tdesign.gtimg.com/miniprogram/images/cell1.png"
       hover
     >
       <view slot="right-icon">
-        <view>¥99999.99</view>
-        <view>x99</view>
+        <view>¥{{item.salePrice?item.salePrice:item.retailPrice}}</view>
+        <view>x {{item.quantity}}</view>
       </view>
     </t-cell>
   </t-cell-group>
+</view>
+<view class="price-details-container">
+  <t-cell-group theme="card">
+    <t-cell>
+      <view slot="left-icon">商品总额</view>
+      <view slot="right-icon" class="total-price">¥{{totalPrice}}</view>
+    </t-cell>
+    <t-cell>
+      <view slot="left-icon">运费</view>
+      <view slot="right-icon" class="shipping-price">免运费</view>
+    </t-cell>
+    <t-cell>
+      <view slot="left-icon">包装费</view>
+      <view slot="right-icon" class="shipping-price">+ ¥{{totalFulfillmentCharges}}</view>
+    </t-cell>
+    <t-cell>
+      <view slot="left-icon">实际支付</view>
+      <view slot="right-icon" class="real-total-price">¥{{totalPrice}}</view>
+    </t-cell>
+  </t-cell-group>
+</view>
+<view class="bottom-bar">
+  <text>合计：</text><text>¥{{totalPrice}}</text>
+  <t-button class="payment-btn" theme="primary" shape="round" bind:tap="onPayment">去支付</t-button>
 </view>

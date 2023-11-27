@@ -16,5 +16,15 @@ const updateCartItem = (cartId, itemId, cartItem) => {
 const deleteCartItem = (cartId, itemId) => {
   return new Request().delete(`${cartBaseUrl}/${cartId}/items/${itemId}`);
 };
-
-export { fetchCartItemTotalQuantity, fetchCartItemList, addItemToCart, updateCartItem, deleteCartItem };
+const selectedCartItems = (cartId, itemIds) => {
+  const idsStr = itemIds.join();
+  return new Request().put(`${cartBaseUrl}/${cartId}/items/selected?itemIds=${idsStr}`);
+};
+export {
+  fetchCartItemTotalQuantity,
+  fetchCartItemList,
+  addItemToCart,
+  updateCartItem,
+  deleteCartItem,
+  selectedCartItems,
+};

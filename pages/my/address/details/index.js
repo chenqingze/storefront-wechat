@@ -281,6 +281,10 @@ Page({
     if (address.id) {
       updateShippingAddress(userId, address.id, address).then(wx.navigateBack({ delta: 1 }));
     } else {
+      // 如果是第一个收货地址，则为默认收货地址
+      if (!getApp().globalData.defaultAddress) {
+        address.defaultAddress = true;
+      }
       addShippingAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
     }
   },

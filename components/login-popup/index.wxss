@@ -18,13 +18,6 @@
   width: 100%;
   text-align: center;
 }
-.login-container .login-btn {
-  border-radius: 48rpx;
-  color: #ffffff;
-  margin: 0 32rpx 32rpx;
-  font-size: 32rpx;
-  height: 80rpx;
-  text-align: center;
-  line-height: 88rpx;
-  background-color: #0052d9;
+.login-btn {
+  width: 90% !important;
 }

@@ -13,6 +13,24 @@ Page({
     cartItemList: [],
   },
   onCheckout() {
+    // 检测是有配送地址，没有则提示增加
+    if (!getApp().globalData.defaultShippingAddress) {
+      Dialog.confirm({
+        context: this,
+        content: '您还没有添加配送地址',
+        cancelBtn: '取消',
+        confirmBtn: '去添加',
+        closeBtn: false,
+      })
+        .then(() =>
+          wx.navigateTo({
+            url: '/pages/my/address/details/index',
+          }),
+        )
+        .catch(() => console.log('点击了取消'))
+        .finally(() => Dialog.close());
+      return;
+    }
     const { selectedItemIndexes, cartItemList } = this.data;
     if (selectedItemIndexes.length <= 0) {
       Dialog.confirm({

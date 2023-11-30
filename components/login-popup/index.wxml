@@ -7,8 +7,15 @@
     <view class="logo">
       <t-avatar image="/assets/logo.jpeg" size="128px" />
     </view>
-    <button class="login-btn" open-type="getPhoneNumber" bind:getphonenumber="bindPhoneNumberAndLogin">
+    <t-button
+      t-class="login-btn"
+      shape="round"
+      block
+      theme="primary"
+      open-type="getPhoneNumber"
+      bind:getphonenumber="bindPhoneNumberAndLogin"
+    >
       微信一键授权登录
-    </button>
+    </t-button>
   </view>
 </t-popup>

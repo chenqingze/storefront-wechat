@@ -1,6 +1,7 @@
 // app.js
 import updateManager from './common/updateManager';
 import { fetchCartItemTotalQuantity } from './services/cartService';
+import { fetchDefaultShippingAddressDetails } from './services/customerService';
 import { checkAccessToken } from '/services/authService';
 App({
   onLaunch() {
@@ -8,6 +9,7 @@ App({
       console.log(this.globalData);
       // 做一些需要认证的初始化操作
       this.getTotalCartItemQuantity(userInfo.id);
+      this.getDefaultShippingAddress(userInfo.id);
     });
   },
   onShow: function () {
@@ -17,6 +19,7 @@ App({
     isLogined: false,
     isAdmin: true,
     cartItemTotalQuantity: 0,
+    defaultShippingAddress: undefined,
     listeners: [], // 存储监听器函数的数组
   },
   // 注册监听器函数的方法
@@ -82,5 +85,9 @@ App({
       this.globalData.cartItemTotalQuantity = cartItemTotalQuantity;
       this.triggerListeners();
     });
+  },
+  getDefaultShippingAddress: function (userId) {
+    const id = userId ? userId : this.getUserInfo().userId;
+    fetchDefaultShippingAddressDetails(id).then((address) => (this.globalData.defaultShippingAddress = address));
   },
 });

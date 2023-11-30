@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import Toast from 'tdesign-miniprogram/toast/index';
 import {
-  fetchAllDeliveryAddressList,
-  removeDeliveryAddress,
-  setDefaultDeliveryAddress,
+  fetchAllShippingAddressList,
+  removeShippingAddress,
+  setDefaultShippingAddress,
 } from '../../../../services/customerService';
 
 Page({
@@ -55,7 +55,7 @@ Page({
       return;
     }
     const customerId = getApp().getUserInfo().userId;
-    setDefaultDeliveryAddress(customerId, addressId).then(() => {
+    setDefaultShippingAddress(customerId, addressId).then(() => {
       const pages = getCurrentPages(); // 获取页面栈
       const prevPage = pages[pages.length - 2]; // 上一个页面
       prevPage.setData({ address, addressId });
@@ -71,12 +71,12 @@ Page({
     const customerId = getApp().getUserInfo().userId;
     const address = this.data.addressList[index];
     const addressId = address.id;
-    setDefaultDeliveryAddress(customerId, addressId).then(() => this.loadData());
+    setDefaultShippingAddress(customerId, addressId).then(() => this.loadData());
   },
   onDeleteAddress(e) {
     const customerId = getApp().getUserInfo().userId;
     const { addressId } = e.currentTarget.dataset;
-    removeDeliveryAddress(customerId, addressId).then(() => {
+    removeShippingAddress(customerId, addressId).then(() => {
       Toast({
         context: this,
         selector: '#t-toast',
@@ -97,7 +97,7 @@ Page({
   },
   loadData() {
     const customerId = getApp().getUserInfo().userId;
-    fetchAllDeliveryAddressList(customerId).then((addressList) => {
+    fetchAllShippingAddressList(customerId).then((addressList) => {
       let defaultSelectedValue;
       addressList.forEach((address, index) => {
         if (address.defaultAddress) {

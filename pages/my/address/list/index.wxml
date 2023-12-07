@@ -11,12 +11,7 @@
               data-address="{{address}}"
               bind:tap="onSelectHandle"
             >
-              <t-radio
-                default-checked="{{address.defaultAddress}}"
-                value="{{index}}"
-                slot="left-icon"
-                block="{{false}}"
-              />
+              <t-radio default-checked="{{address.isDefault}}" value="{{index}}" slot="left-icon" block="{{false}}" />
               <t-button
                 theme="light"
                 icon="edit-2"

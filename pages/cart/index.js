@@ -1,4 +1,4 @@
-import { deleteCartItem, fetchCartItemList, updateCartItem, selectedCartItems } from '../../services/cartService';
+import { deleteCartItem, fetchCartItemList, updateCartItem, selectCartItems } from '../../services/cartService';
 import { Decimal } from 'decimal.js';
 import Dialog from 'tdesign-miniprogram/dialog/index';
 // pages/cart/index.js
@@ -63,7 +63,7 @@ Page({
       deleteCartItem(cartId, variantId).then(() => this.loadData());
     }
     if (value > 0) {
-      updateCartItem(cartId, variantId, { variantId, quantity }).then();
+      updateCartItem(cartId, variantId, { variantId, quantity }).then(() => getApp().getTotalCartItemQuantity(cartId));
     }
     this.onCheckboxSelectChange();
   },
@@ -78,7 +78,7 @@ Page({
     // 购物车商品的被选中状态同步到数据库:todo完善后端
     const cartId = getApp().getUserInfo().userId;
     const selectedItemIds = selectedItemIndexes.map((index) => cartItemList[index].variantId);
-    selectedCartItems(cartId, selectedItemIds).then();
+    selectCartItems(cartId, selectedItemIds).then();
     const totalQuantity = selectedItemIndexes.reduce(
       (accumulator, currentIdx) => accumulator + cartItemList[currentIdx].quantity,
       0,
@@ -96,15 +96,16 @@ Page({
     // console.log('===selectedItemIndex==totalQuantity=', selectedItemIndexes, totalQuantity);
     this.setData({ selectedItemIndexes, totalQuantity, totalPrice });
   },
-  loadData(page, size) {
+  async loadData(page, size) {
     const cartId = getApp().getUserInfo().userId;
     fetchCartItemList(cartId, page, size).then((res) => this.setData({ cartItemList: res.content ?? [] }));
   },
   initData() {
-    const { isLogined } = getApp().globalData;
+    const { isLogined, cartItemTotalQuantity } = getApp().globalData;
     if (!isLogined) {
       return;
     }
+    this.setData({ totalQuantity: cartItemTotalQuantity });
     this.loadData();
   },
   /**

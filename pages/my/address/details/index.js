@@ -29,7 +29,7 @@ Page({
       countyName: '',
       detailAddress: '',
       tag: '',
-      defaultAddress: false,
+      isDefault: false,
     },
     regionData: regionData,
     tags: tagOptions,
@@ -78,7 +78,7 @@ Page({
         regionPickerVisible: false,
       });
       const { isLegal, tips } = this.onVerifyInputLegal();
-      console.log(isLegal, tips);
+      // console.log(isLegal, tips);
       this.setData({
         submitActive: isLegal,
       });
@@ -126,7 +126,7 @@ Page({
   // onCheckDefaultAddress({ detail }) {
   //   const { value } = detail;
   //   this.setData({
-  //     'address.defaultAddress': value,
+  //     'address.isDefault': value,
   //   });
   // },
 
@@ -282,8 +282,9 @@ Page({
       updateShippingAddress(userId, address.id, address).then(wx.navigateBack({ delta: 1 }));
     } else {
       // 如果是第一个收货地址，则为默认收货地址
-      if (!getApp().globalData.defaultAddress) {
-        address.defaultAddress = true;
+      // console.log(getApp().globalDat.defaultShippingAddress);
+      if (!getApp().globalData.defaultShippingAddress) {
+        address.isDefault = true;
       }
       addShippingAddress(userId, address).then(wx.navigateBack({ delta: 1 }));
     }

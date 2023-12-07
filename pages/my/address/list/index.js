@@ -100,7 +100,7 @@ Page({
     fetchAllShippingAddressList(customerId).then((addressList) => {
       let defaultSelectedValue;
       addressList.forEach((address, index) => {
-        if (address.defaultAddress) {
+        if (address.isDefault) {
           defaultSelectedValue = index;
         }
       });

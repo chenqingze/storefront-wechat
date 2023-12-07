@@ -1,15 +1,15 @@
 // pages/cart/components/cart-item/index.js
 import Dialog from 'tdesign-miniprogram/dialog/index';
 Component({
-  attached() {
-    this.setData({ quantity: this.properties.cartItem.quantity });
-  },
   /**
    * Component properties
    */
   properties: {
     cartItem: {
       type: Object,
+      observer(newItem) {
+        this.setData({ quantity: newItem.quantity });
+      },
     },
     itemIndex: {
       type: Number,

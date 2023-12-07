@@ -50,11 +50,11 @@
     </t-cell>
     <t-cell>
       <view slot="left-icon">实际支付</view>
-      <view slot="right-icon" class="real-total-price">¥{{totalPrice}}</view>
+      <view slot="right-icon" class="real-total-price">¥{{totalAmount}}</view>
     </t-cell>
   </t-cell-group>
 </view>
 <view class="bottom-bar">
-  <text>合计：</text><text>¥{{totalPrice}}</text>
+  <text>合计：</text><text>¥{{totalAmount}}</text>
   <t-button class="payment-btn" theme="primary" shape="round" bind:tap="onPayment">去支付</t-button>
 </view>

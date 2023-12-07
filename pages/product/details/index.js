@@ -19,13 +19,13 @@ Page({
     salePrice: '',
     selectedOptionValueNames: null,
     selectedVariant: null,
-    cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0,
+    cartItemTotalQuantity: 0,
   },
   goBack() {
     wx.navigateBack();
   },
   toNav(e) {
-    console.log(e.currentTarget.dataset);
+    // console.log(e.currentTarget.dataset);
     const { url } = e.currentTarget.dataset;
     wx.switchTab({
       url: url,
@@ -56,9 +56,7 @@ Page({
     // 直接加入购物车
     addItemToCart(cartId, cartItem).then(() => {
       console.log('加入购物车成功！');
-      getApp()
-        .getTotalCartItemQuantity(cartId)
-        .then(() => this.setData({ cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0 }));
+      getApp().getTotalCartItemQuantity(cartId);
     });
   },
   onShowVariantsSelectPopup() {
@@ -109,13 +107,15 @@ Page({
     }
   },
   initData() {
-    this.setData({ cartItemTotalQuantity: getApp().globalData.cartItemTotalQuantity ?? 0 });
+    const { cartItemTotalQuantity } = getApp().globalData;
+    this.setData({ cartItemTotalQuantity });
   },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
     getApp().registerListener(this.initData.bind(this));
+    this.initData();
     // console.log(options);
     // 查询商品详情
     const { productId } = options;
@@ -164,7 +164,9 @@ Page({
   /**
    * Lifecycle function--Called when page show
    */
-  onShow() {},
+  onShow() {
+    console.log(this.data.cartItemTotalQuantity);
+  },
 
   /**
    * Lifecycle function--Called when page hide

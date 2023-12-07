@@ -50,7 +50,7 @@
   <!-- 底部操作按钮 -->
   <view class="product-bottom-operation">
     <view class="bottom-btn-group">
-      <view class="icon-btn">
+      <view class="icon-btn" data-url="/pages/product/list/index" bind:tap="toNav">
         <t-icon name="home" size="18" />
         <view class="icon-btn-text">首页</view>
       </view>

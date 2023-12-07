@@ -10,6 +10,7 @@ Page({
     cartItemList: [],
     totalFulfillmentCharges: 0,
     totalPrice: 0,
+    totalAmount: 0,
   },
   onPayment() {
     // 后端创建订单
@@ -20,7 +21,7 @@ Page({
     // 配送费用
   },
   performCheckout(cartItemList) {
-    const totalItemPrice = cartItemList.reduce(
+    const totalPrice = cartItemList.reduce(
       (accumulator, current) =>
         Decimal.mul(current.salePrice ? current.salePrice : current.retailPrice, current.quantity)
           .plus(accumulator)
@@ -29,8 +30,8 @@ Page({
     );
     // todo:配送费
     const totalFulfillmentCharges = 0;
-    const totalPrice = Decimal.add(totalItemPrice, totalFulfillmentCharges).toFixed(2);
-    this.setData({ totalFulfillmentCharges, totalPrice });
+    const totalAmount = Decimal.add(totalPrice, totalFulfillmentCharges).toFixed(2);
+    this.setData({ totalFulfillmentCharges, totalPrice, totalAmount });
   },
   onTapAddress() {
     wx.navigateTo({

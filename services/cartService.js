@@ -16,7 +16,7 @@ const updateCartItem = (cartId, itemId, cartItem) => {
 const deleteCartItem = (cartId, itemId) => {
   return new Request().delete(`${cartBaseUrl}/${cartId}/items/${itemId}`);
 };
-const selectedCartItems = (cartId, itemIds) => {
+const selectCartItems = (cartId, itemIds) => {
   const idsStr = itemIds.join();
   return new Request().put(`${cartBaseUrl}/${cartId}/items/selected?itemIds=${idsStr}`);
 };
@@ -26,5 +26,5 @@ export {
   addItemToCart,
   updateCartItem,
   deleteCartItem,
-  selectedCartItems,
+  selectCartItems,
 };
